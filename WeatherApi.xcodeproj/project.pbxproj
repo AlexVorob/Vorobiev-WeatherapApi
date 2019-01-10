@@ -24,6 +24,7 @@
 		582EDF7621E75F4600DDE595 /* CountriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 582EDF7421E75F4600DDE595 /* CountriesViewController.swift */; };
 		582EDF7721E75F4600DDE595 /* CountriesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 582EDF7521E75F4600DDE595 /* CountriesViewController.xib */; };
 		582EDF7921E75F6500DDE595 /* CountriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 582EDF7821E75F6500DDE595 /* CountriesView.swift */; };
+		582EDF8021E780B400DDE595 /* CountriesParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 582EDF7F21E780B400DDE595 /* CountriesParser.swift */; };
 		5855E2AD21E73CE200A3D463 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5855E2AC21E73CE200A3D463 /* AppDelegate.swift */; };
 		5855E2B421E73CE300A3D463 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5855E2B321E73CE300A3D463 /* Assets.xcassets */; };
 		5855E2B721E73CE300A3D463 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5855E2B521E73CE300A3D463 /* LaunchScreen.storyboard */; };
@@ -69,6 +70,7 @@
 		582EDF7421E75F4600DDE595 /* CountriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountriesViewController.swift; sourceTree = "<group>"; };
 		582EDF7521E75F4600DDE595 /* CountriesViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CountriesViewController.xib; sourceTree = "<group>"; };
 		582EDF7821E75F6500DDE595 /* CountriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountriesView.swift; sourceTree = "<group>"; };
+		582EDF7F21E780B400DDE595 /* CountriesParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountriesParser.swift; sourceTree = "<group>"; };
 		5855E2A921E73CE200A3D463 /* WeatherApi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherApi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5855E2AC21E73CE200A3D463 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5855E2B321E73CE300A3D463 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -189,6 +191,14 @@
 			path = CountriesViewController;
 			sourceTree = "<group>";
 		};
+		582EDF7E21E7809500DDE595 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				582EDF7F21E780B400DDE595 /* CountriesParser.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		5855E2A021E73CE200A3D463 = {
 			isa = PBXGroup;
 			children = (
@@ -243,6 +253,7 @@
 		5855E2DA21E73E7400A3D463 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				582EDF7E21E7809500DDE595 /* Models */,
 				582EDF7321E75ED100DDE595 /* CountriesViewController */,
 				5855E2DB21E73E7A00A3D463 /* WeatherViewController */,
 			);
@@ -396,6 +407,7 @@
 				582EDF7221E746D100DDE595 /* ObservableObject.swift in Sources */,
 				582EDF6B21E7420100DDE595 /* Optional+Extensions.swift in Sources */,
 				582EDF6721E7420100DDE595 /* DispatchQueue+Extensions.swift in Sources */,
+				582EDF8021E780B400DDE595 /* CountriesParser.swift in Sources */,
 				582EDF7621E75F4600DDE595 /* CountriesViewController.swift in Sources */,
 				582EDF6421E7420100DDE595 /* F.swift in Sources */,
 				5855E2AD21E73CE200A3D463 /* AppDelegate.swift in Sources */,
