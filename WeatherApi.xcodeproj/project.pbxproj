@@ -19,6 +19,8 @@
 		582EDF6C21E7420100DDE595 /* Strideable+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 582EDF5E21E7420100DDE595 /* Strideable+Extensions.swift */; };
 		582EDF6D21E7420100DDE595 /* CGRect+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 582EDF6021E7420100DDE595 /* CGRect+Extensions.swift */; };
 		582EDF6E21E7420100DDE595 /* Cancellable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 582EDF6221E7420100DDE595 /* Cancellable.swift */; };
+		582EDF7121E746D100DDE595 /* ObservableObject.Observer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 582EDF6F21E746D100DDE595 /* ObservableObject.Observer.swift */; };
+		582EDF7221E746D100DDE595 /* ObservableObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 582EDF7021E746D100DDE595 /* ObservableObject.swift */; };
 		5855E2AD21E73CE200A3D463 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5855E2AC21E73CE200A3D463 /* AppDelegate.swift */; };
 		5855E2B421E73CE300A3D463 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5855E2B321E73CE300A3D463 /* Assets.xcassets */; };
 		5855E2B721E73CE300A3D463 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5855E2B521E73CE300A3D463 /* LaunchScreen.storyboard */; };
@@ -59,6 +61,8 @@
 		582EDF5E21E7420100DDE595 /* Strideable+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Strideable+Extensions.swift"; sourceTree = "<group>"; };
 		582EDF6021E7420100DDE595 /* CGRect+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGRect+Extensions.swift"; sourceTree = "<group>"; };
 		582EDF6221E7420100DDE595 /* Cancellable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cancellable.swift; sourceTree = "<group>"; };
+		582EDF6F21E746D100DDE595 /* ObservableObject.Observer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObservableObject.Observer.swift; sourceTree = "<group>"; };
+		582EDF7021E746D100DDE595 /* ObservableObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObservableObject.swift; sourceTree = "<group>"; };
 		5855E2A921E73CE200A3D463 /* WeatherApi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherApi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5855E2AC21E73CE200A3D463 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5855E2B321E73CE300A3D463 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -114,6 +118,8 @@
 		582EDF5121E7420100DDE595 /* Types */ = {
 			isa = PBXGroup;
 			children = (
+				582EDF6F21E746D100DDE595 /* ObservableObject.Observer.swift */,
+				582EDF7021E746D100DDE595 /* ObservableObject.swift */,
 				582EDF5221E7420100DDE595 /* PositionGenerator.swift */,
 				582EDF5321E7420100DDE595 /* F.swift */,
 				582EDF5421E7420100DDE595 /* Atomic.swift */,
@@ -369,6 +375,7 @@
 			files = (
 				582EDF6E21E7420100DDE595 /* Cancellable.swift in Sources */,
 				5855E2E121E73EDD00A3D463 /* WeatherView.swift in Sources */,
+				582EDF7221E746D100DDE595 /* ObservableObject.swift in Sources */,
 				582EDF6B21E7420100DDE595 /* Optional+Extensions.swift in Sources */,
 				582EDF6721E7420100DDE595 /* DispatchQueue+Extensions.swift in Sources */,
 				582EDF6421E7420100DDE595 /* F.swift in Sources */,
@@ -379,6 +386,7 @@
 				582EDF6521E7420100DDE595 /* Atomic.swift in Sources */,
 				582EDF6621E7420100DDE595 /* RootViewRepresentable.swift in Sources */,
 				582EDF6A21E7420100DDE595 /* NSLocking+Extensions.swift in Sources */,
+				582EDF7121E746D100DDE595 /* ObservableObject.Observer.swift in Sources */,
 				582EDF6D21E7420100DDE595 /* CGRect+Extensions.swift in Sources */,
 				582EDF6C21E7420100DDE595 /* Strideable+Extensions.swift in Sources */,
 				5855E2DE21E73EB200A3D463 /* WeatherViewController.swift in Sources */,
