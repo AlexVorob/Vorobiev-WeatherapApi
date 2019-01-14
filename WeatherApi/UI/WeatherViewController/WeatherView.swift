@@ -10,4 +10,9 @@ import UIKit
 
 class WeatherView: UIView {
 
+    @IBOutlet var label: UILabel?
+    
+    override func layoutSubviews() {
+        self.label?.backgroundColor = Color.red.opaque
+    }
 }
