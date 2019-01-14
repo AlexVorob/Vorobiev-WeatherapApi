@@ -20,8 +20,8 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
         }
     }
     
-    let reuseIdentifier = "cell"
-    let url = URL(string: "https://restcountries.eu/rest/v2/all")
+    private let reuseIdentifier = "cell"
+    private let url = URL(string: "https://restcountries.eu/rest/v2/all")
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,7 +41,7 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
         let cell = self.rootView?.tableView?.dequeueReusableCell(withIdentifier: reuseIdentifier)
         
         let item = model.values[indexPath.row]
-        cell?.textLabel?.text = item.name
+        cell?.textLabel?.text = ("\(item.name) - \(item.capital)")
         
         return cell!
     }
@@ -51,26 +51,23 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
     }
     
     struct Country: Codable {
-        var name: String
-        var capital: String
+        let name: String
+        let capital: String
     }
     
     func parseCountries() {
         if let url = self.url {
         URLSession.shared.dataTask(with: url) { (data, respose, error) in
-            guard let data = data else { return }
-            do {
-                let countries = try JSONDecoder().decode([Country].self, from: data)
-                self.model.values = countries
-                
-            } catch let jsonError {
-                print("Error", jsonError)
-            }
+            let countries = data.flatMap { try? JSONDecoder().decode([Country].self, from: $0) }
+            countries.do { self.model.values = $0 }
+    
             }.resume()
         }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("\(self.model.values[indexPath.row])")
+        let weatherView = WeatherViewController()
+        
+        self.navigationController?.pushViewController(weatherView, animated: true)
     }
 }

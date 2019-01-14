@@ -33,6 +33,9 @@
 		5855E2DE21E73EB200A3D463 /* WeatherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5855E2DC21E73EB200A3D463 /* WeatherViewController.swift */; };
 		5855E2DF21E73EB200A3D463 /* WeatherViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5855E2DD21E73EB200A3D463 /* WeatherViewController.xib */; };
 		5855E2E121E73EDD00A3D463 /* WeatherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5855E2E021E73EDD00A3D463 /* WeatherView.swift */; };
+		588C993A21EC82DB00E396DB /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 588C993921EC82DB00E396DB /* UIColor+Extensions.swift */; };
+		588C993C21EC8F2B00E396DB /* ColorRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 588C993B21EC8F2B00E396DB /* ColorRepresentable.swift */; };
+		588C993F21EC8FAD00E396DB /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 588C993E21EC8FAD00E396DB /* Color.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,6 +88,9 @@
 		5855E2DC21E73EB200A3D463 /* WeatherViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewController.swift; sourceTree = "<group>"; };
 		5855E2DD21E73EB200A3D463 /* WeatherViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WeatherViewController.xib; sourceTree = "<group>"; };
 		5855E2E021E73EDD00A3D463 /* WeatherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherView.swift; sourceTree = "<group>"; };
+		588C993921EC82DB00E396DB /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
+		588C993B21EC8F2B00E396DB /* ColorRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorRepresentable.swift; sourceTree = "<group>"; };
+		588C993E21EC8FAD00E396DB /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +121,7 @@
 		582EDF5021E7420100DDE595 /* Lib */ = {
 			isa = PBXGroup;
 			children = (
+				588C993D21EC8F7800E396DB /* Resources */,
 				582EDF5121E7420100DDE595 /* Types */,
 				582EDF5521E7420100DDE595 /* Mixin */,
 				582EDF5721E7420100DDE595 /* Extensions */,
@@ -139,6 +146,7 @@
 			isa = PBXGroup;
 			children = (
 				582EDF5621E7420100DDE595 /* RootViewRepresentable.swift */,
+				588C993B21EC8F2B00E396DB /* ColorRepresentable.swift */,
 			);
 			path = Mixin;
 			sourceTree = "<group>";
@@ -146,6 +154,7 @@
 		582EDF5721E7420100DDE595 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				588C993821EC82B600E396DB /* UIKit */,
 				582EDF5821E7420100DDE595 /* Foundation */,
 				582EDF5F21E7420100DDE595 /* Core Graphics */,
 			);
@@ -268,6 +277,22 @@
 				5855E2E021E73EDD00A3D463 /* WeatherView.swift */,
 			);
 			path = WeatherViewController;
+			sourceTree = "<group>";
+		};
+		588C993821EC82B600E396DB /* UIKit */ = {
+			isa = PBXGroup;
+			children = (
+				588C993921EC82DB00E396DB /* UIColor+Extensions.swift */,
+			);
+			path = UIKit;
+			sourceTree = "<group>";
+		};
+		588C993D21EC8F7800E396DB /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				588C993E21EC8FAD00E396DB /* Color.swift */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -404,13 +429,16 @@
 			files = (
 				582EDF6E21E7420100DDE595 /* Cancellable.swift in Sources */,
 				5855E2E121E73EDD00A3D463 /* WeatherView.swift in Sources */,
+				588C993F21EC8FAD00E396DB /* Color.swift in Sources */,
 				582EDF7221E746D100DDE595 /* ObservableObject.swift in Sources */,
 				582EDF6B21E7420100DDE595 /* Optional+Extensions.swift in Sources */,
+				588C993A21EC82DB00E396DB /* UIColor+Extensions.swift in Sources */,
 				582EDF6721E7420100DDE595 /* DispatchQueue+Extensions.swift in Sources */,
 				582EDF8021E780B400DDE595 /* CountriesParser.swift in Sources */,
 				582EDF7621E75F4600DDE595 /* CountriesViewController.swift in Sources */,
 				582EDF6421E7420100DDE595 /* F.swift in Sources */,
 				5855E2AD21E73CE200A3D463 /* AppDelegate.swift in Sources */,
+				588C993C21EC8F2B00E396DB /* ColorRepresentable.swift in Sources */,
 				582EDF7921E75F6500DDE595 /* CountriesView.swift in Sources */,
 				582EDF6321E7420100DDE595 /* PositionGenerator.swift in Sources */,
 				582EDF6821E7420100DDE595 /* DispatchTime+Extensions.swift in Sources */,
