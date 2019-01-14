@@ -12,7 +12,7 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
     
     typealias RootView = CountriesView
     
-    var model = Countries() {
+    var model = [Country]() {
         didSet {
             DispatchQueue.main.async {
                 self.rootView?.tableView?.reloadData()
@@ -21,7 +21,7 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
     }
     
     private let reuseIdentifier = "cell"
-    private let url = URL(string: "https://restcountries.eu/rest/v2/all")
+    private let urlCountry = URL(string: "https://restcountries.eu/rest/v2/all")
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,44 +30,42 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
         self.rootView?.tableView?.dataSource = self
         self.rootView?.tableView?.delegate = self
         
-        self.parseCountries()
+        let parser = Parser<[Country]>()
+        if let url = urlCountry {
+            parser.parse(url: url)
+        
+            parser.observer {
+                switch $0 {
+                case .none:
+                    return
+                case .didStartLoading:
+                    return
+                case .didLoad:
+                    self.model = parser.model!
+                case .didFailedWithError(_):
+                    print("Error")
+                }
+            }
+        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.model.values.count
+        return self.model.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = self.rootView?.tableView?.dequeueReusableCell(withIdentifier: reuseIdentifier)
         
-        let item = model.values[indexPath.row]
+        let item = self.model[indexPath.row]
         cell?.textLabel?.text = ("\(item.name) - \(item.capital)")
         
-        return cell!
-    }
-    
-    struct Countries: Codable {
-        var values = [Country]()
-    }
-    
-    struct Country: Codable {
-        let name: String
-        let capital: String
-    }
-    
-    func parseCountries() {
-        if let url = self.url {
-        URLSession.shared.dataTask(with: url) { (data, respose, error) in
-            let countries = data.flatMap { try? JSONDecoder().decode([Country].self, from: $0) }
-            countries.do { self.model.values = $0 }
-    
-            }.resume()
-        }
+        return cell ?? UITableViewCell.init()
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let weatherView = WeatherViewController()
+        let weatherViewController = WeatherViewController()
+        weatherViewController.city = self.model[indexPath.row].capital
         
-        self.navigationController?.pushViewController(weatherView, animated: true)
+        self.navigationController?.pushViewController(weatherViewController, animated: true)
     }
 }
