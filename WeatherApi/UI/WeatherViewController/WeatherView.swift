@@ -15,6 +15,9 @@ class WeatherView: UIView {
     @IBOutlet var temperature: UILabel?
     
     override func layoutSubviews() {
-        
+        self.country?.backgroundColor = Color.sand.opaque
+        self.temperature?.backgroundColor = Color.lightSand.opaque
     }
+    
+    
 }

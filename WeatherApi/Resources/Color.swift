@@ -10,4 +10,6 @@ import Foundation
 
 enum Color: UInt32, ColorRepresentable {
     case red = 0xff0000
+    case sand = 0xff9875
+    case lightSand = 0xffdd75
 }

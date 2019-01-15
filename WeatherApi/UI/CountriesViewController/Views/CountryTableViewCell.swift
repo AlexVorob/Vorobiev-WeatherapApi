@@ -9,7 +9,10 @@
 import UIKit
 
 class CountryTableViewCell: TableViewCell {
-
+    
+    @IBOutlet var dateLabel: UILabel?
+    @IBOutlet var temperatureLabel: UILabel?
+    
     @IBOutlet var countryLabel: UILabel?
     @IBOutlet var capitalLabel: UILabel?
     
