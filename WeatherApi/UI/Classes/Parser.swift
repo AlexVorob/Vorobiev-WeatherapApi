@@ -27,11 +27,22 @@ class Parser<ModelData>: ObservableObject<Parser.State> where ModelData: Codable
     
     var model: ModelData?
     
-    public func parse(url: URL) {
+    public func dataLoading(url: URL) {
+        self.state = .didStartLoading
         URLSession.shared.dataTask(with: url) { (data, response, error) in
             let dataParse = data.flatMap { try? JSONDecoder().decode(ModelData.self, from: $0) }
             dataParse.do { self.model = $0 }
             self.state = .didLoad
         }.resume()
+//        self.state = .didStartLoading
+//        URLSession.shared.dataTask(with: url) { (data, response, error) in
+//            guard let data = data else { return }
+//            do { let values = try JSONDecoder().decode(ModelData.self, from: data)
+//                self.model = values
+//                self.state = .didLoad
+//            } catch let error {
+//                self.state = .didFailedWithError(error)
+//            }
+//            }.resume()
     }
 }

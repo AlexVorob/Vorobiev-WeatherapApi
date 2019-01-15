@@ -9,5 +9,5 @@
 import Foundation
 
 struct Weather: Codable {
-    var main = [String : Int]()
+    var main: [String : Double]
 }

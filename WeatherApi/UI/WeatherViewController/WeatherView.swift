@@ -10,11 +10,11 @@ import UIKit
 
 class WeatherView: UIView {
 
-    @IBOutlet var label: UILabel?
+    @IBOutlet var country: UILabel?
     
-    @IBOutlet var label2: UILabel?
+    @IBOutlet var temperature: UILabel?
     
     override func layoutSubviews() {
-        //self.label?.backgroundColor = Color.red.opaque
+        
     }
 }

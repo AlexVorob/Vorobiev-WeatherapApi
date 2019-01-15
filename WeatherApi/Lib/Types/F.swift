@@ -21,3 +21,7 @@ func when<Result>(_ condition: Bool, execute: F.Execute<Result?>) -> Result? {
 func cast<Value, Result>(_ value: Value) -> Result? {
     return value as? Result
 }
+
+func toString(_ cls: AnyClass) -> String {
+    return String(describing: cls)
+}

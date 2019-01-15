@@ -20,19 +20,18 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
         }
     }
     
-    private let reuseIdentifier = "cell"
     private let urlCountry = URL(string: "https://restcountries.eu/rest/v2/all")
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.rootView?.tableView?.register(UITableViewCell.self, forCellReuseIdentifier: reuseIdentifier)
+        self.rootView?.tableView?.register(CountryTableViewCell.self)
         self.rootView?.tableView?.dataSource = self
         self.rootView?.tableView?.delegate = self
         
         let parser = Parser<[Country]>()
         if let url = urlCountry {
-            parser.parse(url: url)
+            parser.dataLoading(url: url)
         
             parser.observer {
                 switch $0 {
@@ -41,7 +40,8 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
                 case .didStartLoading:
                     return
                 case .didLoad:
-                    self.model = parser.model!
+                    guard let model = parser.model else { return }
+                    self.model = model.filter { $0.capital.count > 0 }
                 case .didFailedWithError(_):
                     print("Error")
                 }
@@ -54,12 +54,12 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = self.rootView?.tableView?.dequeueReusableCell(withIdentifier: reuseIdentifier)
+        let cell = self.rootView?.tableView?.dequeueReusableCell(withCellClass: CountryTableViewCell.self) as? CountryTableViewCell
         
         let item = self.model[indexPath.row]
-        cell?.textLabel?.text = ("\(item.name) - \(item.capital)")
+        cell?.fillWithModel(model: item)
         
-        return cell ?? UITableViewCell.init()
+        return cell ?? CountryTableViewCell()
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
