@@ -29,7 +29,6 @@ class Parser<ModelData>: ObservableObject<Parser.State> where ModelData: Codable
     
     public func dataLoading(url: URL) {
         self.state = .didStartLoading
-        
         URLSession.shared.dataTask(with: url) { (data, response, error) in
             let dataParse = data.flatMap { try? JSONDecoder().decode(ModelData.self, from: $0) }
             dataParse.do { self.model = $0 }

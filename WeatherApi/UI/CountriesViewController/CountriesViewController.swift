@@ -12,14 +12,8 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
     
     typealias RootView = CountriesView
     
-    var model = [Country]() {
-        didSet {
-            DispatchQueue.main.async {
-                self.rootView?.tableView?.reloadData()
-            }
-        }
-    }
-    
+    var model = WeatherData()
+
     private let urlCountry = URL(string: "https://restcountries.eu/rest/v2/all")
     
     override func viewDidLoad() {
@@ -29,12 +23,26 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
         self.rootView?.tableView?.register(CountryTableViewCell.self)
         self.rootView?.tableView?.dataSource = self
         self.rootView?.tableView?.delegate = self
+    
+        self.model.loadCountryData(urlCountry)
         
-        self.loadData()
+        model.observer {
+            switch $0 {
+                
+            case .none:
+                return
+            case .weatherChange:
+                return
+            case .countryChange:
+                DispatchQueue.main.async {
+                    self.rootView?.tableView?.reloadData()
+                }
+            }
+        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.model.count
+        return self.model.modelCountry.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -43,38 +51,48 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
             .tableView?
             .dequeueReusableCell(withCellClass: CountryTableViewCell.self) as? CountryTableViewCell
         
-        let item = self.model[indexPath.row]
+        let item = self.model.modelCountry[indexPath.row]
         cell?.fillWithModel(model: item)
+        
+        self.model.observer {
+            switch $0 {
+            case .none:
+                return
+            case .weatherChange:
+                cell?.addDateandTemp(model: self.model)
+            case .countryChange:
+                return
+            }
+        }
         
         return cell ?? CountryTableViewCell()
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let weatherData = WeatherData()
-        weatherData.loadWeatherData(city: self.model[indexPath.row].capital) {
+        self.model.loadWeatherData(city: self.model.modelCountry[indexPath.row].capital) {
             self.navigationController?.pushViewController($0, animated: true)
         }
     }
     
-    private func loadData() {
-        let parser = Parser<[Country]>()
-        
-        if let url = urlCountry {
-            parser.dataLoading(url: url)
-            
-            parser.observer {
-                switch $0 {
-                case .none:
-                    return
-                case .didStartLoading:
-                    return
-                case .didLoad:
-                    guard let model = parser.model else { return }
-                    self.model = model.filter { $0.capital.count > 0 }
-                case .didFailedWithError(_):
-                    print("Error")
-                }
-            }
-        }
-    }
+//    private func loadData() {
+//        let parser = Parser<[Country]>()
+//
+//        if let url = urlCountry {
+//            parser.dataLoading(url: url)
+//
+//            parser.observer {
+//                switch $0 {
+//                case .none:
+//                    return
+//                case .didStartLoading:
+//                    return
+//                case .didLoad:
+//                    guard let model = parser.model else { return }
+//                    self.model.modelCountry = model.filter { $0.capital.count > 0 }
+//                case .didFailedWithError(_):
+//                    print("Error")
+//                }
+//            }
+//        }
+//    }
 }

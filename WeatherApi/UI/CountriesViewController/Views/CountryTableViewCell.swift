@@ -31,4 +31,8 @@ class CountryTableViewCell: TableViewCell {
         self.capitalLabel?.text = model.capital
         self.countryLabel?.text = model.name
     }
+    
+    func addDateandTemp(model: WeatherData) {
+        self.temperatureLabel?.text = model.temperature
+    }
 }
