@@ -8,7 +8,7 @@
 
 import UIKit
 
-class Parser<ModelData>: ObservableObject<Parser.State> where ModelData: Codable  {
+class Parser<ModelData>: ObservableObject<Parser.State> where ModelData: Codable {
     
     public enum State {
         case none

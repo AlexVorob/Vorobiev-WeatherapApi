@@ -10,13 +10,14 @@ import UIKit
 
 class WeatherData {
     
-    var temperature: String?
-    var city: String?
+    private(set) var temperature: String?
+    private(set) var city: String?
+    private let celsius = "°C"
     
     private let api = "https://api.openweathermap.org/data/2.5/weather?q="
     private let apiID = "&units=metric&APPID=ac6d05234841cc6b76ed2a4fcfda2b6b"
     
-    func getWeatherData(city: String, completion: @escaping (UIViewController) -> ()) {
+    func loadWeatherData(city: String, completion: @escaping (UIViewController) -> ()) {
         
         let weatherPath = api + city + apiID
         let url = weatherPath.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
@@ -34,10 +35,9 @@ class WeatherData {
                 case .didStartLoading:
                     return
                 case .didLoad:
-                    parser.model?.main["temp"].do { self.temperature = String($0) }
+                    parser.model?.main["temp"].do { self.temperature = String($0) + self.celsius }
                     self.city = city
                     let weatherViewController = WeatherViewController(self)
-                    //weatherViewController.rootView?.fillWeather(city: city, temperature: self.temperature!)
                     completion(weatherViewController)
                 case .didFailedWithError(_):
                     print("Error")

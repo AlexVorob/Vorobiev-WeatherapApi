@@ -30,25 +30,7 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
         self.rootView?.tableView?.dataSource = self
         self.rootView?.tableView?.delegate = self
         
-        let parser = Parser<[Country]>()
-        
-        if let url = urlCountry {
-            parser.dataLoading(url: url)
-        
-            parser.observer {
-                switch $0 {
-                case .none:
-                    return
-                case .didStartLoading:
-                    return
-                case .didLoad:
-                    guard let model = parser.model else { return }
-                    self.model = model.filter { $0.capital.count > 0 }
-                case .didFailedWithError(_):
-                    print("Error")
-                }
-            }
-        }
+        self.loadData()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -69,8 +51,30 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let weatherData = WeatherData()
-        weatherData.getWeatherData(city: self.model[indexPath.row].capital) {
+        weatherData.loadWeatherData(city: self.model[indexPath.row].capital) {
             self.navigationController?.pushViewController($0, animated: true)
+        }
+    }
+    
+    private func loadData() {
+        let parser = Parser<[Country]>()
+        
+        if let url = urlCountry {
+            parser.dataLoading(url: url)
+            
+            parser.observer {
+                switch $0 {
+                case .none:
+                    return
+                case .didStartLoading:
+                    return
+                case .didLoad:
+                    guard let model = parser.model else { return }
+                    self.model = model.filter { $0.capital.count > 0 }
+                case .didFailedWithError(_):
+                    print("Error")
+                }
+            }
         }
     }
 }
