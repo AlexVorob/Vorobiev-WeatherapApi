@@ -36,6 +36,9 @@
 		5864008C21EDE64500AB75F0 /* CountryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5864008A21EDE64500AB75F0 /* CountryTableViewCell.swift */; };
 		5864008D21EDE64500AB75F0 /* CountryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5864008B21EDE64500AB75F0 /* CountryTableViewCell.xib */; };
 		5864009021EDE6F100AB75F0 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5864008F21EDE6F100AB75F0 /* TableViewCell.swift */; };
+		588129A021EF2DD5000E48B4 /* WeatherData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5881299F21EF2DD5000E48B4 /* WeatherData.swift */; };
+		588129A221EF47DE000E48B4 /* UINib+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 588129A121EF47DE000E48B4 /* UINib+Extensions.swift */; };
+		588129A421EF4830000E48B4 /* UITableView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 588129A321EF4830000E48B4 /* UITableView+Extensions.swift */; };
 		588C993A21EC82DB00E396DB /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 588C993921EC82DB00E396DB /* UIColor+Extensions.swift */; };
 		588C993C21EC8F2B00E396DB /* ColorRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 588C993B21EC8F2B00E396DB /* ColorRepresentable.swift */; };
 		588C993F21EC8FAD00E396DB /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 588C993E21EC8FAD00E396DB /* Color.swift */; };
@@ -96,6 +99,9 @@
 		5864008A21EDE64500AB75F0 /* CountryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryTableViewCell.swift; sourceTree = "<group>"; };
 		5864008B21EDE64500AB75F0 /* CountryTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CountryTableViewCell.xib; sourceTree = "<group>"; };
 		5864008F21EDE6F100AB75F0 /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
+		5881299F21EF2DD5000E48B4 /* WeatherData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherData.swift; sourceTree = "<group>"; };
+		588129A121EF47DE000E48B4 /* UINib+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINib+Extensions.swift"; sourceTree = "<group>"; };
+		588129A321EF4830000E48B4 /* UITableView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Extensions.swift"; sourceTree = "<group>"; };
 		588C993921EC82DB00E396DB /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
 		588C993B21EC8F2B00E396DB /* ColorRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorRepresentable.swift; sourceTree = "<group>"; };
 		588C993E21EC8FAD00E396DB /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
@@ -131,6 +137,7 @@
 		582EDF5021E7420100DDE595 /* Lib */ = {
 			isa = PBXGroup;
 			children = (
+				5864008921EDE12500AB75F0 /* Classes */,
 				582EDF5121E7420100DDE595 /* Types */,
 				582EDF5521E7420100DDE595 /* Mixin */,
 				582EDF5721E7420100DDE595 /* Extensions */,
@@ -274,7 +281,6 @@
 		5855E2DA21E73E7400A3D463 /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				5864008921EDE12500AB75F0 /* Classes */,
 				582EDF7E21E7809500DDE595 /* Models */,
 				582EDF7321E75ED100DDE595 /* CountriesViewController */,
 				5855E2DB21E73E7A00A3D463 /* WeatherViewController */,
@@ -297,6 +303,7 @@
 			children = (
 				582EDF7F21E780B400DDE595 /* Parser.swift */,
 				5864008F21EDE6F100AB75F0 /* TableViewCell.swift */,
+				5881299F21EF2DD5000E48B4 /* WeatherData.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -314,6 +321,8 @@
 			isa = PBXGroup;
 			children = (
 				588C993921EC82DB00E396DB /* UIColor+Extensions.swift */,
+				588129A121EF47DE000E48B4 /* UINib+Extensions.swift */,
+				588129A321EF4830000E48B4 /* UITableView+Extensions.swift */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -461,6 +470,7 @@
 			files = (
 				582EDF6E21E7420100DDE595 /* Cancellable.swift in Sources */,
 				5855E2E121E73EDD00A3D463 /* WeatherView.swift in Sources */,
+				588129A021EF2DD5000E48B4 /* WeatherData.swift in Sources */,
 				588C994321ECC46C00E396DB /* ModelWeather.swift in Sources */,
 				588C993F21EC8FAD00E396DB /* Color.swift in Sources */,
 				582EDF7221E746D100DDE595 /* ObservableObject.swift in Sources */,
@@ -473,9 +483,11 @@
 				582EDF6421E7420100DDE595 /* F.swift in Sources */,
 				5864009021EDE6F100AB75F0 /* TableViewCell.swift in Sources */,
 				5855E2AD21E73CE200A3D463 /* AppDelegate.swift in Sources */,
+				588129A421EF4830000E48B4 /* UITableView+Extensions.swift in Sources */,
 				588C993C21EC8F2B00E396DB /* ColorRepresentable.swift in Sources */,
 				582EDF7921E75F6500DDE595 /* CountriesView.swift in Sources */,
 				582EDF6321E7420100DDE595 /* PositionGenerator.swift in Sources */,
+				588129A221EF47DE000E48B4 /* UINib+Extensions.swift in Sources */,
 				582EDF6821E7420100DDE595 /* DispatchTime+Extensions.swift in Sources */,
 				582EDF6921E7420100DDE595 /* RangeReplaceableCollection+Extensions.swift in Sources */,
 				582EDF6521E7420100DDE595 /* Atomic.swift in Sources */,

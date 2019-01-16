@@ -11,7 +11,6 @@ import UIKit
 class WeatherView: UIView {
 
     @IBOutlet var country: UILabel?
-    
     @IBOutlet var temperature: UILabel?
     
     override func layoutSubviews() {
@@ -19,5 +18,8 @@ class WeatherView: UIView {
         self.temperature?.backgroundColor = Color.lightSand.opaque
     }
     
-    
+    func fillWeather(model: WeatherData) {
+        self.country?.text = model.city
+        self.temperature?.text = model.temperature
+    }
 }

@@ -24,12 +24,14 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationItem.title = "Countries"
         
         self.rootView?.tableView?.register(CountryTableViewCell.self)
         self.rootView?.tableView?.dataSource = self
         self.rootView?.tableView?.delegate = self
         
         let parser = Parser<[Country]>()
+        
         if let url = urlCountry {
             parser.dataLoading(url: url)
         
@@ -54,7 +56,10 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = self.rootView?.tableView?.dequeueReusableCell(withCellClass: CountryTableViewCell.self) as? CountryTableViewCell
+        let cell = self
+            .rootView?
+            .tableView?
+            .dequeueReusableCell(withCellClass: CountryTableViewCell.self) as? CountryTableViewCell
         
         let item = self.model[indexPath.row]
         cell?.fillWithModel(model: item)
@@ -63,9 +68,9 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let weatherViewController = WeatherViewController()
-        weatherViewController.city = self.model[indexPath.row].capital
-        
-        self.navigationController?.pushViewController(weatherViewController, animated: true)
+        let weatherData = WeatherData()
+        weatherData.getWeatherData(city: self.model[indexPath.row].capital) {
+            self.navigationController?.pushViewController($0, animated: true)
+        }
     }
 }
