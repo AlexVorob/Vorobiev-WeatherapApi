@@ -12,7 +12,7 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
     
     typealias RootView = CountriesView
     
-    var model = WeatherData()
+    var model = Model()
 
     private let urlCountry = URL(string: "https://restcountries.eu/rest/v2/all")
     
@@ -24,13 +24,10 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
         self.rootView?.tableView?.dataSource = self
         self.rootView?.tableView?.delegate = self
     
-        self.model.loadCountryData(urlCountry)
+        self.loadCountryData()
         
-        model.observer {
+        self.model.observer {
             switch $0 {
-                
-            case .none:
-                return
             case .weatherChange:
                 return
             case .countryChange:
@@ -42,7 +39,7 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.model.modelCountry.count
+        return self.model.values.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -51,48 +48,48 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
             .tableView?
             .dequeueReusableCell(withCellClass: CountryTableViewCell.self) as? CountryTableViewCell
         
-        let item = self.model.modelCountry[indexPath.row]
+        let item = self.model.values[indexPath.row]
         cell?.fillWithModel(model: item)
         
-        self.model.observer {
-            switch $0 {
-            case .none:
-                return
-            case .weatherChange:
-                cell?.addDateandTemp(model: self.model)
-            case .countryChange:
-                return
-            }
-        }
+//        self.model.observer {
+//            switch $0 {
+//            case .weatherChange:
+//                cell?.addDateandTemp(model: self.model)
+//            case .countryChange:
+//                return
+//            }
+//        }
         
         return cell ?? CountryTableViewCell()
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.model.loadWeatherData(city: self.model.modelCountry[indexPath.row].capital) {
-            self.navigationController?.pushViewController($0, animated: true)
+        let city = self.model.values[indexPath.row].country.capital
+        let weatherViewController = WeatherViewController(self.model, city: city)
+            self.navigationController?.pushViewController(weatherViewController, animated: true)
+        
+    }
+
+    func loadCountryData() {
+        guard let url = urlCountry else { return }
+            let network = NetworkService<[Country]>()
+            network.dataLoad(url: url)
+       
+//        self.model.notify(state: .countryChange)
+        network.observer {
+            switch $0 {
+            case .didStartLoading:
+                return
+            case .didLoad:
+                network.model?.forEach {
+                    self.model.values.append(AbstractModel(country: $0))
+                }
+                DispatchQueue.main.async {
+                    self.rootView?.tableView?.reloadData()
+                }
+            case .didFailedWithError(_):
+                return
+            }
         }
     }
-    
-//    private func loadData() {
-//        let parser = Parser<[Country]>()
-//
-//        if let url = urlCountry {
-//            parser.dataLoading(url: url)
-//
-//            parser.observer {
-//                switch $0 {
-//                case .none:
-//                    return
-//                case .didStartLoading:
-//                    return
-//                case .didLoad:
-//                    guard let model = parser.model else { return }
-//                    self.model.modelCountry = model.filter { $0.capital.count > 0 }
-//                case .didFailedWithError(_):
-//                    print("Error")
-//                }
-//            }
-//        }
-//    }
 }

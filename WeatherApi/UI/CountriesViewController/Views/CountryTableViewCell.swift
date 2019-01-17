@@ -27,12 +27,12 @@ class CountryTableViewCell: TableViewCell {
         // Configure the view for the selected state
     }
     
-    func fillWithModel(model: Country) {
-        self.capitalLabel?.text = model.capital
-        self.countryLabel?.text = model.name
+    func fillWithModel(model: AbstractModel) {
+        self.capitalLabel?.text = model.country.capital
+        self.countryLabel?.text = model.country.name
     }
     
-    func addDateandTemp(model: WeatherData) {
-        self.temperatureLabel?.text = model.temperature
+    func addDateandTemp(model: Model) {
+        //self.temperatureLabel?.text = model.values.temperature
     }
 }

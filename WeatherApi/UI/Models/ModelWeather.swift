@@ -9,5 +9,14 @@
 import Foundation
 
 struct Weather: Codable {
-    var main: [String : Double]
+    
+    var main: Main
+    
+    struct Main: Codable {
+        let temp: Double?
+
+        enum CodingKeys: String, CodingKey {
+            case temp
+        }
+    }
 }
