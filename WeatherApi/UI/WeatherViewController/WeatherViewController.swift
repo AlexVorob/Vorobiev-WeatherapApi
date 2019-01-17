@@ -38,10 +38,13 @@ class WeatherViewController: UIViewController, RootViewRepresentable {
     func loadWeatherData() {
         let weatherPath = api + city + apiID
         let url = weatherPath.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+        
         guard let urlWeather = url else { return }
+        
         let safeUrlWeather = URL(string: urlWeather)
         
         let parser = NetworkService<Weather>()
+        
         if let url = safeUrlWeather {
             parser.dataLoad(url: url)
             
@@ -50,10 +53,10 @@ class WeatherViewController: UIViewController, RootViewRepresentable {
                 case .didStartLoading:
                     return
                 case .didLoad:
-                    // save to model
+                    let owner = self.model.values.first { $0.country.capital == self.city }
+                    owner?.weather = parser.model
                     DispatchQueue.main.async {
-                        parser.model?.main.temp.do { self.rootView?.temperature?.text = String($0) + self.celsius }
-                        self.rootView?.country?.text = self.city
+                        owner.do { self.rootView?.fillWeather(model: $0) }
                     }
                     self.model.notify(state: .weatherChange)
                 case .didFailedWithError(_):

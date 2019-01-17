@@ -18,8 +18,10 @@ class WeatherView: UIView {
         self.temperature?.backgroundColor = Color.lightSand.opaque
     }
     
-    func fillWeather(model: Model) {
-        //self.country?.text = model.values
-        //self.temperature?.text = model.temperature
+    func fillWeather(model: AbstractModel) {
+        self.country?.text = model.country.capital
+        model.weather?.main.temp.do {
+            self.temperature?.text = String($0)
+        }
     }
 }

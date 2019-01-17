@@ -30,9 +30,7 @@ class CountryTableViewCell: TableViewCell {
     func fillWithModel(model: AbstractModel) {
         self.capitalLabel?.text = model.country.capital
         self.countryLabel?.text = model.country.name
-    }
-    
-    func addDateandTemp(model: Model) {
-        //self.temperatureLabel?.text = model.values.temperature
+        self.temperatureLabel?.text = model.weather?.main.temp?.description ?? ""
+        self.dateLabel?.text = ""
     }
 }

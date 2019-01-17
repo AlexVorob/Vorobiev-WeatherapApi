@@ -67,14 +67,12 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
         let city = self.model.values[indexPath.row].country.capital
         let weatherViewController = WeatherViewController(self.model, city: city)
             self.navigationController?.pushViewController(weatherViewController, animated: true)
-        
     }
 
     func loadCountryData() {
         guard let url = urlCountry else { return }
             let network = NetworkService<[Country]>()
             network.dataLoad(url: url)
-       
 //        self.model.notify(state: .countryChange)
         network.observer {
             switch $0 {
