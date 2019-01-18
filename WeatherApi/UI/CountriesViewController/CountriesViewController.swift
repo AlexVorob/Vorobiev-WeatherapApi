@@ -70,20 +70,22 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        self.rootView?.tableView
+        
     }
 
     func loadCountryData() {
         guard let url = urlCountry else { return }
-            let network = NetworkService<[Country]>()
-            network.dataLoad(url: url)
+        
+        let network = NetworkService<[Country]>()
+        network.dataLoad(url: url)
 //        self.model.notify(state: .countryChange)
         network.observer {
             switch $0 {
             case .didStartLoading:
                 return
             case .didLoad:
-                network.model?.forEach {
+                let modelCountry = network.model?.filter { $0.capital.count > 0 }
+                modelCountry?.forEach {
                     self.model.values.append(AbstractModel(country: $0))
                 }
                 DispatchQueue.main.async {

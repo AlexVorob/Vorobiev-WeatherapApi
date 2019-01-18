@@ -38,17 +38,18 @@ class WeatherViewController: UIViewController, RootViewRepresentable {
         self.loadWeatherData()
     }
     
-    func loadWeatherData() {
+    private func getURL() -> URL? {
         let weatherPath = Constant.api + city + Constant.apiID
-        let url = weatherPath.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+        let urlWeather = weatherPath.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
         
-        guard let urlWeather = url else { return }
-        
-        let safeUrlWeather = URL(string: urlWeather)
-        
+        guard let url = urlWeather else { return nil }
+           return URL(string: url)
+    }
+    
+    private func loadWeatherData() {
         let parser = NetworkService<Weather>()
         
-        if let url = safeUrlWeather {
+        if let url = self.getURL() {
             parser.dataLoad(url: url)
             
             parser.observer {
