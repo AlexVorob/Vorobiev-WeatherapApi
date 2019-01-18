@@ -68,6 +68,10 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
         let weatherViewController = WeatherViewController(self.model, city: city)
             self.navigationController?.pushViewController(weatherViewController, animated: true)
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.rootView?.tableView
+    }
 
     func loadCountryData() {
         guard let url = urlCountry else { return }

@@ -8,6 +8,12 @@
 
 import UIKit
 
+fileprivate struct Constant {
+    
+    static let api = "https://api.openweathermap.org/data/2.5/weather?q="
+    static let apiID = "&units=metric&APPID=ac6d05234841cc6b76ed2a4fcfda2b6b"
+}
+
 class WeatherViewController: UIViewController, RootViewRepresentable {
 
     typealias RootView = WeatherView
@@ -16,9 +22,6 @@ class WeatherViewController: UIViewController, RootViewRepresentable {
     
     private(set) var city: String
     private let celsius = "°C"
-    
-    private let api = "https://api.openweathermap.org/data/2.5/weather?q="
-    private let apiID = "&units=metric&APPID=ac6d05234841cc6b76ed2a4fcfda2b6b"
     
     init(_ model: Model, city: String) {
         self.model = model
@@ -36,7 +39,7 @@ class WeatherViewController: UIViewController, RootViewRepresentable {
     }
     
     func loadWeatherData() {
-        let weatherPath = api + city + apiID
+        let weatherPath = Constant.api + city + Constant.apiID
         let url = weatherPath.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
         
         guard let urlWeather = url else { return }
