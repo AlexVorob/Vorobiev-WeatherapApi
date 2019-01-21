@@ -8,18 +8,6 @@
 
 import Foundation
 
-class BaseModel {
-    
-    var country: Country
-    var weather: Weather?
-    var date: Date?
-    
-    init(country: Country) {
-        self.country = country
-        self.weather = nil
-    }
-}
-
 class Model {
 
     var values: [BaseModel]

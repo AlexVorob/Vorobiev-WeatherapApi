@@ -12,7 +12,13 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
     
     typealias RootView = CountriesView
     
-    var model = Model()
+    var model = Model() {
+        didSet {
+            DispatchQueue.main.async {
+                self.rootView?.tableView?.reloadData()
+            }
+        }
+    }
 
     private let urlCountry = URL(string: "https://restcountries.eu/rest/v2/all")
     
@@ -67,10 +73,11 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
             case .didStartLoading:
                 return
             case .didLoad:
-                self.model.values = networkService.model!.filter { $0.capital.count > 0 }.map(BaseModel.init)
-                DispatchQueue.main.async {
-                    self.rootView?.tableView?.reloadData()
-                }
+                guard let model = networkService.model else { return }
+                
+                let itemModel = Model()
+                itemModel.values = model.filter { $0.capital.count > 0 }.map(BaseModel.init)
+                self.model = itemModel
             case .didFailedWithError(_):
                 return
             }

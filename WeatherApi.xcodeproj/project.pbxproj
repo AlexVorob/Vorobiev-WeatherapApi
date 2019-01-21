@@ -46,6 +46,7 @@
 		588C994321ECC46C00E396DB /* ModelWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 588C994221ECC46C00E396DB /* ModelWeather.swift */; };
 		5890B8A021F5B33A00625C2E /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5890B89F21F5B33A00625C2E /* Date+Extensions.swift */; };
 		5890B8A221F5B36400625C2E /* DateFormatter+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5890B8A121F5B36400625C2E /* DateFormatter+Extensions.swift */; };
+		5890B8A421F5BE0C00625C2E /* BaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5890B8A321F5BE0C00625C2E /* BaseModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -111,6 +112,7 @@
 		588C994221ECC46C00E396DB /* ModelWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelWeather.swift; sourceTree = "<group>"; };
 		5890B89F21F5B33A00625C2E /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
 		5890B8A121F5B36400625C2E /* DateFormatter+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+Extensions.swift"; sourceTree = "<group>"; };
+		5890B8A321F5BE0C00625C2E /* BaseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -226,6 +228,7 @@
 		582EDF7E21E7809500DDE595 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				5890B8A321F5BE0C00625C2E /* BaseModel.swift */,
 				588129A521EF7B45000E48B4 /* Model.swift */,
 				588C994021ECB3A800E396DB /* ModelCountry.swift */,
 				588C994221ECC46C00E396DB /* ModelWeather.swift */,
@@ -498,6 +501,7 @@
 				588129A221EF47DE000E48B4 /* UINib+Extensions.swift in Sources */,
 				582EDF6821E7420100DDE595 /* DispatchTime+Extensions.swift in Sources */,
 				582EDF6921E7420100DDE595 /* RangeReplaceableCollection+Extensions.swift in Sources */,
+				5890B8A421F5BE0C00625C2E /* BaseModel.swift in Sources */,
 				582EDF6521E7420100DDE595 /* Atomic.swift in Sources */,
 				582EDF6621E7420100DDE595 /* RootViewRepresentable.swift in Sources */,
 				588C994121ECB3A800E396DB /* ModelCountry.swift in Sources */,
