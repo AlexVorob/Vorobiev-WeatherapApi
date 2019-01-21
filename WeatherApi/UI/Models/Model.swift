@@ -8,10 +8,11 @@
 
 import Foundation
 
-class AbstractModel {
+class BaseModel {
     
     var country: Country
     var weather: Weather?
+    var date: Date?
     
     init(country: Country) {
         self.country = country
@@ -19,16 +20,11 @@ class AbstractModel {
     }
 }
 
-class Model: ObservableObject<Model.StateWeather> {
+class Model {
+
+    var values: [BaseModel]
     
-    public enum StateWeather {
-        case weatherChange
-        case countryChange
-    }
-    
-    var values: [AbstractModel]
-    
-    init(values: [AbstractModel] = []) {
+    init(values: [BaseModel] = []) {
         self.values = values
     }
 }

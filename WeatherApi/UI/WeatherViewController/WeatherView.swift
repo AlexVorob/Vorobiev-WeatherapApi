@@ -18,7 +18,7 @@ class WeatherView: UIView {
         self.temperature?.backgroundColor = Color.lightSand.opaque
     }
     
-    func fillWeather(model: AbstractModel) {
+    func fillWeather(model: BaseModel) {
         self.country?.text = model.country.capital
         model.weather?.main.temp.do {
             self.temperature?.text = String($0)

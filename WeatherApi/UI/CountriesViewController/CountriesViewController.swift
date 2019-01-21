@@ -25,17 +25,6 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
         self.rootView?.tableView?.delegate = self
     
         self.loadCountryData()
-        
-        self.model.observer {
-            switch $0 {
-            case .weatherChange:
-                return
-            case .countryChange:
-                DispatchQueue.main.async {
-                    self.rootView?.tableView?.reloadData()
-                }
-            }
-        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -51,43 +40,34 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
         let item = self.model.values[indexPath.row]
         cell?.fillWithModel(model: item)
         
-//        self.model.observer {
-//            switch $0 {
-//            case .weatherChange:
-//                cell?.addDateandTemp(model: self.model)
-//            case .countryChange:
-//                return
-//            }
-//        }
-        
         return cell ?? CountryTableViewCell()
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let city = self.model.values[indexPath.row].country.capital
-        let weatherViewController = WeatherViewController(self.model, city: city)
+        let baseModelItem = self.model.values[indexPath.row]
+        let weatherViewController = WeatherViewController(self.model, baseModelItem)
             self.navigationController?.pushViewController(weatherViewController, animated: true)
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        
+        super.viewWillAppear(animated)
+        DispatchQueue.main.async {
+            self.rootView?.tableView?.reloadData()
+        }
     }
 
     func loadCountryData() {
         guard let url = urlCountry else { return }
         
-        let network = NetworkService<[Country]>()
-        network.dataLoad(url: url)
-//        self.model.notify(state: .countryChange)
-        network.observer {
+        let networkService = NetworkService<[Country]>()
+        networkService.dataLoad(url: url)
+
+        networkService.observer {
             switch $0 {
             case .didStartLoading:
                 return
             case .didLoad:
-                let modelCountry = network.model?.filter { $0.capital.count > 0 }
-                modelCountry?.forEach {
-                    self.model.values.append(AbstractModel(country: $0))
-                }
+                self.model.values = networkService.model!.filter { $0.capital.count > 0 }.map(BaseModel.init)
                 DispatchQueue.main.async {
                     self.rootView?.tableView?.reloadData()
                 }

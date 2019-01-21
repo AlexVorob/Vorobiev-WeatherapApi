@@ -18,14 +18,11 @@ class WeatherViewController: UIViewController, RootViewRepresentable {
 
     typealias RootView = WeatherView
     
-    private let model: Model
+    private let model: BaseModel
+//    private let celsius = "°C"
     
-    private(set) var city: String
-    private let celsius = "°C"
-    
-    init(_ model: Model, city: String) {
-        self.model = model
-        self.city = city
+    init(_ model: Model,_ baseModelItem: BaseModel) {
+        self.model = baseModelItem
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -39,7 +36,7 @@ class WeatherViewController: UIViewController, RootViewRepresentable {
     }
     
     private func getURL() -> URL? {
-        let weatherPath = Constant.api + city + Constant.apiID
+        let weatherPath = Constant.api + model.country.capital + Constant.apiID
         let urlWeather = weatherPath.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
         
         guard let url = urlWeather else { return nil }
@@ -57,12 +54,11 @@ class WeatherViewController: UIViewController, RootViewRepresentable {
                 case .didStartLoading:
                     return
                 case .didLoad:
-                    let owner = self.model.values.first { $0.country.capital == self.city }
-                    owner?.weather = parser.model
+                    self.model.weather = parser.model
+                    self.model.date = Date()
                     DispatchQueue.main.async {
-                        owner.do { self.rootView?.fillWeather(model: $0) }
+                        self.rootView?.fillWeather(model: self.model)
                     }
-                    self.model.notify(state: .weatherChange)
                 case .didFailedWithError(_):
                     print("Error")
                 }
