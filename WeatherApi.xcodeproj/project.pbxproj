@@ -48,6 +48,7 @@
 		5890B8A221F5B36400625C2E /* DateFormatter+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5890B8A121F5B36400625C2E /* DateFormatter+Extensions.swift */; };
 		5890B8A421F5BE0C00625C2E /* BaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5890B8A321F5BE0C00625C2E /* BaseModel.swift */; };
 		5890B8A721F5CB5C00625C2E /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5890B8A621F5CB5C00625C2E /* Constant.swift */; };
+		5890B8A921F5D51400625C2E /* ManagerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5890B8A821F5D51400625C2E /* ManagerController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -115,6 +116,7 @@
 		5890B8A121F5B36400625C2E /* DateFormatter+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+Extensions.swift"; sourceTree = "<group>"; };
 		5890B8A321F5BE0C00625C2E /* BaseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseModel.swift; sourceTree = "<group>"; };
 		5890B8A621F5CB5C00625C2E /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
+		5890B8A821F5D51400625C2E /* ManagerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagerController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -316,6 +318,7 @@
 			children = (
 				582EDF7F21E780B400DDE595 /* NetworkService.swift */,
 				5864008F21EDE6F100AB75F0 /* TableViewCell.swift */,
+				5890B8A821F5D51400625C2E /* ManagerController.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -518,6 +521,7 @@
 				582EDF6621E7420100DDE595 /* RootViewRepresentable.swift in Sources */,
 				588C994121ECB3A800E396DB /* ModelCountry.swift in Sources */,
 				582EDF6A21E7420100DDE595 /* NSLocking+Extensions.swift in Sources */,
+				5890B8A921F5D51400625C2E /* ManagerController.swift in Sources */,
 				582EDF7121E746D100DDE595 /* ObservableObject.Observer.swift in Sources */,
 				582EDF6D21E7420100DDE595 /* CGRect+Extensions.swift in Sources */,
 				582EDF6C21E7420100DDE595 /* Strideable+Extensions.swift in Sources */,

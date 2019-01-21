@@ -12,6 +12,8 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
     
     typealias RootView = CountriesView
     
+    private let managerController = ManagerController<[Country]>()
+    
     var model = Model() {
         didSet {
             DispatchQueue.main.async {
@@ -62,26 +64,16 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
     }
 
     func loadCountryData() {
-        let urlCountry = URL(string: Constant.country)
+        let urlCountry = URL(string: Constant.countryApi)
         guard let url = urlCountry else { return }
         
-        let networkService = NetworkService<[Country]>()
-        networkService.dataLoad(from: url)
-
-        networkService.observer {
-            switch $0 {
-            case .didStartLoading:
-                return
-            case .didLoad:
-                guard let model = networkService.model else { return }
-                
-                let itemModel = Model()
-                itemModel.values = model.filter { $0.capital.count > 0 }.map(BaseModel.init)
-                
-                self.model = itemModel
-            case .didFailedWithError(let error):
-                print(error?.localizedDescription ?? "")
-            }
+        self.managerController.loadData(from: url) { model, error in
+            guard let item = model else { return }
+            
+            let itemModel = Model()
+            itemModel.values = item.filter { $0.capital.count > 0 }.map(BaseModel.init)
+            
+            self.model = itemModel
         }
     }
 }

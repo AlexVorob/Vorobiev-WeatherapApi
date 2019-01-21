@@ -29,7 +29,7 @@ class WeatherViewController: UIViewController, RootViewRepresentable {
     }
     
     private func getURL() -> URL? {
-        let weatherPath = Constant.api + model.country.capital + Constant.apiID
+        let weatherPath = Constant.weatherApi + model.country.capital + Constant.weatherApiId
         let urlWeather = weatherPath.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
         
         guard let url = urlWeather else { return nil }
