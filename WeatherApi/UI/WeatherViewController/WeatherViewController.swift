@@ -8,18 +8,11 @@
 
 import UIKit
 
-fileprivate struct Constant {
-    
-    static let api = "https://api.openweathermap.org/data/2.5/weather?q="
-    static let apiID = "&units=metric&APPID=ac6d05234841cc6b76ed2a4fcfda2b6b"
-}
-
 class WeatherViewController: UIViewController, RootViewRepresentable {
 
     typealias RootView = WeatherView
     
     private let model: BaseModel
-//    private let celsius = "°C"
     
     init(_ model: Model,_ baseModelItem: BaseModel) {
         self.model = baseModelItem
@@ -47,7 +40,7 @@ class WeatherViewController: UIViewController, RootViewRepresentable {
         let parser = NetworkService<Weather>()
         
         if let url = self.getURL() {
-            parser.dataLoad(url: url)
+            parser.dataLoad(from: url)
             
             parser.observer {
                 switch $0 {

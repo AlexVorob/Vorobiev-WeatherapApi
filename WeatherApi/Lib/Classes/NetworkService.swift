@@ -18,11 +18,15 @@ class NetworkService<ModelData>: ObservableObject<NetworkService.State> where Mo
     
     var model: ModelData?
     
-    public func dataLoad(url: URL) {
+    public func dataLoad(from url: URL) {
         self.notify(state: .didStartLoading)
+        
         URLSession.shared.dataTask(with: url) { (data, response, error) in
             let dataParse = data.flatMap { try? JSONDecoder().decode(ModelData.self, from: $0) }
             dataParse.do { self.model = $0 }
+            if error != nil {
+                self.notify(state: .didFailedWithError(error))
+            }
             self.notify(state: .didLoad)
         }.resume()
     }

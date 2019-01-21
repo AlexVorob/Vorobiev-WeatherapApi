@@ -20,8 +20,6 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
         }
     }
 
-    private let urlCountry = URL(string: "https://restcountries.eu/rest/v2/all")
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = "Countries"
@@ -52,7 +50,8 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let baseModelItem = self.model.values[indexPath.row]
         let weatherViewController = WeatherViewController(self.model, baseModelItem)
-            self.navigationController?.pushViewController(weatherViewController, animated: true)
+        
+        self.navigationController?.pushViewController(weatherViewController, animated: true)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -63,10 +62,11 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
     }
 
     func loadCountryData() {
+        let urlCountry = URL(string: Constant.country)
         guard let url = urlCountry else { return }
         
         let networkService = NetworkService<[Country]>()
-        networkService.dataLoad(url: url)
+        networkService.dataLoad(from: url)
 
         networkService.observer {
             switch $0 {
@@ -77,9 +77,10 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
                 
                 let itemModel = Model()
                 itemModel.values = model.filter { $0.capital.count > 0 }.map(BaseModel.init)
+                
                 self.model = itemModel
-            case .didFailedWithError(_):
-                return
+            case .didFailedWithError(let error):
+                print(error?.localizedDescription ?? "")
             }
         }
     }
