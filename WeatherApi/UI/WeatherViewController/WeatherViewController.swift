@@ -13,6 +13,7 @@ class WeatherViewController: UIViewController, RootViewRepresentable {
     typealias RootView = WeatherView
     
     private let model: BaseModel
+    private let managerController = ManagerController<Weather>()
     
     init(_ model: Model,_ baseModelItem: BaseModel) {
         self.model = baseModelItem
@@ -37,24 +38,14 @@ class WeatherViewController: UIViewController, RootViewRepresentable {
     }
     
     private func loadWeatherData() {
-        let parser = NetworkService<Weather>()
+        guard let url = self.getURL() else { return }
         
-        if let url = self.getURL() {
-            parser.dataLoad(from: url)
+        self.managerController.loadData(from: url) { model, error in
+            self.model.weather = model
+            self.model.date = Date()
             
-            parser.observer {
-                switch $0 {
-                case .didStartLoading:
-                    return
-                case .didLoad:
-                    self.model.weather = parser.model
-                    self.model.date = Date()
-                    DispatchQueue.main.async {
-                        self.rootView?.fillWeather(model: self.model)
-                    }
-                case .didFailedWithError(_):
-                    print("Error")
-                }
+            DispatchQueue.main.async {
+                self.rootView?.fillWeather(model: self.model)
             }
         }
     }

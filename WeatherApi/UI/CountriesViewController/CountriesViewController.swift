@@ -24,7 +24,7 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.title = "Countries"
+        self.navigationItem.title = Constant.title
         
         self.rootView?.tableView?.register(CountryTableViewCell.self)
         self.rootView?.tableView?.dataSource = self

@@ -8,7 +8,7 @@
 
 import Foundation
 
-class ManagerController<Model> where Model: Codable {
+class ManagerController<Model> where Model: Decodable {
     
     private var observers = [ObservableObject<Model>.Observer]()
     
@@ -17,7 +17,7 @@ class ManagerController<Model> where Model: Codable {
     public func loadData(from url: URL, execute: @escaping (Model?, Error?) -> ()) {
         self.networkService.dataLoad(from: url)
         
-        let observer = self.networkService.observer {
+        self.networkService.observer {
             switch $0 {
             case .didStartLoading:
                 return
@@ -27,7 +27,5 @@ class ManagerController<Model> where Model: Codable {
                 execute(nil, error)
             }
         }
-        
-        //self.observers.append(observer)
     }
 }

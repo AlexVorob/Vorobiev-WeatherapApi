@@ -42,8 +42,8 @@
 		588C993A21EC82DB00E396DB /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 588C993921EC82DB00E396DB /* UIColor+Extensions.swift */; };
 		588C993C21EC8F2B00E396DB /* ColorRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 588C993B21EC8F2B00E396DB /* ColorRepresentable.swift */; };
 		588C993F21EC8FAD00E396DB /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 588C993E21EC8FAD00E396DB /* Color.swift */; };
-		588C994121ECB3A800E396DB /* ModelCountry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 588C994021ECB3A800E396DB /* ModelCountry.swift */; };
-		588C994321ECC46C00E396DB /* ModelWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 588C994221ECC46C00E396DB /* ModelWeather.swift */; };
+		588C994121ECB3A800E396DB /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = 588C994021ECB3A800E396DB /* Country.swift */; };
+		588C994321ECC46C00E396DB /* Weather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 588C994221ECC46C00E396DB /* Weather.swift */; };
 		5890B8A021F5B33A00625C2E /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5890B89F21F5B33A00625C2E /* Date+Extensions.swift */; };
 		5890B8A221F5B36400625C2E /* DateFormatter+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5890B8A121F5B36400625C2E /* DateFormatter+Extensions.swift */; };
 		5890B8A421F5BE0C00625C2E /* BaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5890B8A321F5BE0C00625C2E /* BaseModel.swift */; };
@@ -110,8 +110,8 @@
 		588C993921EC82DB00E396DB /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
 		588C993B21EC8F2B00E396DB /* ColorRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorRepresentable.swift; sourceTree = "<group>"; };
 		588C993E21EC8FAD00E396DB /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
-		588C994021ECB3A800E396DB /* ModelCountry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelCountry.swift; sourceTree = "<group>"; };
-		588C994221ECC46C00E396DB /* ModelWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelWeather.swift; sourceTree = "<group>"; };
+		588C994021ECB3A800E396DB /* Country.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Country.swift; sourceTree = "<group>"; };
+		588C994221ECC46C00E396DB /* Weather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weather.swift; sourceTree = "<group>"; };
 		5890B89F21F5B33A00625C2E /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
 		5890B8A121F5B36400625C2E /* DateFormatter+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+Extensions.swift"; sourceTree = "<group>"; };
 		5890B8A321F5BE0C00625C2E /* BaseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseModel.swift; sourceTree = "<group>"; };
@@ -235,8 +235,6 @@
 			children = (
 				5890B8A321F5BE0C00625C2E /* BaseModel.swift */,
 				588129A521EF7B45000E48B4 /* Model.swift */,
-				588C994021ECB3A800E396DB /* ModelCountry.swift */,
-				588C994221ECC46C00E396DB /* ModelWeather.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -354,6 +352,8 @@
 			isa = PBXGroup;
 			children = (
 				5890B8A621F5CB5C00625C2E /* Constant.swift */,
+				588C994021ECB3A800E396DB /* Country.swift */,
+				588C994221ECC46C00E396DB /* Weather.swift */,
 			);
 			path = Structs;
 			sourceTree = "<group>";
@@ -494,7 +494,7 @@
 				582EDF6E21E7420100DDE595 /* Cancellable.swift in Sources */,
 				5890B8A721F5CB5C00625C2E /* Constant.swift in Sources */,
 				5855E2E121E73EDD00A3D463 /* WeatherView.swift in Sources */,
-				588C994321ECC46C00E396DB /* ModelWeather.swift in Sources */,
+				588C994321ECC46C00E396DB /* Weather.swift in Sources */,
 				588C993F21EC8FAD00E396DB /* Color.swift in Sources */,
 				582EDF7221E746D100DDE595 /* ObservableObject.swift in Sources */,
 				582EDF6B21E7420100DDE595 /* Optional+Extensions.swift in Sources */,
@@ -519,7 +519,7 @@
 				5890B8A421F5BE0C00625C2E /* BaseModel.swift in Sources */,
 				582EDF6521E7420100DDE595 /* Atomic.swift in Sources */,
 				582EDF6621E7420100DDE595 /* RootViewRepresentable.swift in Sources */,
-				588C994121ECB3A800E396DB /* ModelCountry.swift in Sources */,
+				588C994121ECB3A800E396DB /* Country.swift in Sources */,
 				582EDF6A21E7420100DDE595 /* NSLocking+Extensions.swift in Sources */,
 				5890B8A921F5D51400625C2E /* ManagerController.swift in Sources */,
 				582EDF7121E746D100DDE595 /* ObservableObject.Observer.swift in Sources */,

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NetworkService<ModelData>: ObservableObject<NetworkService.State> where ModelData: Codable {
+class NetworkService<ModelData>: ObservableObject<NetworkService.State> where ModelData: Decodable {
     
     public enum State {
         case didStartLoading
