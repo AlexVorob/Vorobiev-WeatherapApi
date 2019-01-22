@@ -9,9 +9,7 @@
 import Foundation
 
 class ManagerController<Model> where Model: Decodable {
-    
-    private var observers = [ObservableObject<Model>.Observer]()
-    
+
     private let networkService = NetworkService<Model>()
     
     public func loadData(from url: URL, execute: @escaping (Model?, Error?) -> ()) {
