@@ -58,6 +58,7 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
         DispatchQueue.main.async {
             self.rootView?.tableView?.reloadData()
         }
@@ -68,12 +69,16 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
         guard let url = urlCountry else { return }
         
         self.managerController.loadData(from: url) { model, error in
-            guard let item = model else { return }
-            
-            let itemModel = Model()
-            itemModel.values = item.filter { $0.capital.count > 0 }.map(BaseModel.init)
-            
-            self.model = itemModel
+            if error != nil {
+                print(error?.localizedDescription ?? "")
+            } else {
+                guard let item = model else { return }
+                
+                let itemModel = Model()
+                itemModel.values = item.filter { $0.capital.count > 0 }.map(BaseModel.init)
+                
+                self.model = itemModel
+            }
         }
     }
 }
