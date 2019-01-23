@@ -16,7 +16,7 @@ class NetworkService<ModelData>: ObservableObject<NetworkService.State> where Mo
         case didFailedWithError(_ error: Error?)
     }
     
-    var model: ModelData?
+    private(set) var model: ModelData?
     
     public func dataLoad(from url: URL) {
         self.notify(state: .didStartLoading)

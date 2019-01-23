@@ -14,7 +14,7 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
     
     private let managerController = ManagerController<[Country]>()
     
-    var model = Model() {
+    private var model = Model() {
         didSet {
             DispatchQueue.main.async {
                 self.rootView?.tableView?.reloadData()
