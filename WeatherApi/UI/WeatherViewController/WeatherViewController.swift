@@ -54,7 +54,7 @@ class WeatherViewController: UIViewController, RootViewRepresentable {
             self.model.weather = model
             self.model.date = Date()
             
-            DispatchQueue.main.async {
+            dispatchOnMain {
                 self.rootView?.fillWeather(model: self.model)
             }
         }

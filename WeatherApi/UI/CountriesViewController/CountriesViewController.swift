@@ -22,7 +22,7 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
     
     private var model = Model() {
         didSet {
-            DispatchQueue.main.async {
+            dispatchOnMain {
                 self.rootView?.tableView?.reloadData()
             }
         }
@@ -59,7 +59,7 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        DispatchQueue.main.async {
+        dispatchOnMain {
             self.rootView?.tableView?.reloadData()
         }
     }
