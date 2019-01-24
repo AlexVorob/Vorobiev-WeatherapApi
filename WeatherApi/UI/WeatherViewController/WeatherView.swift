@@ -8,6 +8,11 @@
 
 import UIKit
 
+fileprivate struct Constant {
+    
+    static let celsius = UnitTemperature.celsius.symbol
+}
+
 class WeatherView: UIView {
 
     @IBOutlet var country: UILabel?

@@ -8,6 +8,12 @@
 
 import UIKit
 
+fileprivate struct Constant {
+    
+    static let title = "Countries"
+    static let countryApi = "https://restcountries.eu/rest/v2/all"
+}
+
 class CountriesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, RootViewRepresentable {
     
     typealias RootView = CountriesView
@@ -27,8 +33,6 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
         self.navigationItem.title = Constant.title
         
         self.rootView?.tableView?.register(CountryTableViewCell.self)
-        self.rootView?.tableView?.dataSource = self
-        self.rootView?.tableView?.delegate = self
     
         self.loadCountryData()
     }
@@ -38,15 +42,11 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = self
-            .rootView?
-            .tableView?
-            .dequeueReusableCell(withCellClass: CountryTableViewCell.self) as? CountryTableViewCell
-        
-        let item = self.model.values[indexPath.row]
-        cell?.fillWithModel(model: item)
-        
-        return cell ?? CountryTableViewCell()
+        let cell = tableView.dequeueReusableCell(cellClass: CountryTableViewCell.self, for: indexPath) {
+            $0.fillWithModel(model: self.model.values[indexPath.row])
+        }
+
+        return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

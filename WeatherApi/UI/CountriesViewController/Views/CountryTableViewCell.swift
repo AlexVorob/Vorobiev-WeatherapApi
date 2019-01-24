@@ -16,17 +16,6 @@ class CountryTableViewCell: TableViewCell {
     @IBOutlet var countryLabel: UILabel?
     @IBOutlet var capitalLabel: UILabel?
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
-    
     func fillWithModel(model: BaseModel) {
         self.capitalLabel?.text = model.country.capital
         self.countryLabel?.text = model.country.name
