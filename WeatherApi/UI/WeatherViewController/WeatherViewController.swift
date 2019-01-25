@@ -23,7 +23,7 @@ class WeatherViewController: UIViewController, RootViewRepresentable {
     typealias RootView = WeatherView
     
     private let model: BaseModel
-    private let managerController = ManagerController<JSONWeather>()
+    private let managerController = DataManager<JSONWeather>()
     
     init(_ model: Model,_ baseModelItem: BaseModel) {
         self.model = baseModelItem

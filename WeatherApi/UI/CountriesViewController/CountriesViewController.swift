@@ -18,7 +18,7 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
     
     typealias RootView = CountriesView
     
-    private let managerController = ManagerController<[JSONCountry]>()
+    private let dataManager = DataManager<[JSONCountry]>()
     
     private var model = Model() {
         didSet {
@@ -68,7 +68,7 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
         let urlCountry = URL(string: Constant.countryApi)
         guard let url = urlCountry else { return }
         
-        self.managerController.loadData(from: url) { model, error in
+        self.dataManager.loadData(from: url) { model, error in
             if error != nil {
                 print(error?.localizedDescription ?? "")
             } else {

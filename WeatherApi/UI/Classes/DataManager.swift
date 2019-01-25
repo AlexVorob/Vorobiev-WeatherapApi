@@ -1,5 +1,5 @@
 //
-//  ManagerController.swift
+//  DataManager.swift
 //  WeatherApi
 //
 //  Created by Alex Vorobiev on 1/21/19.
@@ -8,11 +8,12 @@
 
 import Foundation
 
-class ManagerController<Model> where Model: Decodable {
+class DataManager<Value> where Value: Decodable {
 
-    private let networkService = NetworkService<Model>()
+    private let networkService = NetworkService<Value>()
+    private let model = Model()
     
-    public func loadData(from url: URL, execute: @escaping (Model?, Error?) -> ()) {
+    public func loadData(from url: URL, execute: @escaping (Value?, Error?) -> ()) {
         self.networkService.dataLoad(from: url)
         
         self.networkService.observer {
