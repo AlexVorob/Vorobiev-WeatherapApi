@@ -16,18 +16,13 @@ class NetworkService<ModelData>: ObservableObject<NetworkService.State> where Mo
         case didFailedWithError(_ error: Error?)
     }
     
-    private(set) var model: ModelData?
-    
-    public func dataLoad(from url: URL) {
-        self.notify(state: .didStartLoading)
-        
+    public func dataLoad(from url: URL, completion: @escaping (ModelData?, Error?) -> ()) {
         URLSession.shared.dataTask(with: url) { (data, response, error) in
             let dataParse = data.flatMap { try? JSONDecoder().decode(ModelData.self, from: $0) }
-            dataParse.do { self.model = $0 }
+            completion(dataParse, nil)
             if error != nil {
-                self.notify(state: .didFailedWithError(error))
+                completion(nil, error)
             }
-            self.notify(state: .didLoad)
         }.resume()
     }
 }

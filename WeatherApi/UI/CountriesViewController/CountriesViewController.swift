@@ -11,47 +11,57 @@ import UIKit
 fileprivate struct Constant {
     
     static let title = "Countries"
-    static let countryApi = "https://restcountries.eu/rest/v2/all"
 }
 
 class CountriesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, RootViewRepresentable {
     
     typealias RootView = CountriesView
     
-    private let dataManager = DataManager<[JSONCountry]>()
+    private let countriesManager = CountriesManager()
     
-    private var model = Model() {
-        didSet {
-            dispatchOnMain {
-                self.rootView?.tableView?.reloadData()
-            }
-        }
-    }
+//    private var model = Model() {
+//        didSet {
+//            dispatchOnMain {
+//                self.rootView?.tableView?.reloadData()
+//            }
+//        }
+//    }
 
+    init() {
+        self.countriesManager.loadData()
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = Constant.title
         
         self.rootView?.tableView?.register(CountryTableViewCell.self)
     
-        self.loadCountryData()
+        dispatchOnMain {
+            self.rootView?.tableView?.reloadData()
+        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.model.values.count
+        return self.countriesManager.model.values.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(cellClass: CountryTableViewCell.self, for: indexPath) {
-            $0.fillWithModel(model: self.model.values[indexPath.row])
+            $0.fillWithModel(model: self.countriesManager.model.values[indexPath.row])
         }
 
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let baseModelItem = self.model.values[indexPath.row]
-        let weatherViewController = WeatherViewController(self.model, baseModelItem)
+        let baseModelItem = self.countriesManager.model.values[indexPath.row]
+        let weatherViewController = WeatherViewController(baseModelItem)
         
         self.navigationController?.pushViewController(weatherViewController, animated: true)
     }
@@ -63,24 +73,24 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
             self.rootView?.tableView?.reloadData()
         }
     }
-
-    func loadCountryData() {
-        let urlCountry = URL(string: Constant.countryApi)
-        guard let url = urlCountry else { return }
-        
-        self.dataManager.loadData(from: url) { model, error in
-            if error != nil {
-                print(error?.localizedDescription ?? "")
-            } else {
-                guard let item = model else { return }
-                
-                let itemModel = Model()
-                itemModel.values = item
-                    .filter { $0.capital.count > 0 }
-                    .map { BaseModel(country: Country(json: $0)) }
-                
-                self.model = itemModel
-            }
-        }
-    }
 }
+
+//    func loadCountryData() {
+//        let urlCountry = URL(string: Constant.countryApi)
+//        guard let url = urlCountry else { return }
+//
+//        self.dataManager.loadData(from: url) { model, error in
+//            if error != nil {
+//                print(error?.localizedDescription ?? "")
+//            } else {
+//                guard let item = model else { return }
+//
+//                let itemModel = Model()
+//                itemModel.values = item
+//                    .filter { $0.capital.count > 0 }
+//                    .map { BaseModel(country: Country(json: $0)) }
+//
+//                self.model = itemModel
+//            }
+//        }
+//    }

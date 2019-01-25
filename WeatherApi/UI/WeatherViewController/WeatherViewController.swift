@@ -8,24 +8,14 @@
 
 import UIKit
 
-fileprivate struct Constant {
-    
-    static let weatherApi = "https://api.openweathermap.org/data/2.5/weather?q="
-    static let weatherApiId = "&units=metric&APPID=ac6d05234841cc6b76ed2a4fcfda2b6b"
-
-    static var getApiLink: (String) -> String = {
-        return weatherApi + $0 + weatherApiId
-    }
-}
-
 class WeatherViewController: UIViewController, RootViewRepresentable {
 
     typealias RootView = WeatherView
     
     private let model: BaseModel
-    private let managerController = DataManager<JSONWeather>()
+    private let weatherManager = WeatherManager()
     
-    init(_ model: Model,_ baseModelItem: BaseModel) {
+    init(_ baseModelItem: BaseModel) {
         self.model = baseModelItem
         super.init(nibName: nil, bundle: nil)
     }
@@ -36,28 +26,32 @@ class WeatherViewController: UIViewController, RootViewRepresentable {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.loadWeatherData()
-    }
-    
-    private func getURL() -> URL? {
-        let weatherPath = Constant.getApiLink(model.country.capital)
-        let urlWeather = weatherPath.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+        self.weatherManager.loadData(baseModelItem: model)
         
-        guard let url = urlWeather else { return nil }
-           return URL(string: url)
-    }
-    
-    private func loadWeatherData() {
-        guard let url = self.getURL() else { return }
-        
-        self.managerController.loadData(from: url) { model, error in
-            let newWeather = Weather(json: model!)
-            self.model.weather = newWeather
-            self.model.weather?.date = newWeather.date
-            
-            dispatchOnMain {
-                self.rootView?.fillWeather(model: self.model)
-            }
+        dispatchOnMain {
+            self.rootView?.fillWeather(model: self.model)
         }
     }
+    
+//    private func getURL() -> URL? {
+//        let weatherPath = Constant.getApiLink(model.country.capital)
+//        let urlWeather = weatherPath.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+//
+//        guard let url = urlWeather else { return nil }
+//           return URL(string: url)
+//    }
+    
+//    private func loadWeatherData() {
+//        guard let url = self.getURL() else { return }
+//
+//        self.managerController.loadData(from: url) { model, error in
+//            let newWeather = Weather(json: model!)
+//            self.model.weather = newWeather
+//            self.model.weather?.date = newWeather.date
+//
+//            dispatchOnMain {
+//                self.rootView?.fillWeather(model: self.model)
+//            }
+//        }
+//    }
 }
