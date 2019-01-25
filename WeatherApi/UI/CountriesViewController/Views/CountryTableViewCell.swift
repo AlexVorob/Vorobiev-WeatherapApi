@@ -19,7 +19,9 @@ class CountryTableViewCell: TableViewCell {
     func fillWithModel(model: BaseModel) {
         self.capitalLabel?.text = model.country.capital
         self.countryLabel?.text = model.country.name
-        self.temperatureLabel?.text = model.weather?.main.temp?.description ?? ""
-        self.dateLabel?.text = model.date?.shortDescription
+        self.temperatureLabel?.text = model.weather?.temperature?.description ?? ""
+        model.weather?.date.do {
+            self.dateLabel?.text = Date(timeIntervalSince1970: TimeInterval($0)).shortDescription
+        }
     }
 }

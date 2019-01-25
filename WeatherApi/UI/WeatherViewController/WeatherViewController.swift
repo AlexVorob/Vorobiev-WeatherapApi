@@ -23,7 +23,7 @@ class WeatherViewController: UIViewController, RootViewRepresentable {
     typealias RootView = WeatherView
     
     private let model: BaseModel
-    private let managerController = ManagerController<Weather>()
+    private let managerController = ManagerController<JSONWeather>()
     
     init(_ model: Model,_ baseModelItem: BaseModel) {
         self.model = baseModelItem
@@ -51,8 +51,9 @@ class WeatherViewController: UIViewController, RootViewRepresentable {
         guard let url = self.getURL() else { return }
         
         self.managerController.loadData(from: url) { model, error in
-            self.model.weather = model
-            self.model.date = Date()
+            let newWeather = Weather(json: model!)
+            self.model.weather = newWeather
+            self.model.weather?.date = newWeather.date
             
             dispatchOnMain {
                 self.rootView?.fillWeather(model: self.model)

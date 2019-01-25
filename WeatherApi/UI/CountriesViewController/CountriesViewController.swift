@@ -18,7 +18,7 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
     
     typealias RootView = CountriesView
     
-    private let managerController = ManagerController<[Country]>()
+    private let managerController = ManagerController<[JSONCountry]>()
     
     private var model = Model() {
         didSet {
@@ -75,7 +75,9 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
                 guard let item = model else { return }
                 
                 let itemModel = Model()
-                itemModel.values = item.filter { $0.capital.count > 0 }.map(BaseModel.init)
+                itemModel.values = item
+                    .filter { $0.capital.count > 0 }
+                    .map { BaseModel(country: Country(json: $0)) }
                 
                 self.model = itemModel
             }

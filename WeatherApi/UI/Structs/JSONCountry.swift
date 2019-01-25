@@ -1,5 +1,5 @@
 //
-//  Country.swift
+//  JSONCountry.swift
 //  WeatherApi
 //
 //  Created by Alex Vorobiev on 1/14/19.
@@ -8,8 +8,8 @@
 
 import Foundation
 
-struct Country: Decodable {
+public struct JSONCountry: Decodable {
     
-    let name: String
-    let capital: String
+    public let name: String
+    public let capital: String
 }

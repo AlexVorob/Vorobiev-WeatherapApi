@@ -14,6 +14,7 @@ class ObservableObject<State> {
     
     private let atomicObservers = Atomic([Observer]())
     
+    @discardableResult
     public func observer(handler: @escaping Handler) -> Observer {
         return self.atomicObservers.modify {
             let observer = Observer(sender: self, handler: handler)
