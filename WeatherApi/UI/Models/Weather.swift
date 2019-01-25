@@ -11,10 +11,10 @@ import Foundation
 class Weather {
     
     var temperature: Double?
-    var date: Int?
+    var date: Date?
     
     init(json: JSONWeather) {
         self.temperature = json.main.temp
-        self.date = json.dt
+        self.date = Date(timeIntervalSince1970: TimeInterval(json.dt)) 
     }
 }

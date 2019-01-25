@@ -20,8 +20,6 @@ class CountryTableViewCell: TableViewCell {
         self.capitalLabel?.text = model.country.capital
         self.countryLabel?.text = model.country.name
         self.temperatureLabel?.text = model.weather?.temperature?.description ?? ""
-        model.weather?.date.do {
-            self.dateLabel?.text = Date(timeIntervalSince1970: TimeInterval($0)).shortDescription
-        }
+        self.dateLabel?.text = model.weather?.date?.shortDescription ?? ""
     }
 }
