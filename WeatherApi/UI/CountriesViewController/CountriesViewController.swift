@@ -41,10 +41,7 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
         self.navigationItem.title = Constant.title
         
         self.rootView?.tableView?.register(CountryTableViewCell.self)
-    
-        dispatchOnMain {
-            self.rootView?.tableView?.reloadData()
-        }
+        self.dispatchOnMain()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -68,8 +65,11 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        dispatchOnMain {
+        self.dispatchOnMain()
+    }
+    
+    private func dispatchOnMain() {
+        DispatchQueue.main.async {
             self.rootView?.tableView?.reloadData()
         }
     }

@@ -27,10 +27,6 @@ class WeatherViewController: UIViewController, RootViewRepresentable {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.weatherManager.loadData(baseModelItem: model)
-        
-        //dispatchOnMain {
-            self.rootView?.fillWeather(model: self.model)
-        //}
     }
     
     override func viewDidAppear(_ animated: Bool) {

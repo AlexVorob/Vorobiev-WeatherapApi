@@ -25,7 +25,3 @@ func cast<Value, Result>(_ value: Value) -> Result? {
 func toString(_ cls: AnyClass) -> String {
     return String(describing: cls)
 }
-
-func dispatchOnMain(execute: @escaping () -> ()) {
-    DispatchQueue.main.async(execute: execute)
-}
