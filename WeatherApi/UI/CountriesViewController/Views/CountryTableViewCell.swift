@@ -17,9 +17,12 @@ class CountryTableViewCell: TableViewCell {
     @IBOutlet var capitalLabel: UILabel?
     
     func fillWithModel(model: BaseModel) {
-        self.capitalLabel?.text = model.country.capital
-        self.countryLabel?.text = model.country.name
-        self.temperatureLabel?.text = model.weather?.temperature?.description ?? ""
-        self.dateLabel?.text = model.weather?.date?.shortDescription ?? ""
+        let modelCountry = model.country
+        let modelWeather = model.weather
+        
+        self.capitalLabel?.text = modelCountry.capital
+        self.countryLabel?.text = modelCountry.name
+        self.temperatureLabel?.text = modelWeather?.temperature?.description ?? ""
+        self.dateLabel?.text = modelWeather?.date?.shortDescription ?? ""
     }
 }

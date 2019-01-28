@@ -34,7 +34,9 @@ class WeatherManager {
         guard let url = self.getURL(capital: baseModelItem.country.capital) else { return }
         
         self.networkService.dataLoad(from: url) { model, error in
-            let newWeather = Weather(json: model!)
+            guard let modelBase = model else { return }
+            
+            let newWeather = Weather(json: modelBase)
             baseModelItem.weather = newWeather
             baseModelItem.weather?.date = newWeather.date
         }

@@ -74,23 +74,3 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
         }
     }
 }
-
-//    func loadCountryData() {
-//        let urlCountry = URL(string: Constant.countryApi)
-//        guard let url = urlCountry else { return }
-//
-//        self.dataManager.loadData(from: url) { model, error in
-//            if error != nil {
-//                print(error?.localizedDescription ?? "")
-//            } else {
-//                guard let item = model else { return }
-//
-//                let itemModel = Model()
-//                itemModel.values = item
-//                    .filter { $0.capital.count > 0 }
-//                    .map { BaseModel(country: Country(json: $0)) }
-//
-//                self.model = itemModel
-//            }
-//        }
-//    }

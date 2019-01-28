@@ -15,8 +15,8 @@ class WeatherViewController: UIViewController, RootViewRepresentable {
     private let model: BaseModel
     private let weatherManager = WeatherManager()
     
-    init(_ baseModelItem: BaseModel) {
-        self.model = baseModelItem
+    init(_ baseModel: BaseModel) {
+        self.model = baseModel
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -28,30 +28,13 @@ class WeatherViewController: UIViewController, RootViewRepresentable {
         super.viewDidLoad()
         self.weatherManager.loadData(baseModelItem: model)
         
-        dispatchOnMain {
+        //dispatchOnMain {
             self.rootView?.fillWeather(model: self.model)
-        }
+        //}
     }
     
-//    private func getURL() -> URL? {
-//        let weatherPath = Constant.getApiLink(model.country.capital)
-//        let urlWeather = weatherPath.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
-//
-//        guard let url = urlWeather else { return nil }
-//           return URL(string: url)
-//    }
-    
-//    private func loadWeatherData() {
-//        guard let url = self.getURL() else { return }
-//
-//        self.managerController.loadData(from: url) { model, error in
-//            let newWeather = Weather(json: model!)
-//            self.model.weather = newWeather
-//            self.model.weather?.date = newWeather.date
-//
-//            dispatchOnMain {
-//                self.rootView?.fillWeather(model: self.model)
-//            }
-//        }
-//    }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.rootView?.fillWeather(model: self.model)
+    }
 }
