@@ -69,17 +69,18 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
     
     private func modelFilling() {
         self.countriesManager.loadData {
-            let data = $0.map {
+            let data = DataModel(values: $0.map {
                 BaseModel(country: $0)
-            }
-            self.model.observer {
+            })
+            
+            data.observer {
                 switch $0 {
                 case .didCountryChanged(_): self.dispatchOnMain()
-                case .didWeatherChanged(_): break
+                case .didWeatherChanged(_): self.dispatchOnMain()
                 }
             }
             
-            self.model = DataModel(values: data)
+            self.model = data
         }
     }
 }

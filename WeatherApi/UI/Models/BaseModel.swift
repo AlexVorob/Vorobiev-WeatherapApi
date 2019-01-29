@@ -11,7 +11,7 @@ import Foundation
 class BaseModel: ObservableObject<BaseModel.BaseModelEvents> {
     
     enum BaseModelEvents {
-        case didCountryChanged(Country?)
+        case didCountryChanged(Country)
         case didWeatherChanged(Weather?)
     }
     

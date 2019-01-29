@@ -12,11 +12,10 @@ class WeatherViewController: UIViewController, RootViewRepresentable {
 
     typealias RootView = WeatherView
     
-    private let model: BaseModel
-    private let weatherManager = WeatherManager()
+    private let baseModel: BaseModel
     
     init(_ baseModel: BaseModel) {
-        self.model = baseModel
+        self.baseModel = baseModel
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -26,6 +25,13 @@ class WeatherViewController: UIViewController, RootViewRepresentable {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.weatherManager.loadData(baseModelItem: model)
+        
+        WeatherManager().loadData(baseModel: baseModel) { weather in
+            self.baseModel.weather.value = weather
+            
+            DispatchQueue.main.async {
+                self.rootView?.fillWeather(model: self.baseModel)
+            }
+        }
     }
 }

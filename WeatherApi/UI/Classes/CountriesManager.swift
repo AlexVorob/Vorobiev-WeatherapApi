@@ -30,6 +30,7 @@ class CountriesManager {
                 let countries = data
                     .filter { $0.capital.count > 0 }
                     .map { Country(json: $0) }
+                
                 execute(countries)
             }
         }

@@ -25,22 +25,3 @@ class DataModel: ObservableObject<BaseModel.BaseModelEvents> {
         }
     }
 }
-
-class Wrapper<Value>: ObservableObject<Value> {
-    
-    var value: Value {
-        didSet {
-            self.notify(state: self.value)
-        }
-    }
-    
-    init(_ value: Value) {
-        self.value = value
-    }
-    
-    public func update(_ action: (Value) -> ()) {
-        action(self.value)
-        
-        self.notify(state: self.value)
-    }
-}
