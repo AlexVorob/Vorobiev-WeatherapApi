@@ -22,7 +22,7 @@ fileprivate struct Constant {
 class DataManager<Value> where Value: Decodable {
 
     private let networkService = NetworkService<Value>()
-    private let model = Model()
+    private let model = DataModel()
     
     public func loadData(from url: URL, execute: @escaping (Value?, Error?) -> ()) {
         self.networkService.dataLoad(from: url) { data, error in

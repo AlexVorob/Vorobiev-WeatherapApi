@@ -20,9 +20,9 @@ class CountryTableViewCell: TableViewCell {
         let modelCountry = model.country
         let modelWeather = model.weather
         
-        self.capitalLabel?.text = modelCountry.capital
-        self.countryLabel?.text = modelCountry.name
-        self.temperatureLabel?.text = modelWeather?.temperature?.description ?? ""
-        self.dateLabel?.text = modelWeather?.date?.shortDescription ?? ""
+        self.capitalLabel?.text = modelCountry.value.capital
+        self.countryLabel?.text = modelCountry.value.name
+        self.temperatureLabel?.text = modelWeather.value?.temperature?.description ?? ""
+        self.dateLabel?.text = modelWeather.value?.date?.shortDescription ?? ""
     }
 }

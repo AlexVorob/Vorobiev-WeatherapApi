@@ -8,13 +8,31 @@
 
 import Foundation
 
-class BaseModel {
+class BaseModel: ObservableObject<BaseModel.BaseModelEvents> {
     
-    var country: Country
-    var weather: Weather?
+    enum BaseModelEvents {
+        case didCountryChanged(Country?)
+        case didWeatherChanged(Weather?)
+    }
     
-    init(country: Country) {
-        self.country = country
-        self.weather = nil
+    var country: Wrapper<Country>
+    var weather: Wrapper<Weather?>
+    
+    init(country: Country, weather: Weather? = nil) {
+        self.country = Wrapper(country)
+        self.weather = Wrapper(weather)
+        super.init()
+        
+        self.prepareNotification()
+    }
+    
+    func prepareNotification() {
+        _ = self.country.observer { country in
+            self.notify(state: .didCountryChanged(country))
+        }
+        
+        _ = self.weather.observer { weather in
+            self.notify(state: .didWeatherChanged(weather))
+        }
     }
 }

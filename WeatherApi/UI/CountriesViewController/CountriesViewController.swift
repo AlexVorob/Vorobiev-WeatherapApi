@@ -19,16 +19,13 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
     
     private let countriesManager = CountriesManager()
     
-//    private var model = Model() {
-//        didSet {
-//            dispatchOnMain {
-//                self.rootView?.tableView?.reloadData()
-//            }
-//        }
-//    }
+    private var model = DataModel() {
+        didSet {
+            self.dispatchOnMain()
+        }
+    }
 
     init() {
-        self.countriesManager.loadData()
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -41,36 +38,48 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
         self.navigationItem.title = Constant.title
         
         self.rootView?.tableView?.register(CountryTableViewCell.self)
-        self.dispatchOnMain()
+        
+        self.modelFilling()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.countriesManager.model.values.count
+        return self.model.values.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(cellClass: CountryTableViewCell.self, for: indexPath) {
-            $0.fillWithModel(model: self.countriesManager.model.values[indexPath.row])
+            $0.fillWithModel(model: self.model.values[indexPath.row])
         }
 
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let baseModelItem = self.countriesManager.model.values[indexPath.row]
+        let baseModelItem = self.model.values[indexPath.row]
         let weatherViewController = WeatherViewController(baseModelItem)
         
         self.navigationController?.pushViewController(weatherViewController, animated: true)
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.dispatchOnMain()
-    }
-    
     private func dispatchOnMain() {
         DispatchQueue.main.async {
             self.rootView?.tableView?.reloadData()
+        }
+    }
+    
+    private func modelFilling() {
+        self.countriesManager.loadData {
+            let data = $0.map {
+                BaseModel(country: $0)
+            }
+            self.model.observer {
+                switch $0 {
+                case .didCountryChanged(_): self.dispatchOnMain()
+                case .didWeatherChanged(_): break
+                }
+            }
+            
+            self.model = DataModel(values: data)
         }
     }
 }

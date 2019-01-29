@@ -41,7 +41,7 @@
 		5864009021EDE6F100AB75F0 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5864008F21EDE6F100AB75F0 /* TableViewCell.swift */; };
 		588129A221EF47DE000E48B4 /* UINib+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 588129A121EF47DE000E48B4 /* UINib+Extensions.swift */; };
 		588129A421EF4830000E48B4 /* UITableView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 588129A321EF4830000E48B4 /* UITableView+Extensions.swift */; };
-		588129A621EF7B45000E48B4 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 588129A521EF7B45000E48B4 /* Model.swift */; };
+		588129A621EF7B45000E48B4 /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 588129A521EF7B45000E48B4 /* DataModel.swift */; };
 		588C993A21EC82DB00E396DB /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 588C993921EC82DB00E396DB /* UIColor+Extensions.swift */; };
 		588C993C21EC8F2B00E396DB /* ColorRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 588C993B21EC8F2B00E396DB /* ColorRepresentable.swift */; };
 		588C993F21EC8FAD00E396DB /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 588C993E21EC8FAD00E396DB /* Color.swift */; };
@@ -112,7 +112,7 @@
 		5864008F21EDE6F100AB75F0 /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		588129A121EF47DE000E48B4 /* UINib+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINib+Extensions.swift"; sourceTree = "<group>"; };
 		588129A321EF4830000E48B4 /* UITableView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Extensions.swift"; sourceTree = "<group>"; };
-		588129A521EF7B45000E48B4 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		588129A521EF7B45000E48B4 /* DataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
 		588C993921EC82DB00E396DB /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
 		588C993B21EC8F2B00E396DB /* ColorRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorRepresentable.swift; sourceTree = "<group>"; };
 		588C993E21EC8FAD00E396DB /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
@@ -238,7 +238,7 @@
 			isa = PBXGroup;
 			children = (
 				5890B8A321F5BE0C00625C2E /* BaseModel.swift */,
-				588129A521EF7B45000E48B4 /* Model.swift */,
+				588129A521EF7B45000E48B4 /* DataModel.swift */,
 				580CA5BF21FB0AAB0096E878 /* Weather.swift */,
 				580CA5C121FB0B270096E878 /* Country.swift */,
 			);
@@ -517,7 +517,7 @@
 				5864009021EDE6F100AB75F0 /* TableViewCell.swift in Sources */,
 				5855E2AD21E73CE200A3D463 /* AppDelegate.swift in Sources */,
 				588129A421EF4830000E48B4 /* UITableView+Extensions.swift in Sources */,
-				588129A621EF7B45000E48B4 /* Model.swift in Sources */,
+				588129A621EF7B45000E48B4 /* DataModel.swift in Sources */,
 				580CA5C621FB3EA30096E878 /* CountriesManager.swift in Sources */,
 				588C993C21EC8F2B00E396DB /* ColorRepresentable.swift in Sources */,
 				582EDF7921E75F6500DDE595 /* CountriesView.swift in Sources */,

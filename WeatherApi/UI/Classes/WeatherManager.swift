@@ -18,7 +18,7 @@ fileprivate struct Constant {
     }
 }
 
-class WeatherManager {
+class WeatherManager: ObservableObject<Weather> {
     
     private let networkService = NetworkService<JSONWeather>()
     
@@ -31,14 +31,14 @@ class WeatherManager {
     }
     
     public func loadData(baseModelItem: BaseModel) {
-        guard let url = self.getURL(capital: baseModelItem.country.capital) else { return }
+        guard let url = self.getURL(capital: baseModelItem.country.value.capital) else { return }
         
         self.networkService.dataLoad(from: url) { model, error in
             guard let modelBase = model else { return }
             
             let newWeather = Weather(json: modelBase)
-            baseModelItem.weather = newWeather
-            baseModelItem.weather?.date = newWeather.date
+            baseModelItem.weather.value = newWeather
+            baseModelItem.weather.value?.date = newWeather.date
         }
     }
 }

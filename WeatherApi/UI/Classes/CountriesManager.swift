@@ -16,9 +16,8 @@ fileprivate struct Constant {
 class CountriesManager {
     
     private let networkService = NetworkService<[JSONCountry]>()
-    let model = Model()
-    
-    public func loadData() {
+
+    public func loadData(execute: @escaping ([Country]) -> ()) {
         let urlCountry = URL(string: Constant.countryApi)
         guard let url = urlCountry else { return }
         
@@ -27,10 +26,11 @@ class CountriesManager {
                 print(error?.localizedDescription ?? "")
             } else {
                 guard let data = data else { return }
-                
-                self.model.values = data
+    
+                let countries = data
                     .filter { $0.capital.count > 0 }
-                    .map { BaseModel(country: Country(json: $0)) }
+                    .map { Country(json: $0) }
+                execute(countries)
             }
         }
     }
