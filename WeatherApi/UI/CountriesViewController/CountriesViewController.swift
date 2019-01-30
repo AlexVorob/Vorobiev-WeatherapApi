@@ -39,7 +39,7 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
         
         self.rootView?.tableView?.register(CountryTableViewCell.self)
         
-        self.modelFilling()
+        self.modelFill()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -67,17 +67,14 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
         }
     }
     
-    private func modelFilling() {
+    private func modelFill() {
         self.countriesManager.loadData {
             let data = DataModel(values: $0.map {
                 BaseModel(country: $0)
             })
             
-            data.observer {
-                switch $0 {
-                case .didCountryChanged(_): self.dispatchOnMain()
-                case .didWeatherChanged(_): self.dispatchOnMain()
-                }
+            data.observer { _ in
+               self.dispatchOnMain()
             }
             
             self.model = data
