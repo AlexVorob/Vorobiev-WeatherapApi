@@ -268,6 +268,7 @@
 		5855E2AB21E73CE200A3D463 /* WeatherApi */ = {
 			isa = PBXGroup;
 			children = (
+				5864008921EDE12500AB75F0 /* Classes */,
 				588C993D21EC8F7800E396DB /* Resources */,
 				582EDF5021E7420100DDE595 /* Lib */,
 				5855E2DA21E73E7400A3D463 /* UI */,
@@ -301,7 +302,6 @@
 			isa = PBXGroup;
 			children = (
 				5890B8A521F5CB4100625C2E /* Structs */,
-				5864008921EDE12500AB75F0 /* Classes */,
 				582EDF7E21E7809500DDE595 /* Models */,
 				582EDF7321E75ED100DDE595 /* CountriesViewController */,
 				5855E2DB21E73E7A00A3D463 /* WeatherViewController */,

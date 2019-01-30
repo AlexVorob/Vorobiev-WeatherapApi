@@ -27,10 +27,11 @@ class WeatherViewController: UIViewController, RootViewRepresentable {
         super.viewDidLoad()
         
         WeatherManager().loadData(baseModel: baseModel) { weather in
-            self.baseModel.weather.value = weather
+            let model = self.baseModel
+            model.weather.value = weather
             
             DispatchQueue.main.async {
-                self.rootView?.fillWeather(model: self.baseModel)
+                self.rootView?.fillWeather(model: model)
             }
         }
     }
