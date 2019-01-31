@@ -12,7 +12,7 @@ class Wrapper<Value>: ObservableObject<Value> {
     
     var value: Value {
         didSet {
-            self.notify(state: self.value)
+            self.notify(self.value)
         }
     }
     
@@ -20,9 +20,9 @@ class Wrapper<Value>: ObservableObject<Value> {
         self.value = value
     }
     
-    public func update(_ action: (Value) -> ()) {
+    public func update(_ action: F.Completion<Value>) {
         action(self.value)
         
-        self.notify(state: self.value)
+        self.notify(self.value)
     }
 }

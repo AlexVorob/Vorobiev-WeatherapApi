@@ -1,27 +1,43 @@
 //
-//  Model.swift
+//  DataModel.swift
 //  WeatherApi
 //
-//  Created by Alex Vorobiev on 1/16/19.
+//  Created by Alex Vorobiev on 1/21/19.
 //  Copyright © 2019 Student. All rights reserved.
 //
 
 import Foundation
 
-class DataModel: ObservableObject<BaseModel.BaseModelEvents> {
-
-    var values: [BaseModel]
+class DataModel: ObservableObject<DataModel.Event> {
     
-    init(values: [BaseModel] = []) {
-        self.values = values
+    enum Event {
+        case didCountryChanged(Country)
+        case didWeatherChanged(Weather?)
+    }
+    
+    let countryWrapper: Wrapper<Country>
+    let weatherWrapper: Wrapper<Weather?>
+    
+    init(country: Country, weather: Weather? = nil) {
+        self.countryWrapper = Wrapper(country)
+        self.weatherWrapper = Wrapper(weather)
         
         super.init()
+        
         self.prepareNotification()
     }
     
+    convenience init(country: Country) {
+        self.init(country: country, weather: nil)
+    }
+    
     func prepareNotification() {
-        self.values.forEach { [weak self] model in
-            (self?.notify).do { _ = model.observer(handler: $0) }
+        _ = self.countryWrapper.observer { country in
+            self.notify(.didCountryChanged(country))
+        }
+        
+        _ = self.weatherWrapper.observer { weather in
+            self.notify(.didWeatherChanged(weather))
         }
     }
 }

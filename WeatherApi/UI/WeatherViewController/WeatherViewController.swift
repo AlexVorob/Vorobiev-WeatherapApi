@@ -8,30 +8,36 @@
 
 import UIKit
 
+fileprivate struct Constant {
+    
+    static let errorInit = "init(coder:) has not been implemented"
+}
+
 class WeatherViewController: UIViewController, RootViewRepresentable {
 
     typealias RootView = WeatherView
     
-    private let baseModel: BaseModel
+    private let dataModel: DataModel
     
-    init(_ baseModel: BaseModel) {
-        self.baseModel = baseModel
+    init(_ dataModel: DataModel) {
+        self.dataModel = dataModel
+        
         super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        fatalError(Constant.errorInit)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        WeatherManager().loadData(baseModel: baseModel) { weather in
-            let model = self.baseModel
-            model.weather.value = weather
+        WeatherManager().loadData(dataModel: dataModel) { weather in
+            let model = self.dataModel
+            model.weatherWrapper.value = weather
             
-            DispatchQueue.main.async {
-                self.rootView?.fillWeather(model: model)
+            dispatchOnMain {
+                self.rootView?.fillWeather(with: model)
             }
         }
     }

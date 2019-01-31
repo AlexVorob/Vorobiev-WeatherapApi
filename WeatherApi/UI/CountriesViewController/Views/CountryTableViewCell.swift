@@ -16,13 +16,13 @@ class CountryTableViewCell: TableViewCell {
     @IBOutlet var countryLabel: UILabel?
     @IBOutlet var capitalLabel: UILabel?
     
-    func fillWithModel(model: BaseModel) {
-        let modelCountry = model.country.value
-        let modelWeather = model.weather.value
+    func fillWithModel(_ model: DataModel) {
+        let modelCountry = model.countryWrapper.value
+        let modelWeather = model.weatherWrapper.value
         
         self.capitalLabel?.text = modelCountry.capital
         self.countryLabel?.text = modelCountry.name
-        self.temperatureLabel?.text = modelWeather?.temperature?.description ?? ""
-        self.dateLabel?.text = modelWeather?.date?.shortDescription ?? ""
+        self.temperatureLabel?.text = modelWeather?.temperature.celsius
+        self.dateLabel?.text = modelWeather?.date?.shortDescription
     }
 }

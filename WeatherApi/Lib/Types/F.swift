@@ -12,6 +12,7 @@ enum F {
     
     typealias Completion<Value> = (Value) -> ()
     typealias Execute<Result> = () -> Result
+    typealias Action = () -> ()
 }
 
 func when<Result>(_ condition: Bool, execute: F.Execute<Result?>) -> Result? {
@@ -24,4 +25,8 @@ func cast<Value, Result>(_ value: Value) -> Result? {
 
 func toString(_ cls: AnyClass) -> String {
     return String(describing: cls)
+}
+
+func dispatchOnMain(_ action: @escaping F.Action) {
+    DispatchQueue.main.async(execute: action)
 }

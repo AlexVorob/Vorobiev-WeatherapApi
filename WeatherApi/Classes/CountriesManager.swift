@@ -17,7 +17,7 @@ class CountriesManager {
     
     private let networkService = NetworkService<[JSONCountry]>()
 
-    public func loadData(execute: @escaping ([Country]) -> ()) {
+    public func loadData(execute: @escaping F.Completion<[Country]>) {
         let urlCountry = URL(string: Constant.countryApi)
         guard let url = urlCountry else { return }
         

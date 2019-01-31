@@ -30,8 +30,8 @@ class WeatherManager: ObservableObject<Weather> {
         return URL(string: url)
     }
     
-    public func loadData(baseModel: BaseModel, execute: @escaping (Weather) -> ()) {
-        guard let url = self.getURL(capital: baseModel.country.value.capital) else { return }
+    public func loadData(dataModel: DataModel, execute: @escaping F.Completion<Weather>) {
+        guard let url = self.getURL(capital: dataModel.countryWrapper.value.capital) else { return }
         
         self.networkService.dataLoad(from: url) { model, error in
             guard let modelBase = model else { return }

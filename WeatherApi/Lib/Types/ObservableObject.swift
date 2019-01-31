@@ -24,7 +24,7 @@ class ObservableObject<State> {
         }
     }
     
-    public func notify(state: State) {
+    public func notify(_ state: State) {
         self.atomicObservers.modify {
             $0 = $0.filter { $0.isObserving }
             $0.forEach { $0.handler(state) }

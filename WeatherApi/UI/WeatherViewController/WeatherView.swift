@@ -23,10 +23,8 @@ class WeatherView: UIView {
         self.temperature?.backgroundColor = Color.lightSand.opaque
     }
     
-    func fillWeather(model: BaseModel) {
-        self.country?.text = model.country.value.capital
-        model.weather.value?.temperature.do {
-            self.temperature?.text = String($0) + Constant.celsius
-        }
+    func fillWeather(with model: DataModel) {
+        self.country?.text = model.countryWrapper.value.capital
+        self.temperature?.text = model.weatherWrapper.value?.temperature.celsius
     }
 }

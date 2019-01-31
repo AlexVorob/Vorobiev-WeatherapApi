@@ -11,6 +11,7 @@ import UIKit
 fileprivate struct Constant {
     
     static let title = "Countries"
+    static let errorInit = "init(coder:) has not been implemented"
 }
 
 class CountriesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, RootViewRepresentable {
@@ -19,7 +20,7 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
     
     private let countriesManager = CountriesManager()
     
-    private var model = DataModel() {
+    private var model = DataModels() {
         didSet {
             self.dispatchOnMain()
         }
@@ -30,7 +31,7 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
     }
     
     required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        fatalError(Constant.errorInit)
     }
     
     override func viewDidLoad() {
@@ -48,7 +49,7 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(cellClass: CountryTableViewCell.self, for: indexPath) {
-            $0.fillWithModel(model: self.model.values[indexPath.row])
+            $0.fillWithModel(self.model.values[indexPath.row])
         }
 
         return cell
@@ -69,9 +70,7 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
     
     private func modelFill() {
         self.countriesManager.loadData {
-            let data = DataModel(values: $0.map {
-                BaseModel(country: $0)
-            })
+            let data = DataModels(values: $0.map(DataModel.init))
             
             data.observer { _ in
                self.dispatchOnMain()
