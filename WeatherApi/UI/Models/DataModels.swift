@@ -19,6 +19,10 @@ class DataModels: ObservableObject<DataModel.Event> {
         self.prepareNotification()
     }
     
+    convenience init(countries: [Country]) {
+        self.init(values: countries.map(DataModel.init))
+    }
+    
     func prepareNotification() {
         self.values.forEach { [weak self] model in
             (self?.notify).do { _ = model.observer(handler: $0) }

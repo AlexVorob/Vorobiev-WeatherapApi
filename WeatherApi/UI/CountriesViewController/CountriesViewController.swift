@@ -70,7 +70,7 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
     
     private func modelFill() {
         self.countriesManager.loadData {
-            let data = DataModels(values: $0.map(DataModel.init))
+            let data = DataModels(countries: $0)
             
             data.observer { _ in
                self.dispatchOnMain()
