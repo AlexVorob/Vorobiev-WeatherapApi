@@ -16,6 +16,7 @@ class DataModels: ObservableObject<DataModel.Event> {
         self.values = values
         
         super.init()
+        
         self.prepareNotification()
     }
     

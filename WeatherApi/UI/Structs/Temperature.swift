@@ -22,6 +22,7 @@ struct Temperature {
         guard let temp = temperature else { return "" }
         
         let tempFahrenheit = (temp * 1.8) + 32
+        
         return tempFahrenheit.description + UnitTemperature.fahrenheit.symbol
     }
 }
