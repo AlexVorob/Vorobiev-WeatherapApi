@@ -32,11 +32,11 @@ class DataModel: ObservableObject<DataModel.Event> {
     }
     
     func prepareNotification() {
-        _ = self.countryWrapper.observer { country in
+        self.countryWrapper.observer { country in
             self.notify(.didCountryChanged(country))
         }
         
-        _ = self.weatherWrapper.observer { weather in
+        self.weatherWrapper.observer { weather in
             self.notify(.didWeatherChanged(weather))
         }
     }

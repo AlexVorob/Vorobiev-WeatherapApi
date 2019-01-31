@@ -26,7 +26,7 @@ class DataModels: ObservableObject<DataModel.Event> {
     
     func prepareNotification() {
         self.values.forEach { [weak self] model in
-            (self?.notify).do { _ = model.observer(handler: $0) }
+            (self?.notify).do { model.observer(handler: $0) }
         }
     }
 }
