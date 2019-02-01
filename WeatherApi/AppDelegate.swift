@@ -19,7 +19,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         let window = UIWindow(frame: UIScreen.main.bounds)
-        window.rootViewController = UINavigationController(rootViewController: CountriesViewController())
+        
+        let countriesViewController = CountriesViewController(countriesManager: CountriesManager(), networkService: NetworkService<[JSONCountry]>(), model: DataModels())
+        
+        window.rootViewController = UINavigationController(rootViewController: countriesViewController)
         window.makeKeyAndVisible()
 
         self.window = window

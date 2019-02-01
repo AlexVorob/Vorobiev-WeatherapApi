@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NetworkService<ModelData: Decodable>: ObservableObject<NetworkService.State> {
+class NetworkService<ModelData: Decodable> {
     
     public enum State {
         case didStartLoading
@@ -16,7 +16,7 @@ class NetworkService<ModelData: Decodable>: ObservableObject<NetworkService.Stat
         case didFailedWithError(_ error: Error?)
     }
     
-    public func dataLoad(from url: URL, completion: @escaping (ModelData?, Error?) -> ()) {
+    public func getData(from url: URL, completion: @escaping (ModelData?, Error?) -> ()) {
         URLSession.shared.dataTask(with: url) { (data, response, error) in
             let dataParse = data.flatMap { try? JSONDecoder().decode(ModelData.self, from: $0) }
             completion(dataParse, nil)
@@ -24,5 +24,9 @@ class NetworkService<ModelData: Decodable>: ObservableObject<NetworkService.Stat
                 completion(nil, error)
             }
         }.resume()
+    }
+    
+    public func parse(modelData: ModelData) {
+        
     }
 }

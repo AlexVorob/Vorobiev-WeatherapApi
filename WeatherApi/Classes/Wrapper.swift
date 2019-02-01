@@ -9,20 +9,18 @@
 import Foundation
 
 class Wrapper<Value>: ObservableObject<Value> {
-    
-    var value: Value {
-        didSet {
-            self.notify(self.value)
-        }
-    }
-    
+
+    private let value: Value
+
     init(_ value: Value) {
         self.value = value
     }
     
-    public func update(_ action: F.Completion<Value>) {
-        action(self.value)
+    public func update<Result>(_ action: (Value) -> Result) -> Result {
+        defer {
+            self.notify(self.value)
+        }
         
-        self.notify(self.value)
+        return action(self.value)
     }
 }

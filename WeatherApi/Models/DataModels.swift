@@ -8,11 +8,17 @@
 
 import Foundation
 
-class DataModels: ObservableObject<DataModel.Event> {
+class DataModels: ObservableObject<DataModels.Event> {
 
-    let values: [DataModel]
+    enum Event {
+        case didChangedCountry(Country?)
+        case didDeletedCountry(Country)
+        case didAddedCountry(Country)
+    }
     
-    init(values: [DataModel] = []) {
+    var values: [Country]
+    
+    init(values: [Country] = []) {
         self.values = values
         
         super.init()
@@ -20,8 +26,22 @@ class DataModels: ObservableObject<DataModel.Event> {
         self.prepareNotification()
     }
     
-    convenience init(countries: [Country]) {
-        self.init(values: countries.map(DataModel.init))
+//    convenience init(countries: [Country]) {
+//        self.init(values: countries.map(DataModel.init))
+//    }
+    
+    func add(values: [Country]) {
+        self.values = values
+        self.notify(.didChangedCountry(nil))
+    }
+    
+    func removeAll() {
+        self.values = []
+    }
+    
+    subscript(index: Int) -> Wrapper<Country> {
+        get { return Wrapper(self.values[index]) }
+//        set { self.values[index] = newValue }
     }
     
     func prepareNotification() {

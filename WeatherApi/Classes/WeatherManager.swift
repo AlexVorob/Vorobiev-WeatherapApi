@@ -20,7 +20,13 @@ fileprivate struct Constant {
 
 class WeatherManager: ObservableObject<Weather> {
     
-    private let networkService = NetworkService<JSONWeather>()
+    private let networkService: NetworkService<JSONWeather>?
+    var country: Country?
+    
+    init(_ networkService: NetworkService<JSONWeather>) {
+        self.networkService = networkService
+//        self.country = country
+    }
     
     private func getURL(capital: String) -> URL? {
         let weatherPath = Constant.getApiLink(capital)
@@ -30,15 +36,16 @@ class WeatherManager: ObservableObject<Weather> {
         return URL(string: url)
     }
     
-    public func loadData(dataModel: DataModel, execute: @escaping F.Completion<Weather>) {
-        guard let url = self.getURL(capital: dataModel.countryWrapper.value.capital) else { return }
+    public func loadData(execute: @escaping F.Completion<Country>) {
+        guard let url = self.getURL(capital: self.country!.capital) else { return }
         
-        self.networkService.dataLoad(from: url) { model, error in
+        self.networkService?.getData(from: url) { model, error in
             guard let modelBase = model else { return }
             
-            let weather = Weather(json: modelBase)
+            self.country?.weather = Weather(json: modelBase)
+            // FIX: notify for update weather
             
-            execute(weather)
+            execute(self.country!)
         }
     }
 }

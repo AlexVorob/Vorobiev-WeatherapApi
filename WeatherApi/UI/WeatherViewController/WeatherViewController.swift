@@ -10,17 +10,17 @@ import UIKit
 
 fileprivate struct Constant {
     
-    static let errorInit = "init(coder:) has not been implemented"
+    static let errorInit = "inivaroder:) has not been implemented"
 }
 
 class WeatherViewController: UIViewController, RootViewRepresentable {
 
     typealias RootView = WeatherView
     
-    private let dataModel: DataModel
+    private let weatherManager: WeatherManager?
     
-    init(_ dataModel: DataModel) {
-        self.dataModel = dataModel
+    init(_ weatherManager: WeatherManager) {
+        self.weatherManager = weatherManager
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -32,12 +32,12 @@ class WeatherViewController: UIViewController, RootViewRepresentable {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        WeatherManager().loadData(dataModel: dataModel) { weather in
-            let model = self.dataModel
-            model.weatherWrapper.value = weather
+        self.weatherManager?.loadData() { country in
+//            let model = self.country
+//            model.weather = weather
             
             dispatchOnMain {
-                self.rootView?.fillWeather(with: model)
+                self.rootView?.fillWeather(with: country)
             }
         }
     }

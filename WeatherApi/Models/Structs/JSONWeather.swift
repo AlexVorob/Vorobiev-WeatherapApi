@@ -10,8 +10,9 @@ import Foundation
 
 public struct JSONWeather: Decodable {
     
-    public var dt: Int
-    public var main: Main
+    public let dt: Int
+    
+    public let main: Main
     
     public struct Main: Decodable {
         

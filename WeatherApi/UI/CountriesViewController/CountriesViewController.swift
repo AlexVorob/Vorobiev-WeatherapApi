@@ -11,27 +11,44 @@ import UIKit
 fileprivate struct Constant {
     
     static let title = "Countries"
-    static let errorInit = "init(coder:) has not been implemented"
 }
 
 class CountriesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, RootViewRepresentable {
     
     typealias RootView = CountriesView
     
-    private let countriesManager = CountriesManager()
+    private let countriesManager: CountriesManager
+    private let networkService: NetworkService<[JSONCountry]>
+    private var model: DataModels
     
-    private var model = DataModels() {
-        didSet {
-            self.dispatchOnMain()
-        }
-    }
-
-    init() {
+    private var cancelable = CompositeCancellableProperty()
+    
+//        didSet {
+//            self.dispatchOnMain()
+//        }
+    
+    init(countriesManager: CountriesManager, networkService: NetworkService<[JSONCountry]>, model: DataModels) {
+        
+        self.countriesManager = countriesManager
+        self.networkService = networkService
+        self.model = model
+        
         super.init(nibName: nil, bundle: nil)
+        
+        self.model.observer {
+            switch $0 {
+            case .didChangedCountry(_):
+                self.dispatchOnMain()
+            case .didDeletedCountry(_):
+                break
+            case .didAddedCountry(_):
+                break
+            }
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {
-        fatalError(Constant.errorInit)
+        fatalError("init(coder:) has not been implemented")
     }
     
     override func viewDidLoad() {
@@ -56,8 +73,12 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let baseModelItem = self.model.values[indexPath.row]
-        let weatherViewController = WeatherViewController(baseModelItem)
+        let country = self.model.values[indexPath.row]
+        
+        let networkService = NetworkService<JSONWeather>()
+        let weatherManager = WeatherManager(networkService)
+        weatherManager.country = country
+        let weatherViewController = WeatherViewController(weatherManager)
         
         self.navigationController?.pushViewController(weatherViewController, animated: true)
     }
@@ -69,14 +90,6 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
     }
     
     private func modelFill() {
-        self.countriesManager.loadData {
-            let data = DataModels(countries: $0)
-            
-            data.observer { _ in
-               self.dispatchOnMain()
-            }
-            
-            self.model = data
-        }
+        self.countriesManager.loadData(networkService: self.networkService, model: self.model)
     }
 }
