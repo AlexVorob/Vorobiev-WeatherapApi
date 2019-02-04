@@ -33,12 +33,16 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
         
         self.model.observer {
             switch $0 {
-            case .didChangedCountry(_):
-                self.dispatchOnMain()
+            case .didChangedCountry(_, let indexPath):
+                dispatchOnMain {
+                    self.rootView?.tableView?.reloadRows(at: [indexPath], with: .automatic)
+                }
             case .didDeletedCountry(_):
                 break
-            case .didAddedCountry(_):
-                break
+            case .didAppendCountry(_):
+                dispatchOnMain {
+                    self.rootView?.tableView?.reloadData()
+                }
             }
         }
     }
@@ -62,14 +66,20 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(cellClass: CountryTableViewCell.self, for: indexPath) {
-            $0.fillWithModel(self.model[indexPath.row].unWrap)
+            $0.fillWithModel(self.model[indexPath].unWrap)
         }
 
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let country = self.model[indexPath.row]
+        let country = self.model[indexPath]
+        
+//        country.observer {_ in
+//            DispatchQueue.main.async {
+//                self.rootView?.tableView?.reloadRows(at: [indexPath], with: .automatic)
+//            }
+//        }
         
         let networkService = NetworkService<JSONWeather>()
         let weatherManager = WeatherManager(networkService)
@@ -79,11 +89,11 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
         self.navigationController?.pushViewController(weatherViewController, animated: true)
     }
     
-    private func dispatchOnMain() {
-        DispatchQueue.main.async {
-            self.rootView?.tableView?.reloadData()
-        }
-    }
+//    private func dispatchOnMain() {
+//        DispatchQueue.main.async {
+//            self.rootView?.tableView?.reloadData()
+//        }
+//    }
     
     private func modelFill() {
         self.countriesManager.loadData(networkService: self.networkService, model: self.model)

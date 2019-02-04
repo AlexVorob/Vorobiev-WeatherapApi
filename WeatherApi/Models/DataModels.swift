@@ -11,9 +11,9 @@ import Foundation
 class DataModels: ObservableObject<DataModels.Event> {
 
     enum Event {
-        case didChangedCountry(Country?)
-        case didDeletedCountry(Country)
-        case didAddedCountry(Country)
+        case didChangedCountry(Country?, IndexPath)
+        case didDeletedCountry(Country?)
+        case didAppendCountry(Country?)
     }
     
     private var values: [Country]
@@ -26,41 +26,39 @@ class DataModels: ObservableObject<DataModels.Event> {
         self.values = values
         
         super.init()
-        
-        //self.prepareNotification()
     }
-    
-//    convenience init(countries: [Country]) {
-//        self.init(values: countries.map(DataModel.init))
-//    }
     
     func add(values: [Country]) {
         self.values = values
-        self.notify(.didChangedCountry(nil))
+        self.notify(.didAppendCountry(nil))
+    }
+    
+    func append(country: Country) {
+        self.values.append(country)
+        self.notify(.didAppendCountry(country))
+    }
+    
+    func removeAt(index: Int) {
+        self.values.remove(at: index)
+        self.notify(.didDeletedCountry(self.values[index]))
     }
     
     func removeAll() {
         self.values = []
     }
     
-    subscript(index: Int) -> Wrapper<Country> {
+    subscript(indexPath: IndexPath) -> Wrapper<Country> {
         get {
-            let wrapper = Wrapper(self.values[index])
+            let wrapper = Wrapper(self.values[indexPath.row])
             wrapper.observer {
-                self.notify(.didChangedCountry($0))
+                self.notify(.didChangedCountry($0, indexPath))
             }
             
             return wrapper
         }
         set {
-            self.values[index] = newValue.unWrap
-            self.notify(.didChangedCountry(newValue.unWrap))
+            self.values[indexPath.row] = newValue.unWrap
+            self.notify(.didChangedCountry(newValue.unWrap, indexPath))
         }
     }
-    
-//    func prepareNotification() {
-//        self.values.forEach { [weak self] model in
-//            (self?.notify).do { model.observer(handler: $0) }
-//        }
-//    }
 }
