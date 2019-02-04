@@ -22,11 +22,7 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
     private var model: DataModels
     
     private var cancelable = CompositeCancellableProperty()
-    
-//        didSet {
-//            self.dispatchOnMain()
-//        }
-    
+
     init(countriesManager: CountriesManager, networkService: NetworkService<[JSONCountry]>, model: DataModels) {
         
         self.countriesManager = countriesManager
@@ -61,23 +57,23 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.model.values.count
+        return self.model.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(cellClass: CountryTableViewCell.self, for: indexPath) {
-            $0.fillWithModel(self.model.values[indexPath.row])
+            $0.fillWithModel(self.model[indexPath.row].unWrap)
         }
 
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let country = self.model.values[indexPath.row]
+        let country = self.model[indexPath.row]
         
         let networkService = NetworkService<JSONWeather>()
-        let weatherManager = WeatherManager(networkService)
-        weatherManager.country = country
+        let weatherManager = WeatherManager(networkService, country)
+    
         let weatherViewController = WeatherViewController(weatherManager)
         
         self.navigationController?.pushViewController(weatherViewController, animated: true)

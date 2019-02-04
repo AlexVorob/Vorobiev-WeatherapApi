@@ -33,8 +33,6 @@ class CountriesManager {
                     .map { Country(json: $0, weather: nil) }
                 
                 model.add(values: countries)
-                
-                //execute(model)
             }
         }
     }

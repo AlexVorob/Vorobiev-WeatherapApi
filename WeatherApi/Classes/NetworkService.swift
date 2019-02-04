@@ -26,7 +26,7 @@ class NetworkService<ModelData: Decodable> {
         }.resume()
     }
     
-    public func parse(modelData: ModelData) {
-        
-    }
+//    public func parse(modelData: ModelData) {
+//        
+//    }
 }

@@ -16,14 +16,18 @@ class DataModels: ObservableObject<DataModels.Event> {
         case didAddedCountry(Country)
     }
     
-    var values: [Country]
+    private var values: [Country]
+    
+    public var count: Int {
+        return self.values.count
+    }
     
     init(values: [Country] = []) {
         self.values = values
         
         super.init()
         
-        self.prepareNotification()
+        //self.prepareNotification()
     }
     
 //    convenience init(countries: [Country]) {
@@ -40,13 +44,23 @@ class DataModels: ObservableObject<DataModels.Event> {
     }
     
     subscript(index: Int) -> Wrapper<Country> {
-        get { return Wrapper(self.values[index]) }
-//        set { self.values[index] = newValue }
-    }
-    
-    func prepareNotification() {
-        self.values.forEach { [weak self] model in
-            (self?.notify).do { model.observer(handler: $0) }
+        get {
+            let wrapper = Wrapper(self.values[index])
+            wrapper.observer {
+                self.notify(.didChangedCountry($0))
+            }
+            
+            return wrapper
+        }
+        set {
+            self.values[index] = newValue.unWrap
+            self.notify(.didChangedCountry(newValue.unWrap))
         }
     }
+    
+//    func prepareNotification() {
+//        self.values.forEach { [weak self] model in
+//            (self?.notify).do { model.observer(handler: $0) }
+//        }
+//    }
 }

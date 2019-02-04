@@ -8,11 +8,6 @@
 
 import UIKit
 
-fileprivate struct Constant {
-    
-    static let errorInit = "inivaroder:) has not been implemented"
-}
-
 class WeatherViewController: UIViewController, RootViewRepresentable {
 
     typealias RootView = WeatherView
@@ -26,16 +21,13 @@ class WeatherViewController: UIViewController, RootViewRepresentable {
     }
     
     required init?(coder aDecoder: NSCoder) {
-        fatalError(Constant.errorInit)
+        fatalError("inivaroder:) has not been implemented")
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.weatherManager?.loadData() { country in
-//            let model = self.country
-//            model.weather = weather
-            
             dispatchOnMain {
                 self.rootView?.fillWeather(with: country)
             }

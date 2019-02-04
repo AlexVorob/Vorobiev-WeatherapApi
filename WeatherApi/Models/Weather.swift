@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Weather: ObservableObject<Weather> {
+class Weather {
     
     private(set) var temperature = Temperature()
     let date: Date?

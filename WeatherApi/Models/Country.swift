@@ -11,7 +11,7 @@ import Foundation
 class Country: ObservableObject<DataModels.Event> {
     
     var weather: Weather?
-    
+
     let name: String
     let capital: String
 
@@ -22,12 +22,12 @@ class Country: ObservableObject<DataModels.Event> {
         
         super.init()
         
-        self.prepareNotification()
+//        self.prepareNotification()
     }
     
-    func prepareNotification() {
-        self.weather?.observer { weather in
-            self.notify(.didChangedCountry(self))
-        }
-    }
+//    func prepareNotification() {
+//        self.weather?.observer { weather in
+//            self.notify(.didChangedCountry(self))
+//        }
+//    }
 }

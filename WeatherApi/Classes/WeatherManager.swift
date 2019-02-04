@@ -18,14 +18,14 @@ fileprivate struct Constant {
     }
 }
 
-class WeatherManager: ObservableObject<Weather> {
+class WeatherManager {
     
     private let networkService: NetworkService<JSONWeather>?
-    var country: Country?
+    let country: Country
     
-    init(_ networkService: NetworkService<JSONWeather>) {
+    init(_ networkService: NetworkService<JSONWeather>,_ country: Country) {
         self.networkService = networkService
-//        self.country = country
+        self.country = country
     }
     
     private func getURL(capital: String) -> URL? {
@@ -37,15 +37,15 @@ class WeatherManager: ObservableObject<Weather> {
     }
     
     public func loadData(execute: @escaping F.Completion<Country>) {
-        guard let url = self.getURL(capital: self.country!.capital) else { return }
+        guard let url = self.getURL(capital: self.country.capital) else { return }
         
         self.networkService?.getData(from: url) { model, error in
             guard let modelBase = model else { return }
             
-            self.country?.weather = Weather(json: modelBase)
+            self.country.weather = Weather(json: modelBase)
             // FIX: notify for update weather
-            
-            execute(self.country!)
+            // wrapper country update(data) 
+            execute(self.country)
         }
     }
 }
