@@ -72,9 +72,9 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
         let country = self.model[indexPath.row]
         
         let networkService = NetworkService<JSONWeather>()
-        let weatherManager = WeatherManager(networkService, country)
+        let weatherManager = WeatherManager(networkService)
     
-        let weatherViewController = WeatherViewController(weatherManager)
+        let weatherViewController = WeatherViewController(weatherManager, country)
         
         self.navigationController?.pushViewController(weatherViewController, animated: true)
     }
