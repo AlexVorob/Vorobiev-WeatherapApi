@@ -21,9 +21,9 @@ fileprivate struct Constant {
 class WeatherManager {
     
     private let networkService: NetworkService<JSONWeather>?
-    let country: Country
+    let country: Wrapper<Country>
     
-    init(_ networkService: NetworkService<JSONWeather>,_ country: Country) {
+    init(_ networkService: NetworkService<JSONWeather>,_ country: Wrapper<Country>) {
         self.networkService = networkService
         self.country = country
     }
@@ -37,15 +37,19 @@ class WeatherManager {
     }
     
     public func loadData(execute: @escaping F.Completion<Country>) {
-        guard let url = self.getURL(capital: self.country.capital) else { return }
+        guard let url = self.getURL(capital: self.country.unWrap.capital) else { return }
         
         self.networkService?.getData(from: url) { model, error in
             guard let modelBase = model else { return }
             
-            self.country.weather = Weather(json: modelBase)
+            self.country.update {
+                $0.weather = Weather(date: Date(timeIntervalSince1970: TimeInterval(modelBase.dt)), temperature: modelBase.main.temp ?? 0)
+            }
+
             // FIX: notify for update weather
             // wrapper country update(data) 
-            execute(self.country)
+            
+            execute(self.country.unWrap)
         }
     }
 }

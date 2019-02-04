@@ -15,19 +15,11 @@ class Country: ObservableObject<DataModels.Event> {
     let name: String
     let capital: String
 
-    init(json: JSONCountry, weather: Weather?) {
-        self.name = json.name
-        self.capital = json.capital
+    init(name: String, capital: String, weather: Weather?) {
+        self.name = name
+        self.capital = capital
         self.weather = nil
         
         super.init()
-        
-//        self.prepareNotification()
     }
-    
-//    func prepareNotification() {
-//        self.weather?.observer { weather in
-//            self.notify(.didChangedCountry(self))
-//        }
-//    }
 }

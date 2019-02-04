@@ -30,7 +30,7 @@ class CountriesManager {
     
                 let countries = data
                     .filter { $0.capital.count > 0 }
-                    .map { Country(json: $0, weather: nil) }
+                    .map { Country(name: $0.name, capital: $0.capital, weather: nil) }
                 
                 model.add(values: countries)
             }
