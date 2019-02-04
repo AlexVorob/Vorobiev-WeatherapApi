@@ -21,7 +21,7 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
     private let networkService: NetworkService<[JSONCountry]>
     private var model: DataModels
     
-    private var cancelable = CompositeCancellableProperty()
+    private var cancelable = CancellableProperty()
 
     init(countriesManager: CountriesManager, networkService: NetworkService<[JSONCountry]>, model: DataModels) {
         
@@ -31,18 +31,9 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
         
         super.init(nibName: nil, bundle: nil)
         
-        self.model.observer {
-            switch $0 {
-            case .didChangedCountry(_, let indexPath):
-                dispatchOnMain {
-                    self.rootView?.tableView?.reloadRows(at: [indexPath], with: .automatic)
-                }
-            case .didDeletedCountry(_):
-                break
-            case .didAppendCountry(_):
-                dispatchOnMain {
-                    self.rootView?.tableView?.reloadData()
-                }
+        cancelable.value = self.model.observer {_ in
+            dispatchOnMain {
+                self.rootView?.tableView?.reloadData()
             }
         }
     }
@@ -66,34 +57,27 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(cellClass: CountryTableViewCell.self, for: indexPath) {
-            $0.fillWithModel(self.model[indexPath].unWrap)
+            $0.fillWithModel(self.model[indexPath.row].unWrap)
         }
 
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let country = self.model[indexPath]
+        let country = self.model[indexPath.row]
         
-//        country.observer {_ in
-//            DispatchQueue.main.async {
-//                self.rootView?.tableView?.reloadRows(at: [indexPath], with: .automatic)
-//            }
-//        }
+        cancelable.value = country.observer {_ in
+            DispatchQueue.main.async {
+                self.rootView?.tableView?.reloadRows(at: [indexPath], with: .automatic)
+            }
+        }
         
         let networkService = NetworkService<JSONWeather>()
         let weatherManager = WeatherManager(networkService)
-    
         let weatherViewController = WeatherViewController(weatherManager, country)
         
         self.navigationController?.pushViewController(weatherViewController, animated: true)
     }
-    
-//    private func dispatchOnMain() {
-//        DispatchQueue.main.async {
-//            self.rootView?.tableView?.reloadData()
-//        }
-//    }
     
     private func modelFill() {
         self.countriesManager.loadData(networkService: self.networkService, model: self.model)

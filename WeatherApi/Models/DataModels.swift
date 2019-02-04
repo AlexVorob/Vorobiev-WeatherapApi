@@ -11,7 +11,7 @@ import Foundation
 class DataModels: ObservableObject<DataModels.Event> {
 
     enum Event {
-        case didChangedCountry(Country?, IndexPath)
+        case didChangedCountry(Country?)
         case didDeletedCountry(Country?)
         case didAppendCountry(Country?)
     }
@@ -47,18 +47,18 @@ class DataModels: ObservableObject<DataModels.Event> {
         self.values = []
     }
     
-    subscript(indexPath: IndexPath) -> Wrapper<Country> {
+    subscript(index: Int) -> Wrapper<Country> {
         get {
-            let wrapper = Wrapper(self.values[indexPath.row])
+            let wrapper = Wrapper(self.values[index])
             wrapper.observer {
-                self.notify(.didChangedCountry($0, indexPath))
+                self.notify(.didChangedCountry($0))
             }
             
             return wrapper
         }
         set {
-            self.values[indexPath.row] = newValue.unWrap
-            self.notify(.didChangedCountry(newValue.unWrap, indexPath))
+            self.values[index] = newValue.unWrap
+            self.notify(.didChangedCountry(newValue.unWrap))
         }
     }
 }
