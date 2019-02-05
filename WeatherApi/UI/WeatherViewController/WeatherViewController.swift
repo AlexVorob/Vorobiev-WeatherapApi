@@ -35,6 +35,6 @@ class WeatherViewController: UIViewController, RootViewRepresentable {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.weatherManager?.loadData(country: self.country)
+        self.weatherManager?.modelFilling(country: self.country)
     }
 }

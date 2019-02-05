@@ -42,7 +42,7 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
             }
         }
         
-        self.model.append(country: Country(name: "Ukraine", capital: "Kryvyy Rih", weather: nil))
+        self.model.append(country: Country(name: "Ukraine", capital: "Kryvyy Rih"))
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -87,6 +87,6 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
     }
     
     private func modelFill() {
-        self.countriesManager.loadData(networkService: self.networkService, model: self.model)
+        self.countriesManager.modelFilling(networkService: self.networkService, model: self.model)
     }
 }

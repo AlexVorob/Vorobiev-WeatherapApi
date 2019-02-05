@@ -15,10 +15,9 @@ class Country: ObservableObject<DataModels.Event> {
     let name: String
     let capital: String
 
-    init(name: String, capital: String, weather: Weather?) {
+    init(name: String, capital: String, weather: Weather? = nil) {
         self.name = name
         self.capital = capital
-        self.weather = nil
         
         super.init()
     }

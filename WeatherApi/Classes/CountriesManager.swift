@@ -15,7 +15,7 @@ fileprivate struct Constant {
 
 class CountriesManager {
     
-    public func loadData(
+    public func modelFilling(
         networkService: NetworkService<[JSONCountry]>,
         model: DataModels
     ) {

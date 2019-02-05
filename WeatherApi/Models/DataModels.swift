@@ -57,8 +57,10 @@ class DataModels: ObservableObject<DataModels.Event> {
             return wrapper
         }
         set {
-            self.values[index] = newValue.unwrap
-            self.notify(.didChangedCountry(newValue.unwrap))
+            let valueUnwrapped = newValue.unwrap
+            
+            self.values[index] = valueUnwrapped
+            self.notify(.didChangedCountry(valueUnwrapped))
         }
     }
 }
