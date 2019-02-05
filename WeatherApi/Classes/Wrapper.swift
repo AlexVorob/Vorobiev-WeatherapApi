@@ -10,12 +10,12 @@ import Foundation
 
 class Wrapper<Value>: ObservableObject<Value> {
 
-    public var unWrap: Value {
+    public var unwrap: Value {
         return self.value
     }
     
     private let value: Value
-
+    
     init(_ value: Value) {
         self.value = value
     }

@@ -31,11 +31,12 @@ class WeatherManager {
         let urlWeather = weatherPath.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
         
         guard let url = urlWeather else { return nil }
+        
         return URL(string: url)
     }
     
     public func loadData(country: Wrapper<Country>) {
-        guard let url = self.getURL(capital: country.unWrap.capital) else { return }
+        guard let url = self.getURL(capital: country.unwrap.capital) else { return }
         
         self.networkService?.getData(from: url) { model, error in
             guard let modelBase = model else { return }

@@ -31,11 +31,18 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
         
         super.init(nibName: nil, bundle: nil)
         
-        cancelable.value = self.model.observer {_ in
-            dispatchOnMain {
-                self.rootView?.tableView?.reloadData()
+        self.cancelable.value = self.model.observer {
+            switch $0 {
+            case .didChangedCountry(_): break
+            case .didDeletedCountry(_): break
+            case .didAppendCountry(_):
+                dispatchOnMain {
+                    self.rootView?.tableView?.reloadData()
+                }
             }
         }
+        
+        self.model.append(country: Country(name: "Ukraine", capital: "Kryvyy Rih", weather: nil))
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -57,7 +64,7 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(cellClass: CountryTableViewCell.self, for: indexPath) {
-            $0.fillWithModel(self.model[indexPath.row].unWrap)
+            $0.fillWithModel(self.model[indexPath.row].unwrap)
         }
 
         return cell
@@ -66,8 +73,8 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let country = self.model[indexPath.row]
         
-        cancelable.value = country.observer {_ in
-            DispatchQueue.main.async {
+        country.observer {_ in
+            dispatchOnMain {
                 self.rootView?.tableView?.reloadRows(at: [indexPath], with: .automatic)
             }
         }

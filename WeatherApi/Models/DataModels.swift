@@ -29,7 +29,7 @@ class DataModels: ObservableObject<DataModels.Event> {
     }
     
     func add(values: [Country]) {
-        self.values = values
+        self.values += values
         self.notify(.didAppendCountry(nil))
     }
     
@@ -57,8 +57,8 @@ class DataModels: ObservableObject<DataModels.Event> {
             return wrapper
         }
         set {
-            self.values[index] = newValue.unWrap
-            self.notify(.didChangedCountry(newValue.unWrap))
+            self.values[index] = newValue.unwrap
+            self.notify(.didChangedCountry(newValue.unwrap))
         }
     }
 }

@@ -13,9 +13,9 @@ class WeatherViewController: UIViewController, RootViewRepresentable {
     typealias RootView = WeatherView
     
     private let weatherManager: WeatherManager?
-    let country: Wrapper<Country>
+    private let country: Wrapper<Country>
     
-    init(_ weatherManager: WeatherManager, _ country: Wrapper<Country>) {
+    init(_ weatherManager: WeatherManager,_ country: Wrapper<Country>) {
         self.weatherManager = weatherManager
         self.country = country
         
@@ -23,7 +23,7 @@ class WeatherViewController: UIViewController, RootViewRepresentable {
         
         self.country.observer {_ in
             dispatchOnMain {
-                self.rootView?.fillWeather(with: self.country.unWrap)
+                self.rootView?.fillWeather(with: self.country.unwrap)
             }
         }
     }
@@ -35,6 +35,6 @@ class WeatherViewController: UIViewController, RootViewRepresentable {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.weatherManager?.loadData(country: self.country) 
+        self.weatherManager?.loadData(country: self.country)
     }
 }
