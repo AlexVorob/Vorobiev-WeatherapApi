@@ -30,3 +30,11 @@ func toString(_ cls: AnyClass) -> String {
 func dispatchOnMain(_ action: @escaping F.Action) {
     DispatchQueue.main.async(execute: action)
 }
+
+@discardableResult
+func side<Value>(_ value: Value, execute: (inout Value) -> ()) -> Value {
+    var mutableValue = value
+    execute(&mutableValue)
+    
+    return mutableValue
+}

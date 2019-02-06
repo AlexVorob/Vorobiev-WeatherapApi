@@ -28,12 +28,21 @@ class CountriesNetworkService {
             } else {
                 guard let data = data else { return }
     
-                let countries = data
-                    .filter { $0.capital.count > 0 }
-                    .map { Country(name: $0.name, capital: $0.capital) }
+                //let countries = data.map(WeatherApi.countries)
+                let countries = WeatherApi.countries(data)
                 
                 model.add(values: countries)
             }
         }
     }
+}
+
+fileprivate let countries: ([JSONCountry]) -> [Country] = { jsons in
+    jsons
+        .filter { $0.capital.count > 0 }
+        .map (country)
+}
+
+fileprivate let country: (JSONCountry) -> Country = { json in
+    Country(name: json.name, capital: json.capital)
 }

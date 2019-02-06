@@ -39,15 +39,17 @@ class WeatherNetworkService {
         guard let url = self.getURL(capital: country.unwrap.capital) else { return }
         
         self.networkService?.getData(from: url) { model, error in
-            guard let modelBase = model else { return }
+            guard let weatherModel = model else { return }
             
-            let weather = Weather(
-                date: Date(timeIntervalSince1970: TimeInterval(modelBase.dt)),
-                temperature: modelBase.main.temp ?? 0)
-            
-            country.update {
-                $0.weather = weather
+            side(weather(weatherModel)) { weather in
+                country.update { $0.weather = weather }
             }
         }
     }
+}
+
+fileprivate let weather: (JSONWeather) -> Weather = {
+    Weather(
+        date: Date(timeIntervalSince1970: TimeInterval($0.dt)),
+        temperature: $0.main.temp ?? 0)
 }

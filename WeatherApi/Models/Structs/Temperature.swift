@@ -14,11 +14,11 @@ struct Temperature {
     
     public var celsius: String {
         
-        return temperature.map { $0.description + UnitTemperature.celsius.symbol } ?? "0"
+        return temperature.map { $0.description + UnitTemperature.celsius.symbol } ?? "no data"
     }
     
     public var fahrenheit: String {
         
-        return temperature.map { (($0 * 1.8) + 32).description + UnitTemperature.fahrenheit.symbol } ?? "0"
+        return temperature.map { (($0 * 1.8) + 32).description + UnitTemperature.fahrenheit.symbol } ?? "no data"
     }
 }
