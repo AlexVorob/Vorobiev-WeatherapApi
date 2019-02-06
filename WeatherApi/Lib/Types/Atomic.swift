@@ -1,6 +1,6 @@
 //
 //  Atomic.swift
-//  UI Task
+//  WeatherApi
 //
 //  Created by Alex Vorobiev on 12/28/18.
 //  Copyright © 2018 Student. All rights reserved.

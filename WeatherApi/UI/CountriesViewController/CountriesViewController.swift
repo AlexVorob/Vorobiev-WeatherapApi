@@ -17,13 +17,12 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
     
     typealias RootView = CountriesView
     
-    private let countriesManager: CountriesManager
-    private let networkService: NetworkService<[JSONCountry]>
-    private var model: DataModels
-    
-    private var cancelable = CancellableProperty()
+    private let countriesManager: CountriesNetworkService
+    private let networkService: RequestService<[JSONCountry]>
+    private let model: CountriesModel
+    private let cancelable = CancellableProperty()
 
-    init(countriesManager: CountriesManager, networkService: NetworkService<[JSONCountry]>, model: DataModels) {
+    init(countriesManager: CountriesNetworkService, networkService: RequestService<[JSONCountry]>, model: CountriesModel) {
         
         self.countriesManager = countriesManager
         self.networkService = networkService
@@ -31,13 +30,13 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
         
         super.init(nibName: nil, bundle: nil)
         
-        self.cancelable.value = self.model.observer {
+        self.cancelable.value = self.model.observer { [weak self] in
             switch $0 {
-            case .didChangedCountry(_): break
-            case .didDeletedCountry(_): break
-            case .didAppendCountry(_):
+            case .didChangedCountry: break
+            case .didDeletedCountry: break
+            case .didAppendCountry:
                 dispatchOnMain {
-                    self.rootView?.tableView?.reloadData()
+                    self?.rootView?.tableView?.reloadData()
                 }
             }
         }
@@ -79,8 +78,8 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
             }
         }
         
-        let networkService = NetworkService<JSONWeather>()
-        let weatherManager = WeatherManager(networkService)
+        let networkService = RequestService<JSONWeather>()
+        let weatherManager = WeatherNetworkService(networkService)
         let weatherViewController = WeatherViewController(weatherManager, country)
         
         self.navigationController?.pushViewController(weatherViewController, animated: true)

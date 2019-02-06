@@ -13,11 +13,11 @@ fileprivate struct Constant {
     static let countryApi = "https://restcountries.eu/rest/v2/all"
 }
 
-class CountriesManager {
+class CountriesNetworkService {
     
     public func modelFilling(
-        networkService: NetworkService<[JSONCountry]>,
-        model: DataModels
+        networkService: RequestService<[JSONCountry]>,
+        model: CountriesModel
     ) {
         let urlCountry = URL(string: Constant.countryApi)
         guard let url = urlCountry else { return }
@@ -30,7 +30,7 @@ class CountriesManager {
     
                 let countries = data
                     .filter { $0.capital.count > 0 }
-                    .map { Country(name: $0.name, capital: $0.capital, weather: nil) }
+                    .map { Country(name: $0.name, capital: $0.capital) }
                 
                 model.add(values: countries)
             }

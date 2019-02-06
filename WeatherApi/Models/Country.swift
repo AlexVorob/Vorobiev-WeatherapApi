@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Country: ObservableObject<DataModels.Event> {
+class Country: ObservableObject<CountriesModel.Event> {
     
     var weather: Weather?
 

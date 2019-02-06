@@ -8,7 +8,7 @@
 
 import Foundation
 
-class DataModels: ObservableObject<DataModels.Event> {
+class CountriesModel: ObservableObject<CountriesModel.Event> {
 
     enum Event {
         case didChangedCountry(Country?)
@@ -47,9 +47,9 @@ class DataModels: ObservableObject<DataModels.Event> {
         self.values = []
     }
     
-    subscript(index: Int) -> Wrapper<Country> {
+    subscript(index: Int) -> ObservableWrapper<Country> {
         get {
-            let wrapper = Wrapper(self.values[index])
+            let wrapper = ObservableWrapper(self.values[index])
             wrapper.observer {
                 self.notify(.didChangedCountry($0))
             }

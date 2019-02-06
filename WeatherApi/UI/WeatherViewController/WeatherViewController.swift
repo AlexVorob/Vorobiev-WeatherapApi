@@ -12,10 +12,10 @@ class WeatherViewController: UIViewController, RootViewRepresentable {
 
     typealias RootView = WeatherView
     
-    private let weatherManager: WeatherManager?
-    private let country: Wrapper<Country>
+    private let weatherManager: WeatherNetworkService?
+    private let country: ObservableWrapper<Country>
     
-    init(_ weatherManager: WeatherManager,_ country: Wrapper<Country>) {
+    init(_ weatherManager: WeatherNetworkService,_ country: ObservableWrapper<Country>) {
         self.weatherManager = weatherManager
         self.country = country
         

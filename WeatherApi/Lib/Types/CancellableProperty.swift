@@ -1,6 +1,6 @@
 //
 //  CancellableProperty.swift
-//  Car wash
+//  WeatherApi
 //
 //  Created by Student on 12/24/18.
 //  Copyright © 2018 IDAP. All rights reserved.

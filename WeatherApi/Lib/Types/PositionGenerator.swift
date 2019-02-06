@@ -1,6 +1,6 @@
 //
 //  PositionGenerator.swift
-//  UI Task
+//  WeatherApi
 //
 //  Created by Alex Vorobiev on 1/3/19.
 //  Copyright © 2019 Student. All rights reserved.
