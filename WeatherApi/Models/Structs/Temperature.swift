@@ -13,16 +13,12 @@ struct Temperature {
     var temperature: Double?
     
     public var celsius: String {
-        guard let temp = temperature else { return "" }
         
-        return temp.description + UnitTemperature.celsius.symbol
+        return temperature.map { $0.description + UnitTemperature.celsius.symbol } ?? "0"
     }
     
     public var fahrenheit: String {
-        guard let temp = temperature else { return "" }
         
-        let tempFahrenheit = (temp * 1.8) + 32
-        
-        return tempFahrenheit.description + UnitTemperature.fahrenheit.symbol
+        return temperature.map { (($0 * 1.8) + 32).description + UnitTemperature.fahrenheit.symbol } ?? "0"
     }
 }

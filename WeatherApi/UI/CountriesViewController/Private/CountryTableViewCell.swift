@@ -17,9 +17,6 @@ class CountryTableViewCell: TableViewCell {
     @IBOutlet var capitalLabel: UILabel?
     
     func fillWithModel(_ model: Country) {
-        //let modelCountry = model.countryWrapper.value
-        //let modelWeather = model.weatherWrapper.value
-        
         self.capitalLabel?.text = model.capital
         self.countryLabel?.text = model.name
         self.temperatureLabel?.text = model.weather?.temperature.celsius
