@@ -14,7 +14,7 @@ fileprivate struct Constant {
     static let weatherApiId = "&units=metric&APPID=ac6d05234841cc6b76ed2a4fcfda2b6b"
 
     static var getApiLink: (String) -> String = {
-        return weatherApi + $0 + weatherApiId
+        return $0 + weatherApiId
     }
 }
 
@@ -28,9 +28,10 @@ class WeatherNetworkService {
     
     private func getURL(capital: String) -> URL? {
         let weatherPath = Constant.getApiLink(capital)
+        
         return weatherPath
             .addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
-            .flatMap { URL(string: $0) }
+            .flatMap { URL(string: Constant.weatherApi + $0) }
     }
     
     public func modelFilling(country: ObservableWrapper<Country>) {

@@ -14,10 +14,18 @@ class WeatherViewController: UIViewController, RootViewRepresentable {
     
     private var weatherNetworkService: WeatherNetworkService {
         didSet {
-            
+            self.weatherNetworkService.modelFilling(country: self.countryObservableWrapper)
         }
     }
-    private let countryObservableWrapper: ObservableWrapper<Country>
+    
+    private var countryObservableWrapper: ObservableWrapper<Country> {
+        didSet {
+            dispatchOnMain {
+                self.rootView?.fillWeather(with: self.countryObservableWrapper.unwrap)
+            }
+        }
+    }
+    
     private let cancellableWeatherObserver = CancellableProperty()
     
     init(_ weatherManager: WeatherNetworkService,_ country: ObservableWrapper<Country>) {
