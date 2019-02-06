@@ -12,18 +12,23 @@ class WeatherViewController: UIViewController, RootViewRepresentable {
 
     typealias RootView = WeatherView
     
-    private let weatherManager: WeatherNetworkService?
-    private let country: ObservableWrapper<Country>
+    private var weatherNetworkService: WeatherNetworkService {
+        didSet {
+            
+        }
+    }
+    private let countryObservableWrapper: ObservableWrapper<Country>
+    private let cancellableWeatherObserver = CancellableProperty()
     
     init(_ weatherManager: WeatherNetworkService,_ country: ObservableWrapper<Country>) {
-        self.weatherManager = weatherManager
-        self.country = country
+        self.weatherNetworkService = weatherManager
+        self.countryObservableWrapper = country
         
         super.init(nibName: nil, bundle: nil)
         
-        self.country.observer {_ in
+        self.cancellableWeatherObserver.value = self.countryObservableWrapper.observer {_ in
             dispatchOnMain {
-                self.rootView?.fillWeather(with: self.country.unwrap)
+                self.rootView?.fillWeather(with: self.countryObservableWrapper.unwrap)
             }
         }
     }
@@ -35,6 +40,6 @@ class WeatherViewController: UIViewController, RootViewRepresentable {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.weatherManager?.modelFilling(country: self.country)
+        self.weatherNetworkService.modelFilling(country: self.countryObservableWrapper)
     }
 }

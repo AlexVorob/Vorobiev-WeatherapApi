@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let window = UIWindow(frame: UIScreen.main.bounds)
         
-        let countriesViewController = CountriesViewController(countriesManager: CountriesNetworkService(), networkService: RequestService<[JSONCountry]>(), model: CountriesModel())
+        let countriesViewController = CountriesViewController(countriesManager: CountriesNetworkService(), networkService: RequestService(), model: CountriesModel())
         
         window.rootViewController = UINavigationController(rootViewController: countriesViewController)
         window.makeKeyAndVisible()

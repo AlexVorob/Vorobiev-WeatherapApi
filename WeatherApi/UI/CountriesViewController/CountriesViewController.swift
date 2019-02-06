@@ -18,11 +18,11 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
     typealias RootView = CountriesView
     
     private let countriesManager: CountriesNetworkService
-    private let networkService: RequestService<[JSONCountry]>
+    private let networkService: RequestService
     private let model: CountriesModel
     private let cancelable = CancellableProperty()
 
-    init(countriesManager: CountriesNetworkService, networkService: RequestService<[JSONCountry]>, model: CountriesModel) {
+    init(countriesManager: CountriesNetworkService, networkService: RequestService, model: CountriesModel) {
         
         self.countriesManager = countriesManager
         self.networkService = networkService
@@ -78,7 +78,7 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
             }
         }
         
-        let networkService = RequestService<JSONWeather>()
+        let networkService = RequestService()
         let weatherManager = WeatherNetworkService(networkService)
         let weatherViewController = WeatherViewController(weatherManager, country)
         
@@ -86,6 +86,6 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
     }
     
     private func modelFill() {
-        self.countriesManager.modelFilling(networkService: self.networkService, model: self.model)
+        self.countriesManager.modelFilling(requestService: self.networkService, model: self.model)
     }
 }

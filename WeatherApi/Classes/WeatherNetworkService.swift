@@ -20,29 +20,28 @@ fileprivate struct Constant {
 
 class WeatherNetworkService {
     
-    private let networkService: RequestService<JSONWeather>?
+    private let networkService: RequestService?
     
-    init(_ networkService: RequestService<JSONWeather>) {
+    init(_ networkService: RequestService) {
         self.networkService = networkService
     }
     
     private func getURL(capital: String) -> URL? {
         let weatherPath = Constant.getApiLink(capital)
-        let urlWeather = weatherPath.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
-        
-        guard let url = urlWeather else { return nil }
-        
-        return URL(string: url)
+        return weatherPath
+            .addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+            .flatMap { URL(string: $0) }
     }
     
     public func modelFilling(country: ObservableWrapper<Country>) {
         guard let url = self.getURL(capital: country.unwrap.capital) else { return }
         
         self.networkService?.getData(from: url) { model, error in
-            guard let weatherModel = model else { return }
-            
-            side(weather(weatherModel)) { weather in
-                country.update { $0.weather = weather }
+            model
+                .flatMap { try? JSONDecoder().decode(JSONWeather.self, from: $0) }
+                .do { side(weather($0)) { weather in
+                    country.update { $0.weather = weather }
+                    }
             }
         }
     }
@@ -51,5 +50,5 @@ class WeatherNetworkService {
 fileprivate let weather: (JSONWeather) -> Weather = {
     Weather(
         date: Date(timeIntervalSince1970: TimeInterval($0.dt)),
-        temperature: $0.main.temp ?? 0)
+        temperature: $0.main.temp)
 }

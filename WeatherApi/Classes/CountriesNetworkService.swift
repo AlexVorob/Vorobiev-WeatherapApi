@@ -16,22 +16,19 @@ fileprivate struct Constant {
 class CountriesNetworkService {
     
     public func modelFilling(
-        networkService: RequestService<[JSONCountry]>,
+        requestService: RequestService,
         model: CountriesModel
     ) {
         let urlCountry = URL(string: Constant.countryApi)
         guard let url = urlCountry else { return }
         
-        networkService.getData(from: url) { data, error in
+        requestService.getData(from: url) { data, error in
             if error != nil {
                 print(error?.localizedDescription ?? "")
             } else {
-                guard let data = data else { return }
-    
-                //let countries = data.map(WeatherApi.countries)
-                let countries = WeatherApi.countries(data)
-                
-                model.add(values: countries)
+                 data
+                    .flatMap { try? JSONDecoder().decode([JSONCountry].self, from: $0) }
+                    .do { model.add(values: WeatherApi.countries($0)) }
             }
         }
     }

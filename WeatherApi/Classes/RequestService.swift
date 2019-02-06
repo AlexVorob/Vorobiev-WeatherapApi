@@ -8,7 +8,7 @@
 
 import UIKit
 
-class RequestService<ModelData: Decodable> {
+class RequestService {
     
     public enum State {
         case didStartLoading
@@ -16,16 +16,15 @@ class RequestService<ModelData: Decodable> {
         case didFailedWithError(_ error: Error?)
     }
     
-    public func getData(from url: URL, completion: @escaping (ModelData?, Error?) -> ()) {
+    public func getData(from url: URL, completion: @escaping (Data?, Error?) -> ()) {
         URLSession.shared
             .dataTask(with: url) { (data, response, error) in
-                if error != nil {
-                    completion(nil, error)
-                } else {
-                    let dataParse = data.flatMap { try? JSONDecoder().decode(ModelData.self, from: $0) }
-                    completion(dataParse, nil)
-                }
+            if error != nil {
+                completion(nil, error)
+            } else {
+               completion(data, nil)
             }
+        }
             .resume()
     }
 }
