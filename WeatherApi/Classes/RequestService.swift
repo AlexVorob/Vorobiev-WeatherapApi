@@ -19,11 +19,7 @@ class RequestService {
     public func getData(from url: URL, completion: @escaping (Data?, Error?) -> ()) {
         URLSession.shared
             .dataTask(with: url) { (data, response, error) in
-            if error != nil {
-                completion(nil, error)
-            } else {
-               completion(data, nil)
-            }
+               completion(data, error)
         }
             .resume()
     }

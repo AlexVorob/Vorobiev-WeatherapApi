@@ -28,7 +28,7 @@ class WeatherViewController: UIViewController, RootViewRepresentable {
     
     private let cancellableWeatherObserver = CancellableProperty()
     
-    init(_ weatherManager: WeatherNetworkService,_ country: ObservableWrapper<Country>) {
+    init(weatherManager: WeatherNetworkService, country: ObservableWrapper<Country>) {
         self.weatherNetworkService = weatherManager
         self.countryObservableWrapper = country
         

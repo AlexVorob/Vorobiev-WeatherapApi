@@ -22,7 +22,7 @@ class WeatherNetworkService {
     
     private let networkService: RequestService?
     
-    init(_ networkService: RequestService) {
+    init(networkService: RequestService) {
         self.networkService = networkService
     }
     
