@@ -50,4 +50,6 @@ class WeatherViewController: UIViewController, RootViewRepresentable {
         
         self.weatherNetworkService.modelFilling(country: self.countryObservableWrapper)
     }
+    
+    //private func dispatchOnMain
 }

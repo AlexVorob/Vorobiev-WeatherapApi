@@ -62,23 +62,19 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(cellClass: CountryTableViewCell.self, for: indexPath) {
+        return tableView.dequeueReusableCell(cellClass: CountryTableViewCell.self, for: indexPath) {
             $0.countriesModel = self.countriesModel
-            $0.fillWithModel(self.countriesModel[indexPath.row].unwrap)
+            $0.fillWithModel(self.countriesModel[indexPath.row].unwrap) {
+                dispatchOnMain {
+                    tableView.reloadRows(at: [indexPath], with: .automatic)
+                }
+            }
         }
-
-        return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let country = self.countriesModel[indexPath.row]
-    
-        country.observer {_ in
-            dispatchOnMain {
-                tableView.reloadRows(at: [indexPath], with: .automatic)
-            }
-        }
-    
+
         let networkService = RequestService()
         let weatherManager = WeatherNetworkService(networkService: networkService)
         let weatherViewController = WeatherViewController(weatherManager: weatherManager, country: country)
