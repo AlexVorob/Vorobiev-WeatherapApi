@@ -35,7 +35,7 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
             case .didChangedCountry: break
             case .didDeletedCountry: break
             case .didAppendCountry:
-                dispatchOnMain {
+                performOnMain {
                     self?.rootView?.tableView?.reloadData()
                 }
             }
@@ -65,7 +65,7 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
         return tableView.dequeueReusableCell(cellClass: CountryTableViewCell.self, for: indexPath) {
             $0.countriesModel = self.countriesModel
             $0.fillWithModel(self.countriesModel[indexPath.row].unwrap) {
-                dispatchOnMain {
+                performOnMain {
                     tableView.reloadRows(at: [indexPath], with: .automatic)
                 }
             }

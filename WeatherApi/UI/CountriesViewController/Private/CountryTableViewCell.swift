@@ -29,7 +29,7 @@ class CountryTableViewCell: TableViewCell {
         
         self.cancellableObserver.value = self.countriesModel?.observer {_ in
             print("Cell observer")
-            dispatchOnMain {
+            performOnMain {
                 self.capitalLabel?.text = model.capital
                 self.countryLabel?.text = model.name
                 self.temperatureLabel?.text = model.weather?.temperature.celsius

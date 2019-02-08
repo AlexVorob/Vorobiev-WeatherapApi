@@ -27,7 +27,7 @@ func toString(_ cls: AnyClass) -> String {
     return String(describing: cls)
 }
 
-func dispatchOnMain(_ action: @escaping F.Action) {
+func performOnMain(_ action: @escaping F.Action) {
     DispatchQueue.main.async(execute: action)
 }
 
