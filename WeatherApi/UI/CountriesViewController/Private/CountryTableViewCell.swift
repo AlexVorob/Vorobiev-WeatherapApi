@@ -15,26 +15,20 @@ class CountryTableViewCell: TableViewCell {
     @IBOutlet var countryLabel: UILabel?
     @IBOutlet var capitalLabel: UILabel?
     
-    var countriesModel: CountriesModel?
+    var country: ObservableWrapper<Country>?
     
     private let cancellableObserver = CancellableProperty()
 
-    func fillWithModel(_ model: Country, execute: @escaping F.Action) {
-        self.fill(model)
+    func fillWithModel(_ model: ObservableWrapper<Country>) {
+        self.country = model
         
-        self.cancellableObserver.value = self.countriesModel?.observer {_ in
-            print("Cell observer")
+        self.fill(model.unwrap)
+        
+        self.cancellableObserver.value = model.observer { _ in
             performOnMain {
-                self.fill(model)
-                execute()
+                self.fill(model.unwrap)
             }
         }
-    }
-    
-    override func prepareForReuse() {
-        super.prepareForReuse()
-
-        self.cancellableObserver.value?.cancel()
     }
     
     private func fill(_ model: Country) {

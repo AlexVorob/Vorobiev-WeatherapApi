@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Country: ObservableObject<CountriesModel.Event> {
+class Country {
     
     var weather: Weather?
 
@@ -18,7 +18,5 @@ class Country: ObservableObject<CountriesModel.Event> {
     init(name: String, capital: String, weather: Weather? = nil) {
         self.name = name
         self.capital = capital
-        
-        super.init()
     }
 }

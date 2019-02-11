@@ -11,7 +11,7 @@ import Foundation
 class CountriesModel: ObservableObject<CountriesModel.Event> {
 
     enum Event {
-        case didChangedCountry(Country?)
+        case didChangedCountry(Country?, Int)
         case didDeletedCountry(Country?)
         case didAppendCountry(Country?)
     }
@@ -51,7 +51,7 @@ class CountriesModel: ObservableObject<CountriesModel.Event> {
         get {
             let wrapper = ObservableWrapper(self.values[index])
             wrapper.observer {
-                self.notify(.didChangedCountry($0))
+                self.notify(.didChangedCountry($0, index))
             }
             
             return wrapper
@@ -60,7 +60,7 @@ class CountriesModel: ObservableObject<CountriesModel.Event> {
             let valueUnwrapped = newValue.unwrap
             
             self.values[index] = valueUnwrapped
-            self.notify(.didChangedCountry(valueUnwrapped))
+            self.notify(.didChangedCountry(valueUnwrapped, index))
         }
     }
 }

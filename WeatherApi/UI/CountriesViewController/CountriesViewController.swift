@@ -32,7 +32,10 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
         
         self.cancelable.value = self.countriesModel.observer { [weak self] in
             switch $0 {
-            case .didChangedCountry: break
+            case let .didChangedCountry(_, index):
+                performOnMain {
+                    self?.rootView?.tableView?.reloadRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
+                }
             case .didDeletedCountry: break
             case .didAppendCountry:
                 performOnMain {
@@ -63,12 +66,7 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         return tableView.dequeueReusableCell(cellClass: CountryTableViewCell.self, for: indexPath) {
-            $0.countriesModel = self.countriesModel
-            $0.fillWithModel(self.countriesModel[indexPath.row].unwrap) {
-                performOnMain {
-                    tableView.reloadRows(at: [indexPath], with: .automatic)
-                }
-            }
+            $0.fillWithModel(self.countriesModel[indexPath.row])
         }
     }
     

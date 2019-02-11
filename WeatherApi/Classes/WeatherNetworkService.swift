@@ -42,7 +42,7 @@ class WeatherNetworkService {
                 .flatMap { try? JSONDecoder().decode(JSONWeather.self, from: $0) }
                 .do { side(weather($0)) { weather in
                     country.update { $0.weather = weather }
-                    }
+                }
             }
         }
     }
