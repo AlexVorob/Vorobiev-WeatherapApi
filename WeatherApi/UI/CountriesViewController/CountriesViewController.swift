@@ -67,14 +67,16 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
             
             let country = self.countriesModel.values[indexPath.row]
             
-            $0.cancellableObserver.value = country.observer {_ in
-                print("Controller")
-                performOnMain {
-                    tableView.reloadRows(at: [indexPath], with: .automatic)
+            $0.country = country
+            $0.handler = {
+                switch $0 {
+                case .updateCell:
+                    performOnMain {
+                        tableView.reloadRows(at: [indexPath], with: .automatic)
+                    }
                 }
+                
             }
-            
-             $0.country = country
         }
     }
     
