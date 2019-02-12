@@ -15,6 +15,8 @@ fileprivate struct Constant {
 
 class CountriesNetworkService {
     
+    private let cancellableProperty = CancellableProperty()
+    
     public func modelFilling(
         requestService: RequestServiceType,
         model: CountriesModel
@@ -22,7 +24,7 @@ class CountriesNetworkService {
         let urlCountry = URL(string: Constant.countryApi)
         guard let url = urlCountry else { return }
         
-        requestService.loadData(from: url) { data, error in
+        self.cancellableProperty.value = requestService.loadData(from: url) { data, error in
             if error != nil {
                 print(error?.localizedDescription ?? "")
             } else {

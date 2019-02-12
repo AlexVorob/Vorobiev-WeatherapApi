@@ -41,6 +41,7 @@
 		5864008C21EDE64500AB75F0 /* CountryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5864008A21EDE64500AB75F0 /* CountryTableViewCell.swift */; };
 		5864008D21EDE64500AB75F0 /* CountryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5864008B21EDE64500AB75F0 /* CountryTableViewCell.xib */; };
 		5864009021EDE6F100AB75F0 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5864008F21EDE6F100AB75F0 /* TableViewCell.swift */; };
+		587C3A702212E094009E1B26 /* NetworkTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 587C3A6F2212E094009E1B26 /* NetworkTask.swift */; };
 		588129A221EF47DE000E48B4 /* UINib+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 588129A121EF47DE000E48B4 /* UINib+Extensions.swift */; };
 		588129A421EF4830000E48B4 /* UITableView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 588129A321EF4830000E48B4 /* UITableView+Extensions.swift */; };
 		588129A621EF7B45000E48B4 /* CountriesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 588129A521EF7B45000E48B4 /* CountriesModel.swift */; };
@@ -113,6 +114,7 @@
 		5864008A21EDE64500AB75F0 /* CountryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryTableViewCell.swift; sourceTree = "<group>"; };
 		5864008B21EDE64500AB75F0 /* CountryTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CountryTableViewCell.xib; sourceTree = "<group>"; };
 		5864008F21EDE6F100AB75F0 /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
+		587C3A6F2212E094009E1B26 /* NetworkTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkTask.swift; sourceTree = "<group>"; };
 		588129A121EF47DE000E48B4 /* UINib+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINib+Extensions.swift"; sourceTree = "<group>"; };
 		588129A321EF4830000E48B4 /* UITableView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Extensions.swift"; sourceTree = "<group>"; };
 		588129A521EF7B45000E48B4 /* CountriesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountriesModel.swift; sourceTree = "<group>"; };
@@ -336,6 +338,7 @@
 				580CA5C521FB3EA30096E878 /* CountriesNetworkService.swift */,
 				58BCB18321FB45F800F148F1 /* WeatherNetworkService.swift */,
 				58E42E76220092090074A159 /* ObservableWrapper.swift */,
+				587C3A6F2212E094009E1B26 /* NetworkTask.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -512,6 +515,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				582EDF6E21E7420100DDE595 /* Cancellable.swift in Sources */,
+				587C3A702212E094009E1B26 /* NetworkTask.swift in Sources */,
 				5855E2E121E73EDD00A3D463 /* WeatherView.swift in Sources */,
 				588C994321ECC46C00E396DB /* JSONWeather.swift in Sources */,
 				588C993F21EC8FAD00E396DB /* Color.swift in Sources */,

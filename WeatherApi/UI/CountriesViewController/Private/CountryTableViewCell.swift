@@ -9,6 +9,7 @@
 import UIKit
 
 public enum Event {
+    
     case updateCell
 }
 
@@ -26,7 +27,7 @@ class CountryTableViewCell: TableViewCell {
         }
     }
     
-    var handler: F.Completion<Event>?
+    var eventHandler: F.Completion<Event>?
     
     private let cellObserver = CancellableProperty()
 
@@ -41,10 +42,9 @@ class CountryTableViewCell: TableViewCell {
     
     private func prepareObserver() {
         self.cellObserver.value = self.country?.observer {_ in
-            print("cell")
             performOnMain { self.fillWithModel() }
             
-            self.handler?(.updateCell)
+            self.eventHandler?(.updateCell)
         }
     }
     

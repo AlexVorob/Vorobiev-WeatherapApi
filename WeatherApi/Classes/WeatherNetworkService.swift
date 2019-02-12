@@ -21,6 +21,7 @@ fileprivate struct Constant {
 class WeatherNetworkService {
     
     private let networkService: RequestServiceType?
+    private let cancellableProperty = CancellableProperty()
     
     init(networkService: RequestServiceType) {
         self.networkService = networkService
@@ -37,7 +38,7 @@ class WeatherNetworkService {
     public func modelFilling(country: Country) {
         guard let url = self.getURL(capital: country.capital) else { return }
         
-        self.networkService?.loadData(from: url) { model, error in
+        self.cancellableProperty.value = self.networkService?.loadData(from: url) { model, error in
             model
                 .flatMap { try? JSONDecoder().decode(JSONWeather.self, from: $0) }
                 .do { country.weather = weather($0) }

@@ -15,28 +15,20 @@ class RequestService: RequestServiceType {
         case didLoad
         case didFailedWithError(_ error: Error?)
     }
-    
-    var request: URLSessionDataTask?
-    
-    public func loadData(from url: URL, completion: @escaping (Data?, Error?) -> ()) {
-        self.request = URLSession.shared
+
+    public func loadData(from url: URL, completion: @escaping (Data?, Error?) -> ()) -> NetworkTask {
+        let dataTask = URLSession.shared
             .dataTask(with: url) { (data, response, error) in
                completion(data, error)
         }
+        let networkTask = NetworkTask(urlSessionTask: dataTask)
+        dataTask.resume()
         
-        self.request?.resume()
-    }
-    
-    func cancel() {
-        self.request?.cancel()
+        return networkTask
     }
 }
 
 protocol RequestServiceType {
-    
-    var request: URLSessionDataTask? { get }
-    
-    func loadData(from url: URL, completion: @escaping (Data?, Error?) -> ())
-    
-    func cancel()
+
+    func loadData(from url: URL, completion: @escaping (Data?, Error?) -> ()) -> NetworkTask
 }

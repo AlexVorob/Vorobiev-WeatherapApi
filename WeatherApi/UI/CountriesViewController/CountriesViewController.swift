@@ -68,14 +68,13 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
             let country = self.countriesModel.values[indexPath.row]
             
             $0.country = country
-            $0.handler = {
+            $0.eventHandler = {
                 switch $0 {
                 case .updateCell:
                     performOnMain {
                         tableView.reloadRows(at: [indexPath], with: .automatic)
                     }
                 }
-                
             }
         }
     }
