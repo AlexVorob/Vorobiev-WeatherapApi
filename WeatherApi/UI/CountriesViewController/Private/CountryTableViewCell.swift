@@ -15,26 +15,37 @@ class CountryTableViewCell: TableViewCell {
     @IBOutlet var countryLabel: UILabel?
     @IBOutlet var capitalLabel: UILabel?
     
-    var country: ObservableWrapper<Country>?
+    var country: Country? {
+        didSet {
+            self.fillWithModel()
+            self.prepareObserver()
+        }
+    }
     
-    private let cancellableObserver = CancellableProperty()
+    let cellObserver = CancellableProperty()
+    let cancellableObserver = CancellableProperty()
 
-    func fillWithModel(_ model: ObservableWrapper<Country>) {
-        self.country = model
+    private func fillWithModel() {
+        let model = self.country
         
-        self.fill(model.unwrap)
-        
-        self.cancellableObserver.value = model.observer { _ in
+        self.capitalLabel?.text = model?.capital
+        self.countryLabel?.text = model?.name
+        self.temperatureLabel?.text = model?.weather?.temperature.celsius
+        self.dateLabel?.text = model?.weather?.date?.shortDescription
+    }
+    
+    private func prepareObserver() {
+        self.cellObserver.value = self.country?.observer {_ in
+            print("cell")
             performOnMain {
-                self.fill(model.unwrap)
+                self.fillWithModel()
             }
         }
     }
     
-    private func fill(_ model: Country) {
-        self.capitalLabel?.text = model.capital
-        self.countryLabel?.text = model.name
-        self.temperatureLabel?.text = model.weather?.temperature.celsius
-        self.dateLabel?.text = model.weather?.date?.shortDescription
+    override func prepareForReuse() {
+        super.prepareForReuse()
+
+        self.cellObserver.value?.cancel()
     }
 }

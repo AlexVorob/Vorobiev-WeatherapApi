@@ -8,7 +8,7 @@
 
 import UIKit
 
-class RequestService {
+class RequestService: RequestServiceType {
     
     public enum State {
         case didStartLoading
@@ -16,11 +16,27 @@ class RequestService {
         case didFailedWithError(_ error: Error?)
     }
     
-    public func getData(from url: URL, completion: @escaping (Data?, Error?) -> ()) {
-        URLSession.shared
+    var request: URLSessionDataTask?
+    
+    public func loadData(from url: URL, completion: @escaping (Data?, Error?) -> ()) {
+        self.request = URLSession.shared
             .dataTask(with: url) { (data, response, error) in
                completion(data, error)
         }
-            .resume()
+        
+        self.request?.resume()
     }
+    
+    func cancel() {
+        self.request?.cancel()
+    }
+}
+
+protocol RequestServiceType {
+    
+    var request: URLSessionDataTask? { get }
+    
+    func loadData(from url: URL, completion: @escaping (Data?, Error?) -> ())
+    
+    func cancel()
 }

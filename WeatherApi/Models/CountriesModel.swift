@@ -11,12 +11,12 @@ import Foundation
 class CountriesModel: ObservableObject<CountriesModel.Event> {
 
     enum Event {
-        case didChangedCountry(Country?, Int)
+        case didChangedCountry(Country?)
         case didDeletedCountry(Country?)
         case didAppendCountry(Country?)
     }
     
-    private var values: [Country]
+    public var values: [Country]
     
     public var count: Int {
         return self.values.count
@@ -47,20 +47,8 @@ class CountriesModel: ObservableObject<CountriesModel.Event> {
         self.values = []
     }
     
-    subscript(index: Int) -> ObservableWrapper<Country> {
-        get {
-            let wrapper = ObservableWrapper(self.values[index])
-            wrapper.observer {
-                self.notify(.didChangedCountry($0, index))
-            }
-            
-            return wrapper
-        }
-        set {
-            let valueUnwrapped = newValue.unwrap
-            
-            self.values[index] = valueUnwrapped
-            self.notify(.didChangedCountry(valueUnwrapped, index))
-        }
+    subscript(index: Int) -> Country {
+        
+        get { return self.values[index] }
     }
 }

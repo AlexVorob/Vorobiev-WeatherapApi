@@ -16,13 +16,13 @@ fileprivate struct Constant {
 class CountriesNetworkService {
     
     public func modelFilling(
-        requestService: RequestService,
+        requestService: RequestServiceType,
         model: CountriesModel
     ) {
         let urlCountry = URL(string: Constant.countryApi)
         guard let url = urlCountry else { return }
         
-        requestService.getData(from: url) { data, error in
+        requestService.loadData(from: url) { data, error in
             if error != nil {
                 print(error?.localizedDescription ?? "")
             } else {

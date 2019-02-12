@@ -21,6 +21,7 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
     private let networkService: RequestService
     private let countriesModel: CountriesModel
     private let cancelable = CancellableProperty()
+    private let cancelable2 = CancellableProperty()
 
     init(countriesManager: CountriesNetworkService, networkService: RequestService, model: CountriesModel) {
         
@@ -32,10 +33,7 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
         
         self.cancelable.value = self.countriesModel.observer { [weak self] in
             switch $0 {
-            case let .didChangedCountry(_, index):
-                performOnMain {
-                    self?.rootView?.tableView?.reloadRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
-                }
+            case .didChangedCountry: break
             case .didDeletedCountry: break
             case .didAppendCountry:
                 performOnMain {
@@ -66,13 +64,23 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         return tableView.dequeueReusableCell(cellClass: CountryTableViewCell.self, for: indexPath) {
-            $0.fillWithModel(self.countriesModel[indexPath.row])
+            
+            let country = self.countriesModel.values[indexPath.row]
+            
+            $0.cancellableObserver.value = country.observer {_ in
+                print("Controller")
+                performOnMain {
+                    tableView.reloadRows(at: [indexPath], with: .automatic)
+                }
+            }
+            
+             $0.country = country
         }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let country = self.countriesModel[indexPath.row]
-
+        
         let networkService = RequestService()
         let weatherManager = WeatherNetworkService(networkService: networkService)
         let weatherViewController = WeatherViewController(weatherManager: weatherManager, country: country)

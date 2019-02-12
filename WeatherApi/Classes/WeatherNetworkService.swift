@@ -20,9 +20,9 @@ fileprivate struct Constant {
 
 class WeatherNetworkService {
     
-    private let networkService: RequestService?
+    private let networkService: RequestServiceType?
     
-    init(networkService: RequestService) {
+    init(networkService: RequestServiceType) {
         self.networkService = networkService
     }
     
@@ -34,18 +34,15 @@ class WeatherNetworkService {
             .flatMap { URL(string: Constant.weatherApi + $0) }
     }
     
-    public func modelFilling(country: ObservableWrapper<Country>) {
-        guard let url = self.getURL(capital: country.unwrap.capital) else { return }
+    public func modelFilling(country: Country) {
+        guard let url = self.getURL(capital: country.capital) else { return }
         
-        self.networkService?.getData(from: url) { model, error in
+        self.networkService?.loadData(from: url) { model, error in
             model
                 .flatMap { try? JSONDecoder().decode(JSONWeather.self, from: $0) }
-                .do { side(weather($0)) { weather in
-                    country.update { $0.weather = weather }
-                }
+                .do { country.weather = weather($0) }
             }
         }
-    }
 }
 
 fileprivate let weather: (JSONWeather) -> Weather = {

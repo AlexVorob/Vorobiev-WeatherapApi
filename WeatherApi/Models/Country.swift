@@ -8,9 +8,13 @@
 
 import Foundation
 
-class Country {
+class Country: ObservableObject<CountriesModel.Event> {
     
-    var weather: Weather?
+    var weather: Weather? {
+        didSet {
+            self.notify(.didChangedCountry(nil))
+        }
+    }
 
     let name: String
     let capital: String
