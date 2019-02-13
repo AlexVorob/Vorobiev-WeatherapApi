@@ -38,3 +38,17 @@ func side<Value>(_ value: Value, execute: (inout Value) -> ()) -> Value {
     
     return mutableValue
 }
+
+public func identity<Value>(value: Value) -> Value {
+    return value
+}
+
+public func ignoreInput<Value, Result>(_ action: @escaping () -> Result) -> (Value) -> Result {
+    return { _ in
+        action()
+    }
+}
+
+public func returnValue<Value>(_ value: Value) -> () -> Value {
+    return { value }
+}
