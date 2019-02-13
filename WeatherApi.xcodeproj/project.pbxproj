@@ -42,6 +42,9 @@
 		5864008D21EDE64500AB75F0 /* CountryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5864008B21EDE64500AB75F0 /* CountryTableViewCell.xib */; };
 		5864009021EDE6F100AB75F0 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5864008F21EDE6F100AB75F0 /* TableViewCell.swift */; };
 		587C3A702212E094009E1B26 /* NetworkTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 587C3A6F2212E094009E1B26 /* NetworkTask.swift */; };
+		587C3A722212E59F009E1B26 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 587C3A712212E59F009E1B26 /* Result.swift */; };
+		587C3A752212EEC8009E1B26 /* PrecedenceGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 587C3A742212EEC8009E1B26 /* PrecedenceGroup.swift */; };
+		587C3A772212EEDB009E1B26 /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 587C3A762212EEDB009E1B26 /* Operators.swift */; };
 		588129A221EF47DE000E48B4 /* UINib+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 588129A121EF47DE000E48B4 /* UINib+Extensions.swift */; };
 		588129A421EF4830000E48B4 /* UITableView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 588129A321EF4830000E48B4 /* UITableView+Extensions.swift */; };
 		588129A621EF7B45000E48B4 /* CountriesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 588129A521EF7B45000E48B4 /* CountriesModel.swift */; };
@@ -115,6 +118,9 @@
 		5864008B21EDE64500AB75F0 /* CountryTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CountryTableViewCell.xib; sourceTree = "<group>"; };
 		5864008F21EDE6F100AB75F0 /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		587C3A6F2212E094009E1B26 /* NetworkTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkTask.swift; sourceTree = "<group>"; };
+		587C3A712212E59F009E1B26 /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
+		587C3A742212EEC8009E1B26 /* PrecedenceGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrecedenceGroup.swift; sourceTree = "<group>"; };
+		587C3A762212EEDB009E1B26 /* Operators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Operators.swift; sourceTree = "<group>"; };
 		588129A121EF47DE000E48B4 /* UINib+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINib+Extensions.swift"; sourceTree = "<group>"; };
 		588129A321EF4830000E48B4 /* UITableView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Extensions.swift"; sourceTree = "<group>"; };
 		588129A521EF7B45000E48B4 /* CountriesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountriesModel.swift; sourceTree = "<group>"; };
@@ -157,6 +163,7 @@
 		582EDF5021E7420100DDE595 /* Lib */ = {
 			isa = PBXGroup;
 			children = (
+				587C3A732212EEA0009E1B26 /* Functions */,
 				582EDF5121E7420100DDE595 /* Types */,
 				582EDF5521E7420100DDE595 /* Mixin */,
 				582EDF5721E7420100DDE595 /* Extensions */,
@@ -168,11 +175,11 @@
 		582EDF5121E7420100DDE595 /* Types */ = {
 			isa = PBXGroup;
 			children = (
+				587C3A712212E59F009E1B26 /* Result.swift */,
 				5850C67F22046380009CF3EE /* CancellableProperty.swift */,
 				582EDF6F21E746D100DDE595 /* ObservableObject.Observer.swift */,
 				582EDF7021E746D100DDE595 /* ObservableObject.swift */,
 				582EDF5221E7420100DDE595 /* PositionGenerator.swift */,
-				582EDF5321E7420100DDE595 /* F.swift */,
 				582EDF5421E7420100DDE595 /* Atomic.swift */,
 			);
 			path = Types;
@@ -350,6 +357,16 @@
 				5864008B21EDE64500AB75F0 /* CountryTableViewCell.xib */,
 			);
 			path = Private;
+			sourceTree = "<group>";
+		};
+		587C3A732212EEA0009E1B26 /* Functions */ = {
+			isa = PBXGroup;
+			children = (
+				587C3A742212EEC8009E1B26 /* PrecedenceGroup.swift */,
+				587C3A762212EEDB009E1B26 /* Operators.swift */,
+				582EDF5321E7420100DDE595 /* F.swift */,
+			);
+			path = Functions;
 			sourceTree = "<group>";
 		};
 		588C993821EC82B600E396DB /* UIKit */ = {
@@ -530,10 +547,13 @@
 				582EDF8021E780B400DDE595 /* RequestService.swift in Sources */,
 				582EDF7621E75F4600DDE595 /* CountriesViewController.swift in Sources */,
 				582EDF6421E7420100DDE595 /* F.swift in Sources */,
+				587C3A722212E59F009E1B26 /* Result.swift in Sources */,
 				5864009021EDE6F100AB75F0 /* TableViewCell.swift in Sources */,
+				587C3A772212EEDB009E1B26 /* Operators.swift in Sources */,
 				5855E2AD21E73CE200A3D463 /* AppDelegate.swift in Sources */,
 				588129A421EF4830000E48B4 /* UITableView+Extensions.swift in Sources */,
 				588129A621EF7B45000E48B4 /* CountriesModel.swift in Sources */,
+				587C3A752212EEC8009E1B26 /* PrecedenceGroup.swift in Sources */,
 				580CA5C621FB3EA30096E878 /* CountriesNetworkService.swift in Sources */,
 				588C993C21EC8F2B00E396DB /* ColorRepresentable.swift in Sources */,
 				582EDF7921E75F6500DDE595 /* CountriesView.swift in Sources */,

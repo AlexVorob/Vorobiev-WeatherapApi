@@ -21,12 +21,11 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
     private let networkService: RequestService
     private let countriesModel: CountriesModel
     private let cancelable = CancellableProperty()
-    private let cancelable2 = CancellableProperty()
 
-    init(countriesManager: CountriesNetworkService, networkService: RequestService, model: CountriesModel) {
+    init(countriesNetworkService: CountriesNetworkService, requestService: RequestService, model: CountriesModel) {
         
-        self.countriesManager = countriesManager
-        self.networkService = networkService
+        self.countriesManager = countriesNetworkService
+        self.networkService = requestService
         self.countriesModel = model
         
         super.init(nibName: nil, bundle: nil)
@@ -81,8 +80,8 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let country = self.countriesModel[indexPath.row]
-        
-        let networkService = RequestService()
+        // FIX with operators
+        let networkService = RequestService(session: URLSession(configuration: .default))
         let weatherManager = WeatherNetworkService(networkService: networkService)
         let weatherViewController = WeatherViewController(weatherManager: weatherManager, country: country)
         

@@ -14,7 +14,7 @@ fileprivate struct Constant {
 }
 
 class CountriesNetworkService {
-    
+
     private let cancellableProperty = CancellableProperty()
     
     public func modelFilling(
@@ -24,13 +24,10 @@ class CountriesNetworkService {
         let urlCountry = URL(string: Constant.countryApi)
         guard let url = urlCountry else { return }
         
-        self.cancellableProperty.value = requestService.loadData(from: url) { data, error in
-            if error != nil {
-                print(error?.localizedDescription ?? "")
-            } else {
-                 data
-                    .flatMap { try? JSONDecoder().decode([JSONCountry].self, from: $0) }
-                    .do { model.add(values: WeatherApi.countries($0)) }
+        self.cancellableProperty.value = requestService.sheduledTask(from: url) { result in
+            result.mapValue { data in
+                let decode = try? JSONDecoder().decode([JSONCountry].self, from: data)
+                decode.do { model.add(values: WeatherApi.countries($0)) }
             }
         }
     }

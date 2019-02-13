@@ -19,8 +19,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         let window = UIWindow(frame: UIScreen.main.bounds)
-        
-        let countriesViewController = CountriesViewController(countriesManager: CountriesNetworkService(), networkService: RequestService(), model: CountriesModel())
+        // FIX with operators
+        let countriesViewController = CountriesViewController(
+            countriesNetworkService: CountriesNetworkService(),
+            requestService: RequestService(session: URLSession(configuration: .default)),
+            model: CountriesModel()
+        )
         
         window.rootViewController = UINavigationController(rootViewController: countriesViewController)
         window.makeKeyAndVisible()

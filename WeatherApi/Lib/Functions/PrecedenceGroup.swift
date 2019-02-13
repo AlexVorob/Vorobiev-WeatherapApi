@@ -7,3 +7,20 @@
 //
 
 import Foundation
+
+precedencegroup LeftFunctionApplicationPrecedence {
+    associativity: left
+    higherThan: AssignmentPrecedence
+}
+
+precedencegroup RightFunctionApplicationPrecedence {
+    associativity: right
+    higherThan: LeftFunctionApplicationPrecedence
+}
+
+precedencegroup CompositionPrecedence {
+    associativity: left
+    higherThan: RightFunctionApplicationPrecedence
+}
+
+

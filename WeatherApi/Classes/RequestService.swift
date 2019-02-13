@@ -15,20 +15,33 @@ class RequestService: RequestServiceType {
         case didLoad
         case didFailedWithError(_ error: Error?)
     }
+    
+    private(set) var session: URLSession
+    
+    init(session: URLSession) {
+        self.session = session
+    }
 
-    public func loadData(from url: URL, completion: @escaping (Data?, Error?) -> ()) -> NetworkTask {
-        let dataTask = URLSession.shared
+    public func sheduledTask(from url: URL, completion: @escaping (Result<Data, RequestServiceError>) -> ()) -> NetworkTask {
+        let dataTask = self.session
             .dataTask(with: url) { (data, response, error) in
-               completion(data, error)
+                completion(Result(value: data, error: error.map { .failed($0) }, default: .unknown))
         }
-        let networkTask = NetworkTask(urlSessionTask: dataTask)
-        dataTask.resume()
+
+        defer {
+            dataTask.resume()
+        }
         
-        return networkTask
+        return NetworkTask(urlSessionTask: dataTask)
     }
 }
 
-protocol RequestServiceType {
+public enum RequestServiceError: Error {
+    case unknown
+    case failed(Error)
+}
 
-    func loadData(from url: URL, completion: @escaping (Data?, Error?) -> ()) -> NetworkTask
+public protocol RequestServiceType {
+
+    func sheduledTask(from url: URL, completion: @escaping (Result<Data, RequestServiceError>) -> ()) -> NetworkTask
 }

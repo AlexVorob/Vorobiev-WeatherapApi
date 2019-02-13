@@ -38,12 +38,13 @@ class WeatherNetworkService {
     public func modelFilling(country: Country) {
         guard let url = self.getURL(capital: country.capital) else { return }
         
-        self.cancellableProperty.value = self.networkService?.loadData(from: url) { model, error in
-            model
-                .flatMap { try? JSONDecoder().decode(JSONWeather.self, from: $0) }
-                .do { country.weather = weather($0) }
+        self.cancellableProperty.value = self.networkService?.sheduledTask(from: url) { result in
+            result.mapValue { data in
+                let decode = try? JSONDecoder().decode(JSONWeather.self, from: data)
+                decode.do { country.weather = weather($0) }
             }
         }
+    }
 }
 
 fileprivate let weather: (JSONWeather) -> Weather = {
