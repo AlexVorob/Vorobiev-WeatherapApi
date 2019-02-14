@@ -22,6 +22,7 @@ class CountriesNetworkService {
         let urlCountry = URL(string: Constant.countryApi)
         guard let url = urlCountry else { return NetworkTask(urlSessionTask: URLSessionTask()) }
         
+        
         return requestService.sheduledTask(from: url) { result in
             result.mapValue { data in
                 let decode = try? JSONDecoder().decode([JSONCountry].self, from: data)

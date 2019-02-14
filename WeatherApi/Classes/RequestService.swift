@@ -7,14 +7,9 @@
 //
 
 import UIKit
+import Alamofire
 
 class RequestService: RequestServiceType {
-    
-    public enum State {
-        case didStartLoading
-        case didLoad
-        case didFailedWithError(_ error: Error?)
-    }
     
     private(set) var session: URLSession
     
@@ -23,16 +18,16 @@ class RequestService: RequestServiceType {
     }
 
     public func sheduledTask(from url: URL, completion: @escaping (Result<Data, RequestServiceError>) -> ()) -> NetworkTask {
-        let dataTask = self.session
-            .dataTask(with: url) { (data, response, error) in
-                completion(Result(value: data, error: error.map { .failed($0) }, default: .unknown))
+    
+        let request = Alamofire.request(url).response { response in
+            completion(Result(value: response.data, error: response.error.map { .failed($0) }, default: .unknown))
         }
 
         defer {
-            dataTask.resume()
+            request.task?.resume()
         }
         
-        return NetworkTask(urlSessionTask: dataTask)
+        return NetworkTask(urlSessionTask: request.task ?? URLSessionTask())
     }
 }
 
