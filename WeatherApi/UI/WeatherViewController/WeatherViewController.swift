@@ -15,6 +15,7 @@ class WeatherViewController: UIViewController, RootViewRepresentable {
     private let weatherNetworkService: WeatherNetworkService
     private let country: Country
     private let cancellableWeatherObserver = CancellableProperty()
+    private let cancellableNetworkTask = CancellableProperty()
     
     init(weatherManager: WeatherNetworkService, country: Country) {
         
@@ -29,7 +30,7 @@ class WeatherViewController: UIViewController, RootViewRepresentable {
             }
         }
         
-        self.weatherNetworkService.modelFilling(country: self.country)
+        self.cancellableNetworkTask.value = self.weatherNetworkService.sheduledTask(country: self.country)
     }
     
     required init?(coder aDecoder: NSCoder) {

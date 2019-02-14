@@ -20,8 +20,7 @@ fileprivate struct Constant {
 
 class WeatherNetworkService {
     
-    private let networkService: RequestServiceType?
-    private let cancellableProperty = CancellableProperty()
+    private let networkService: RequestServiceType
     
     init(networkService: RequestServiceType) {
         self.networkService = networkService
@@ -35,10 +34,12 @@ class WeatherNetworkService {
             .flatMap { URL(string: Constant.weatherApi + $0) }
     }
     
-    public func modelFilling(country: Country) {
-        guard let url = self.getURL(capital: country.capital) else { return }
+    public func sheduledTask(country: Country) -> NetworkTask {
+        guard let url = self.getURL(capital: country.capital) else {
+            return NetworkTask(urlSessionTask: URLSessionTask())
+        }
         
-        self.cancellableProperty.value = self.networkService?.sheduledTask(from: url) { result in
+        return self.networkService.sheduledTask(from: url) { result in
             result.mapValue { data in
                 let decode = try? JSONDecoder().decode(JSONWeather.self, from: data)
                 decode.do { country.weather = weather($0) }

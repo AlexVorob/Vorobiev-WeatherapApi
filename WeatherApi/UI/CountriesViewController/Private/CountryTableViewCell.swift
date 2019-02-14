@@ -22,12 +22,12 @@ class CountryTableViewCell: TableViewCell {
     
     var country: Country? {
         didSet {
-            self.fillWithModel()
             self.prepareObserver()
+            self.fillWithModel()
         }
     }
     
-    var eventHandler: F.Completion<Event>?
+    public var eventHandler: F.Completion<Event>?
     
     private let cellObserver = CancellableProperty()
 

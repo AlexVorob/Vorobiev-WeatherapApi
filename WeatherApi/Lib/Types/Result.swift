@@ -32,11 +32,10 @@ public enum Result<Value, Error: Swift.Error> {
     }
     
     public init(value: Value?, error: Error?, `default`: Error) {
-        switch (value, error) {
-        case let (_, error?): self = .failure(error)
-        case let (value?, nil): self = .success(value)
-        default: self = .failure(`default`)
-        }
+        self = error.map { .failure($0) } ??
+            value.map { .success($0) } ??
+            .failure(`default`)
+        
     }
     
     public func analysis<ReturnType>(success: (Value) -> ReturnType, failure: (Error) -> ReturnType) -> ReturnType {

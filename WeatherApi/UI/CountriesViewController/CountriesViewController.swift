@@ -20,7 +20,8 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
     private let countriesManager: CountriesNetworkService
     private let networkService: RequestService
     private let countriesModel: CountriesModel
-    private let cancelable = CancellableProperty()
+    private let cancelableObserver = CancellableProperty()
+    private let cancellableNetworkTask = CancellableProperty()
 
     init(countriesNetworkService: CountriesNetworkService, requestService: RequestService, model: CountriesModel) {
         
@@ -30,7 +31,7 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
         
         super.init(nibName: nil, bundle: nil)
         
-        self.cancelable.value = self.countriesModel.observer { [weak self] in
+        self.cancelableObserver.value = self.countriesModel.observer { [weak self] in
             switch $0 {
             case .didChangedCountry: break
             case .didDeletedCountry: break
@@ -89,6 +90,9 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
     }
     
     private func modelFill() {
-        self.countriesManager.modelFilling(requestService: self.networkService, model: self.countriesModel)
+        self.cancellableNetworkTask.value = self.countriesManager.modelFilling(
+            requestService: self.networkService,
+            model: self.countriesModel
+        )
     }
 }
