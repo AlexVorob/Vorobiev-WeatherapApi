@@ -363,12 +363,12 @@
 		5864008921EDE12500AB75F0 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				587155D1221ADE5200AC921B /* DataBaseService.swift */,
 				582EDF7F21E780B400DDE595 /* RequestService.swift */,
 				580CA5C521FB3EA30096E878 /* CountriesNetworkService.swift */,
 				58BCB18321FB45F800F148F1 /* WeatherNetworkService.swift */,
 				58E42E76220092090074A159 /* ObservableWrapper.swift */,
 				587C3A6F2212E094009E1B26 /* NetworkTask.swift */,
-				587155D1221ADE5200AC921B /* DataBaseService.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";

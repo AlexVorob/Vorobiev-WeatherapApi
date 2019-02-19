@@ -29,11 +29,11 @@ public class CountryDataRealm: StorageProtocol {
     }
     
     public func read() -> Results<JSONCountryRLM>? {
-        return realm?.objects(JSONCountryRLM.self)
+        return self.realm?.objects(JSONCountryRLM.self)
     }
     
     public func read(id: String) -> JSONCountryRLM? {
-        return realm?.object(ofType: JSONCountryRLM.self, forPrimaryKey: id)
+        return self.realm?.object(ofType: JSONCountryRLM.self, forPrimaryKey: id)
     }
     
     public func write(object: JSONCountryRLM) {
@@ -54,7 +54,7 @@ public class WeatherDataRealm: StorageProtocol {
     }
     
     public func read(id: String) -> JSONWeatherRLM? {
-        return realm?.object(ofType: JSONWeatherRLM.self, forPrimaryKey: id)
+        return self.realm?.object(ofType: JSONWeatherRLM.self, forPrimaryKey: id)
     }
     
     public func write(object: JSONWeatherRLM) {

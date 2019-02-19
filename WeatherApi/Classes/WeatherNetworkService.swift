@@ -26,8 +26,8 @@ class WeatherNetworkService {
         self.networkService = networkService
     }
     
-    private func getURL(capital: String) -> URL? {
-        let weatherPath = Constant.getApiLink(capital)
+    private func getURL(country: Country) -> URL? {
+        let weatherPath = Constant.getApiLink(country.capital + "," + country.id)
         
         return weatherPath
             .addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
@@ -35,7 +35,7 @@ class WeatherNetworkService {
     }
     
     public func sheduledTask(country: Country, dataBaseService: DataBaseService<WeatherDataRealm>) -> NetworkTask {
-        guard let url = self.getURL(capital: country.capital) else {
+        guard let url = self.getURL(country: country) else {
             return NetworkTask(urlSessionTask: URLSessionTask())
         }
         
