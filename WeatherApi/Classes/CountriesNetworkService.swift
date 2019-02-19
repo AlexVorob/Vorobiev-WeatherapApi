@@ -17,16 +17,20 @@ class CountriesNetworkService {
 
     public func modelFilling(
         requestService: RequestServiceType,
-        model: CountriesModel
-    ) -> NetworkTask {
+        model: CountriesModel,
+        dataBaseService: DataBaseService<CountryDataRealm>
+    )
+        -> NetworkTask
+    {
         let urlCountry = URL(string: Constant.countryApi)
         guard let url = urlCountry else { return NetworkTask(urlSessionTask: URLSessionTask()) }
-        
         
         return requestService.sheduledTask(from: url) { result in
             result.mapValue { data in
                 let decode = try? JSONDecoder().decode([JSONCountry].self, from: data)
                 decode.do { model.add(values: WeatherApi.countries($0)) }
+                
+                //dataBaseService.dataRealm.write(country: <#T##CountryRLM#>)
             }
         }
     }

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -19,11 +20,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         let window = UIWindow(frame: UIScreen.main.bounds)
-        // FIX with operators
+
+        let realm = try? Realm()
+        let dataBaseService = DataBaseService<CountryDataRealm>(dataRealm: CountryDataRealm(realm: realm))
+        
         let countriesViewController = CountriesViewController(
             countriesNetworkService: CountriesNetworkService(),
             requestService: RequestService(session: URLSession(configuration: .default)),
-            model: CountriesModel()
+            model: CountriesModel(),
+            dataBaseService: dataBaseService
         )
         
         window.rootViewController = UINavigationController(rootViewController: countriesViewController)

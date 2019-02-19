@@ -37,7 +37,7 @@ class CountryTableViewCell: TableViewCell {
         self.capitalLabel?.text = model?.capital
         self.countryLabel?.text = model?.name
         self.temperatureLabel?.text = model?.weather?.temperature.celsius
-        self.dateLabel?.text = model?.weather?.date?.shortDescription
+        self.dateLabel?.text = model?.weather?.date.shortDescription
     }
     
     private func prepareObserver() {

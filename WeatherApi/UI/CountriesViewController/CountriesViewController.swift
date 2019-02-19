@@ -17,17 +17,19 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
     
     typealias RootView = CountriesView
     
-    private let countriesManager: CountriesNetworkService
-    private let networkService: RequestService
+    private let dataBaseService: DataBaseService<CountryDataRealm>
+    private let countriesNetworkService: CountriesNetworkService
+    private let requestService: RequestService
     private let countriesModel: CountriesModel
     private let cancelableObserver = CancellableProperty()
     private let cancellableNetworkTask = CancellableProperty()
 
-    init(countriesNetworkService: CountriesNetworkService, requestService: RequestService, model: CountriesModel) {
+    init(countriesNetworkService: CountriesNetworkService, requestService: RequestService, model: CountriesModel, dataBaseService: DataBaseService<CountryDataRealm>) {
         
-        self.countriesManager = countriesNetworkService
-        self.networkService = requestService
+        self.countriesNetworkService = countriesNetworkService
+        self.requestService = requestService
         self.countriesModel = model
+        self.dataBaseService = dataBaseService
         
         super.init(nibName: nil, bundle: nil)
         
@@ -81,7 +83,7 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let country = self.countriesModel[indexPath.row]
-        // FIX with operators
+
         let networkService = RequestService(session: URLSession(configuration: .default))
         let weatherManager = WeatherNetworkService(networkService: networkService)
         let weatherViewController = WeatherViewController(weatherManager: weatherManager, country: country)
@@ -90,9 +92,10 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
     }
     
     private func modelFill() {
-        self.cancellableNetworkTask.value = self.countriesManager.modelFilling(
-            requestService: self.networkService,
-            model: self.countriesModel
+        self.cancellableNetworkTask.value = self.countriesNetworkService.modelFilling(
+            requestService: self.requestService,
+            model: self.countriesModel,
+            dataBaseService: self.dataBaseService
         )
     }
 }

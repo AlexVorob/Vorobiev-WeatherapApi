@@ -29,6 +29,7 @@
 		582EDF7721E75F4600DDE595 /* CountriesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 582EDF7521E75F4600DDE595 /* CountriesViewController.xib */; };
 		582EDF7921E75F6500DDE595 /* CountriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 582EDF7821E75F6500DDE595 /* CountriesView.swift */; };
 		582EDF8021E780B400DDE595 /* RequestService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 582EDF7F21E780B400DDE595 /* RequestService.swift */; };
+		5847DB6A2216BB2C003DA45E /* Realm+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5847DB692216BB2C003DA45E /* Realm+Extensions.swift */; };
 		584B124A2202F271004AC02D /* Temperature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 584B12492202F271004AC02D /* Temperature.swift */; };
 		5850C68022046380009CF3EE /* CancellableProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5850C67F22046380009CF3EE /* CancellableProperty.swift */; };
 		5855E2AD21E73CE200A3D463 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5855E2AC21E73CE200A3D463 /* AppDelegate.swift */; };
@@ -42,6 +43,7 @@
 		5864008C21EDE64500AB75F0 /* CountryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5864008A21EDE64500AB75F0 /* CountryTableViewCell.swift */; };
 		5864008D21EDE64500AB75F0 /* CountryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5864008B21EDE64500AB75F0 /* CountryTableViewCell.xib */; };
 		5864009021EDE6F100AB75F0 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5864008F21EDE6F100AB75F0 /* TableViewCell.swift */; };
+		587155D2221ADE5200AC921B /* DataBaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 587155D1221ADE5200AC921B /* DataBaseService.swift */; };
 		587C3A702212E094009E1B26 /* NetworkTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 587C3A6F2212E094009E1B26 /* NetworkTask.swift */; };
 		587C3A722212E59F009E1B26 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 587C3A712212E59F009E1B26 /* Result.swift */; };
 		587C3A752212EEC8009E1B26 /* PrecedenceGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 587C3A742212EEC8009E1B26 /* PrecedenceGroup.swift */; };
@@ -104,6 +106,7 @@
 		582EDF7521E75F4600DDE595 /* CountriesViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CountriesViewController.xib; sourceTree = "<group>"; };
 		582EDF7821E75F6500DDE595 /* CountriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountriesView.swift; sourceTree = "<group>"; };
 		582EDF7F21E780B400DDE595 /* RequestService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestService.swift; sourceTree = "<group>"; };
+		5847DB692216BB2C003DA45E /* Realm+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Realm+Extensions.swift"; sourceTree = "<group>"; };
 		584B12492202F271004AC02D /* Temperature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Temperature.swift; sourceTree = "<group>"; };
 		5850C67F22046380009CF3EE /* CancellableProperty.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CancellableProperty.swift; sourceTree = "<group>"; };
 		5855E2A921E73CE200A3D463 /* WeatherApi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherApi.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -123,6 +126,7 @@
 		5864008A21EDE64500AB75F0 /* CountryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryTableViewCell.swift; sourceTree = "<group>"; };
 		5864008B21EDE64500AB75F0 /* CountryTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CountryTableViewCell.xib; sourceTree = "<group>"; };
 		5864008F21EDE6F100AB75F0 /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
+		587155D1221ADE5200AC921B /* DataBaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataBaseService.swift; sourceTree = "<group>"; };
 		587C3A6F2212E094009E1B26 /* NetworkTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkTask.swift; sourceTree = "<group>"; };
 		587C3A712212E59F009E1B26 /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		587C3A742212EEC8009E1B26 /* PrecedenceGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrecedenceGroup.swift; sourceTree = "<group>"; };
@@ -215,6 +219,7 @@
 				588C993821EC82B600E396DB /* UIKit */,
 				582EDF5821E7420100DDE595 /* Foundation */,
 				582EDF5F21E7420100DDE595 /* Core Graphics */,
+				5847DB692216BB2C003DA45E /* Realm+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -363,6 +368,7 @@
 				58BCB18321FB45F800F148F1 /* WeatherNetworkService.swift */,
 				58E42E76220092090074A159 /* ObservableWrapper.swift */,
 				587C3A6F2212E094009E1B26 /* NetworkTask.swift */,
+				587155D1221ADE5200AC921B /* DataBaseService.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -435,7 +441,6 @@
 				024FEBECBB8D051A7E5F3C58 /* Pods-WeatherApiUITests.debug.xcconfig */,
 				AF5019BDCF0CAC6BC2163BB1 /* Pods-WeatherApiUITests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -672,6 +677,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				582EDF6E21E7420100DDE595 /* Cancellable.swift in Sources */,
+				5847DB6A2216BB2C003DA45E /* Realm+Extensions.swift in Sources */,
 				587C3A702212E094009E1B26 /* NetworkTask.swift in Sources */,
 				5855E2E121E73EDD00A3D463 /* WeatherView.swift in Sources */,
 				588C994321ECC46C00E396DB /* JSONWeather.swift in Sources */,
@@ -685,6 +691,7 @@
 				5864008C21EDE64500AB75F0 /* CountryTableViewCell.swift in Sources */,
 				5890B8A021F5B33A00625C2E /* Date+Extensions.swift in Sources */,
 				582EDF8021E780B400DDE595 /* RequestService.swift in Sources */,
+				587155D2221ADE5200AC921B /* DataBaseService.swift in Sources */,
 				582EDF7621E75F4600DDE595 /* CountriesViewController.swift in Sources */,
 				582EDF6421E7420100DDE595 /* F.swift in Sources */,
 				587C3A722212E59F009E1B26 /* Result.swift in Sources */,

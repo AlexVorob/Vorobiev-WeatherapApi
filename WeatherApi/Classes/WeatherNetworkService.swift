@@ -43,6 +43,16 @@ class WeatherNetworkService {
             result.mapValue { data in
                 let decode = try? JSONDecoder().decode(JSONWeather.self, from: data)
                 decode.do { country.weather = weather($0) }
+                // обернуть в резалт все
+//                if let decode = decode {
+//                    let weather = weather(decode)
+//                    // обернуть в Везеррлм и записать в реалм
+//                    country.weather = weather
+//
+//                } else {
+//                    country.weather =
+//                    // достать из реалма если нил
+//                }
             }
         }
     }

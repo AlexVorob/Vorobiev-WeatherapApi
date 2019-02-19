@@ -18,6 +18,15 @@ public class NetworkTask: Cancellable {
         self.urlSessionTask = urlSessionTask
     }
     
+    public convenience init(urlSessionTask: URLSessionTask?) {
+        if let sessionTask = urlSessionTask {
+            self.init(urlSessionTask: sessionTask)
+        } else {
+            self.init(urlSessionTask: URLSessionTask())
+            self.cancel()
+        }
+    }
+    
     public func cancel() {
         self.urlSessionTask.cancel()
         self.isCancelled = true

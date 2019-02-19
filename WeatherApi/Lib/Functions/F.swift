@@ -39,6 +39,14 @@ func side<Value>(_ value: Value, execute: (inout Value) -> ()) -> Value {
     return mutableValue
 }
 
+public func sideEffect<Value>(action: @escaping (Value) -> ()) -> (Value) -> Value {
+    return {
+        action($0)
+    
+        return $0
+    }
+}
+
 public func identity<Value>(value: Value) -> Value {
     return value
 }
@@ -67,4 +75,8 @@ public func flip<A, B, C>(_ f: @escaping (A) -> (B) -> C) -> (B) -> (A) -> C {
     return { b in
         { f($0)(b) }
     }
+}
+
+public func call<Value>(_ action: () -> Value) -> Value {
+    return action()
 }

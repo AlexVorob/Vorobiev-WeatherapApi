@@ -8,12 +8,13 @@
 
 import Foundation
 
-class Weather {
+public class Weather {
     
     private(set) var temperature = Temperature()
-    let date: Date?
     
-    init(date: Date, temperature: Double) {
+    public let date: Date
+    
+    public init(date: Date, temperature: Double) {
         self.temperature.temperature = temperature
         self.date = date
     }

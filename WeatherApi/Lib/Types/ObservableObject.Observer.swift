@@ -10,17 +10,17 @@ import Foundation
 
 extension ObservableObject {
     
-    class Observer: Hashable, Cancellable {
+    public class Observer: Hashable, Cancellable {
         
-        var isObserving: Bool {
+        public var isObserving: Bool {
             return self.sender != nil
         }
         
-        var isCancelled: Bool {
+        public var isCancelled: Bool {
             return !self.isObserving
         }
         
-        var hashValue: Int {
+        public var hashValue: Int {
             return ObjectIdentifier(self).hashValue
         }
         
@@ -28,16 +28,16 @@ extension ObservableObject {
         
         private weak var sender: ObservableObject?
         
-        init(sender: ObservableObject, handler: @escaping Handler) {
+        public init(sender: ObservableObject, handler: @escaping Handler) {
             self.sender = sender
             self.handler = handler
         }
         
-        func cancel() {
+        public func cancel() {
             self.sender = nil
         }
         
-        static func == (lhs: Observer, rhs: Observer) -> Bool {
+        public static func == (lhs: Observer, rhs: Observer) -> Bool {
             return lhs === rhs
         }
     }

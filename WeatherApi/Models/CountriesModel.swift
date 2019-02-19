@@ -8,9 +8,9 @@
 
 import Foundation
 
-class CountriesModel: ObservableObject<CountriesModel.Event> {
+public class CountriesModel: ObservableObject<CountriesModel.Event> {
 
-    enum Event {
+    public enum Event {
         case didChangedCountry(Country?)
         case didDeletedCountry(Country?)
         case didAppendCountry(Country?)
@@ -22,28 +22,28 @@ class CountriesModel: ObservableObject<CountriesModel.Event> {
         return self.values.count
     }
     
-    init(values: [Country] = []) {
+    public init(values: [Country] = []) {
         self.values = values
         
         super.init()
     }
     
-    func add(values: [Country]) {
+    public func add(values: [Country]) {
         self.values += values
         self.notify(.didAppendCountry(nil))
     }
     
-    func append(country: Country) {
+    public func append(country: Country) {
         self.values.append(country)
         self.notify(.didAppendCountry(country))
     }
     
-    func removeAt(index: Int) {
+    public func removeAt(index: Int) {
         self.values.remove(at: index)
         self.notify(.didDeletedCountry(self.values[index]))
     }
     
-    func removeAll() {
+    public func removeAll() {
         self.values = []
     }
     

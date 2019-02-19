@@ -8,9 +8,9 @@
 
 import Foundation
 
-class ObservableObject<State> {
+public class ObservableObject<State> {
     
-    typealias Handler = (State) -> ()
+    public typealias Handler = (State) -> ()
     
     private let atomicObservers = Atomic([Observer]())
     

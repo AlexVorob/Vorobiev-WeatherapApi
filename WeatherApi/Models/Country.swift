@@ -7,19 +7,20 @@
 //
 
 import Foundation
+import RealmSwift
 
-class Country: ObservableObject<CountriesModel.Event> {
+public class Country: ObservableObject<CountriesModel.Event> {
     
-    var weather: Weather? {
+    public var weather: Weather? {
         didSet {
             self.notify(.didChangedCountry(nil))
         }
     }
 
-    let name: String
-    let capital: String
+    public let name: String
+    public let capital: String
 
-    init(name: String, capital: String, weather: Weather? = nil) {
+    public init(name: String, capital: String, weather: Weather? = nil) {
         self.name = name
         self.capital = capital
     }

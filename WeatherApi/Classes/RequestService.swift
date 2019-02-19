@@ -17,8 +17,12 @@ class RequestService: RequestServiceType {
         self.session = session
     }
 
-    public func sheduledTask(from url: URL, completion: @escaping (Result<Data, RequestServiceError>) -> ()) -> NetworkTask {
-    
+    public func sheduledTask(
+        from url: URL,
+        completion: @escaping (Result<Data, RequestServiceError>) -> ()
+    )
+        -> NetworkTask
+    {
         let request = Alamofire.request(url).response { response in
             completion(Result(value: response.data, error: response.error.map { .failed($0) }, default: .unknown))
         }
@@ -27,7 +31,7 @@ class RequestService: RequestServiceType {
             request.task?.resume()
         }
         
-        return NetworkTask(urlSessionTask: request.task ?? URLSessionTask())
+        return NetworkTask(urlSessionTask: request.task)
     }
 }
 
