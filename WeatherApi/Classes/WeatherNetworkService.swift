@@ -34,15 +34,27 @@ class WeatherNetworkService {
             .flatMap { URL(string: Constant.weatherApi + $0) }
     }
     
-    public func sheduledTask(country: Country) -> NetworkTask {
+    public func sheduledTask(country: Country, dataBaseService: DataBaseService<WeatherDataRealm>) -> NetworkTask {
         guard let url = self.getURL(capital: country.capital) else {
             return NetworkTask(urlSessionTask: URLSessionTask())
         }
         
         return self.networkService.sheduledTask(from: url) { result in
-            result.mapValue { data in
-                let decode = try? JSONDecoder().decode(JSONWeather.self, from: data)
-                decode.do { country.weather = weather($0) }
+            result.analysis(
+                success: { data in
+//                    let decode = try? JSONDecoder().decode(JSONWeather.self, from: data)
+//                     decode.do {
+//                        dataBaseService.dataRealm.write(object: JSONWeatherRLM($0))
+//                        country.weather = weather($0)
+//                    }
+                    
+                    let data2 = dataBaseService.dataRealm.read(id: country.id)
+                    data2.do {
+                        country.weather = weatherRLM($0)
+                    }
+                },
+                failure: { print($0) }
+            )
                 // обернуть в резалт все
 //                if let decode = decode {
 //                    let weather = weather(decode)
@@ -53,7 +65,6 @@ class WeatherNetworkService {
 //                    country.weather =
 //                    // достать из реалма если нил
 //                }
-            }
         }
     }
 }
@@ -62,4 +73,10 @@ fileprivate let weather: (JSONWeather) -> Weather = {
     Weather(
         date: Date(timeIntervalSince1970: TimeInterval($0.dt)),
         temperature: $0.main.temp)
+}
+
+fileprivate let weatherRLM: (JSONWeatherRLM) -> Weather = {
+    Weather(
+        date: Date(timeIntervalSince1970: TimeInterval($0.date)),
+        temperature: $0.temperature)
 }

@@ -16,11 +16,13 @@ class WeatherViewController: UIViewController, RootViewRepresentable {
     private let country: Country
     private let cancellableWeatherObserver = CancellableProperty()
     private let cancellableNetworkTask = CancellableProperty()
+    private let dataBaseService: DataBaseService<WeatherDataRealm>
     
-    init(weatherManager: WeatherNetworkService, country: Country) {
+    init(weatherManager: WeatherNetworkService, country: Country, dataBaseService: DataBaseService<WeatherDataRealm>) {
         
         self.weatherNetworkService = weatherManager
         self.country = country
+        self.dataBaseService = dataBaseService
         
         super.init(nibName: nil, bundle: nil)
         
@@ -30,7 +32,7 @@ class WeatherViewController: UIViewController, RootViewRepresentable {
             }
         }
         
-        self.cancellableNetworkTask.value = self.weatherNetworkService.sheduledTask(country: self.country)
+        self.cancellableNetworkTask.value = self.weatherNetworkService.sheduledTask(country: self.country, dataBaseService: dataBaseService)
     }
     
     required init?(coder aDecoder: NSCoder) {

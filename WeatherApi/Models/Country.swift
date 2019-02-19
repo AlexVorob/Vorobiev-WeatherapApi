@@ -16,11 +16,13 @@ public class Country: ObservableObject<CountriesModel.Event> {
             self.notify(.didChangedCountry(nil))
         }
     }
-
+    
+    public let id: String
     public let name: String
     public let capital: String
 
-    public init(name: String, capital: String, weather: Weather? = nil) {
+    public init(id: String, name: String, capital: String, weather: Weather? = nil) {
+        self.id = id
         self.name = name
         self.capital = capital
     }

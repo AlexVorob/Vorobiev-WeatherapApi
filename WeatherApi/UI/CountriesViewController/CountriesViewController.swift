@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 fileprivate struct Constant {
     
@@ -44,7 +45,7 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
             }
         }
         
-        self.countriesModel.append(country: Country(name: "Ukraine", capital: "Kryvyy Rih"))
+        self.countriesModel.append(country: Country(id: "UA", name: "Ukraine", capital: "Kryvyy Rih"))
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -84,9 +85,12 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let country = self.countriesModel[indexPath.row]
 
+        
         let networkService = RequestService(session: URLSession(configuration: .default))
         let weatherManager = WeatherNetworkService(networkService: networkService)
-        let weatherViewController = WeatherViewController(weatherManager: weatherManager, country: country)
+        let realm = try? Realm()
+        let dataBaseService = DataBaseService(dataRealm: WeatherDataRealm(realm: realm))
+        let weatherViewController = WeatherViewController(weatherManager: weatherManager, country: country, dataBaseService: dataBaseService)
         
         self.navigationController?.pushViewController(weatherViewController, animated: true)
     }

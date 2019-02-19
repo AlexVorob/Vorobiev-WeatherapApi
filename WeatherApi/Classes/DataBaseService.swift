@@ -19,8 +19,8 @@ public class DataBaseService<DataRealm: StorageProtocol> {
 }
 
 public class CountryDataRealm: StorageProtocol {
-
-    public typealias ManagedObject = CountryRLM
+ 
+    public typealias ManagedObject = JSONCountryRLM
     
     private let realm: Realm?
     
@@ -28,20 +28,24 @@ public class CountryDataRealm: StorageProtocol {
         self.realm = realm
     }
     
-    public func read(id: String) -> CountryRLM? {
-        return realm?.object(ofType: CountryRLM.self, forPrimaryKey: id)
+    public func read() -> Results<JSONCountryRLM>? {
+        return realm?.objects(JSONCountryRLM.self)
     }
     
-    public func write(country: CountryRLM) {
+    public func read(id: String) -> JSONCountryRLM? {
+        return realm?.object(ofType: JSONCountryRLM.self, forPrimaryKey: id)
+    }
+    
+    public func write(object: JSONCountryRLM) {
         try? self.realm?.write {
-            self.realm?.add(country)
+            self.realm?.add(object, update: true)
         }
     }
 }
 
 public class WeatherDataRealm: StorageProtocol {
     
-    public typealias ManagedObject = WeatherRLM
+    public typealias ManagedObject = JSONWeatherRLM
     
     private let realm: Realm?
     
@@ -49,13 +53,13 @@ public class WeatherDataRealm: StorageProtocol {
         self.realm = realm
     }
     
-    public func read(id: String) -> WeatherRLM? {
-        return realm?.object(ofType: WeatherRLM.self, forPrimaryKey: id)
+    public func read(id: String) -> JSONWeatherRLM? {
+        return realm?.object(ofType: JSONWeatherRLM.self, forPrimaryKey: id)
     }
     
-    public func write(country: WeatherRLM) {
+    public func write(object: JSONWeatherRLM) {
         try? self.realm?.write {
-            self.realm?.add(country)
+            self.realm?.add(object, update: true)
         }
     }
 }
@@ -65,7 +69,7 @@ public protocol StorageProtocol {
     
     associatedtype ManagedObject
     
-    func write(country: ManagedObject)
+    func write(object: ManagedObject)
     
     func read(id: String) -> ManagedObject?
 }
@@ -83,34 +87,36 @@ public class RLMModel: Object {
     }
 }
 
-public class CountryRLM: RLMModel {
+public class JSONCountryRLM: RLMModel {
     
      @objc dynamic var name = ""
      @objc dynamic var capital = ""
     
-    convenience init(name: String, capital: String) {
+    convenience init(name: String, capital: String, id: String) {
         self.init()
+        self.id = id
         self.name = name
         self.capital = capital
     }
     
-    convenience init(_ country: Country) {
-        self.init(name: country.name, capital: country.capital)
+    convenience init(_ json: JSONCountry) {
+        self.init(name: json.name, capital: json.capital, id: json.alpha2Code)
     }
 }
 
-public class WeatherRLM: RLMModel {
+public class JSONWeatherRLM: RLMModel {
 
     @objc dynamic var temperature = 0.0
-    @objc dynamic var date = Date()
+    @objc dynamic var date = 0
     
-    convenience init(date: Date, temperature: Double) {
+    convenience init(date: Int, temperature: Double, id: String) {
         self.init()
+        self.id = id
         self.temperature = temperature
         self.date = date
     }
     
-//    convenience init(_ weather: Weather) {
-//        self.init(date: weather.date, temperature: weather.temperature.)
-//    }
+    convenience init(_ json: JSONWeather) {
+        self.init(date: json.dt, temperature: json.main.temp, id: json.sys.country)
+    }
 }
