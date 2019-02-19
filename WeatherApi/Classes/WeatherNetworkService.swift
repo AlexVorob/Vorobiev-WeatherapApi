@@ -42,29 +42,19 @@ class WeatherNetworkService {
         return self.networkService.sheduledTask(from: url) { result in
             result.analysis(
                 success: { data in
-//                    let decode = try? JSONDecoder().decode(JSONWeather.self, from: data)
-//                     decode.do {
-//                        dataBaseService.dataRealm.write(object: JSONWeatherRLM($0))
-//                        country.weather = weather($0)
-//                    }
-                    
-                    let data2 = dataBaseService.dataRealm.read(id: country.id)
-                    data2.do {
-                        country.weather = weatherRLM($0)
+                    let decoder = try? JSONDecoder().decode(JSONWeather.self, from: data)
+                    if let deco = decoder {
+                        dataBaseService.dataRealm.write(object: JSONWeatherRLM(deco))
+                        country.weather = weather(deco)
+                    } else {
+                        let data2 = dataBaseService.dataRealm.read(id: country.id)
+                        data2.do {
+                            country.weather = weatherRLM($0)
+                        }
                     }
                 },
                 failure: { print($0) }
             )
-                // обернуть в резалт все
-//                if let decode = decode {
-//                    let weather = weather(decode)
-//                    // обернуть в Везеррлм и записать в реалм
-//                    country.weather = weather
-//
-//                } else {
-//                    country.weather =
-//                    // достать из реалма если нил
-//                }
         }
     }
 }

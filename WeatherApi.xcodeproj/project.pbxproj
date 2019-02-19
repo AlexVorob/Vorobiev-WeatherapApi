@@ -29,6 +29,7 @@
 		582EDF7721E75F4600DDE595 /* CountriesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 582EDF7521E75F4600DDE595 /* CountriesViewController.xib */; };
 		582EDF7921E75F6500DDE595 /* CountriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 582EDF7821E75F6500DDE595 /* CountriesView.swift */; };
 		582EDF8021E780B400DDE595 /* RequestService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 582EDF7F21E780B400DDE595 /* RequestService.swift */; };
+		58458CF3221C4D56005CA0F0 /* WeakBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58458CF2221C4D56005CA0F0 /* WeakBox.swift */; };
 		5847DB6A2216BB2C003DA45E /* Realm+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5847DB692216BB2C003DA45E /* Realm+Extensions.swift */; };
 		584B124A2202F271004AC02D /* Temperature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 584B12492202F271004AC02D /* Temperature.swift */; };
 		5850C68022046380009CF3EE /* CancellableProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5850C67F22046380009CF3EE /* CancellableProperty.swift */; };
@@ -106,6 +107,7 @@
 		582EDF7521E75F4600DDE595 /* CountriesViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CountriesViewController.xib; sourceTree = "<group>"; };
 		582EDF7821E75F6500DDE595 /* CountriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountriesView.swift; sourceTree = "<group>"; };
 		582EDF7F21E780B400DDE595 /* RequestService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestService.swift; sourceTree = "<group>"; };
+		58458CF2221C4D56005CA0F0 /* WeakBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeakBox.swift; sourceTree = "<group>"; };
 		5847DB692216BB2C003DA45E /* Realm+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Realm+Extensions.swift"; sourceTree = "<group>"; };
 		584B12492202F271004AC02D /* Temperature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Temperature.swift; sourceTree = "<group>"; };
 		5850C67F22046380009CF3EE /* CancellableProperty.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CancellableProperty.swift; sourceTree = "<group>"; };
@@ -200,6 +202,7 @@
 				582EDF7021E746D100DDE595 /* ObservableObject.swift */,
 				582EDF5221E7420100DDE595 /* PositionGenerator.swift */,
 				582EDF5421E7420100DDE595 /* Atomic.swift */,
+				58458CF2221C4D56005CA0F0 /* WeakBox.swift */,
 			);
 			path = Types;
 			sourceTree = "<group>";
@@ -687,6 +690,7 @@
 				5890B8A221F5B36400625C2E /* DateFormatter+Extensions.swift in Sources */,
 				588C993A21EC82DB00E396DB /* UIColor+Extensions.swift in Sources */,
 				582EDF6721E7420100DDE595 /* DispatchQueue+Extensions.swift in Sources */,
+				58458CF3221C4D56005CA0F0 /* WeakBox.swift in Sources */,
 				58E42E77220092090074A159 /* ObservableWrapper.swift in Sources */,
 				5864008C21EDE64500AB75F0 /* CountryTableViewCell.swift in Sources */,
 				5890B8A021F5B33A00625C2E /* Date+Extensions.swift in Sources */,

@@ -21,8 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let window = UIWindow(frame: UIScreen.main.bounds)
 
-        let realm = try? Realm()
-        let dataBaseService = DataBaseService(dataRealm: CountryDataRealm(realm: realm))
+        let dataBaseService = DataBaseService(dataRealm: CountryDataRealm())
         
         let countriesViewController = CountriesViewController(
             countriesNetworkService: CountriesNetworkService(),

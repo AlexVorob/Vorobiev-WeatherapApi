@@ -28,20 +28,19 @@ class CountriesNetworkService {
         return requestService.sheduledTask(from: url) { result in
             result.analysis(
                 success: { data in
-//                    let decoder = try? JSONDecoder().decode([JSONCountry].self, from: data)
-//
-//                    decoder.do {
-//                        $0.filter { $0.capital.count > 0 }
-//                        .forEach {
-//                            dataBaseService.dataRealm.write(object: JSONCountryRLM($0)) }
-//                        model.add(values: countries($0))
-//                    }
-                    
-                    let dataCountrise = dataBaseService.dataRealm.read()
-                    dataCountrise.do {
-                        model.add(values: $0.map {
-                            countryRLM($0)
-                        })
+                    let decoder = try? JSONDecoder().decode([JSONCountry].self, from: data)
+                    if let deco = decoder {
+                        deco.filter { $0.capital.count > 0 }
+                            .forEach {
+                                dataBaseService.dataRealm.write(object: JSONCountryRLM($0)) }
+                        model.add(values: countries(deco))
+                    } else {
+                        let dataCountrise = dataBaseService.dataRealm.read()
+                        dataCountrise.do {
+                            model.add(values: $0.map {
+                                countryRLM($0)
+                            })
+                        }
                     }
                 },
                 failure: { print($0) }
@@ -62,5 +61,4 @@ fileprivate let country: (JSONCountry) -> Country = { json in
 
 fileprivate let countryRLM: (JSONCountryRLM) -> Country = { jsons in
     Country(id: jsons.id, name: jsons.name, capital: jsons.capital)
-    
 }

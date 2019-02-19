@@ -24,7 +24,12 @@ class RequestService: RequestServiceType {
         -> NetworkTask
     {
         let request = Alamofire.request(url).response { response in
-            completion(Result(value: response.data, error: response.error.map { .failed($0) }, default: .unknown))
+            completion(
+                Result(
+                value: response.data,
+                error: response.error.map { .failed($0) },
+                default: .unknown)
+            )
         }
 
         defer {

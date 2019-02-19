@@ -22,23 +22,27 @@ public class CountryDataRealm: StorageProtocol {
  
     public typealias ManagedObject = JSONCountryRLM
     
-    private let realm: Realm?
+    //private let realm: Realm?
     
-    public init(realm: Realm?) {
-        self.realm = realm
-    }
+//    var realm: F.Execute<Realm?> = {
+//        Realm.current
+//    }
+    
+//    public init(realm: Realm?) {
+//        self.realm = realm
+//    }
     
     public func read() -> Results<JSONCountryRLM>? {
-        return self.realm?.objects(JSONCountryRLM.self)
+        return Realm.current?.objects(JSONCountryRLM.self)
     }
     
     public func read(id: String) -> JSONCountryRLM? {
-        return self.realm?.object(ofType: JSONCountryRLM.self, forPrimaryKey: id)
+        return Realm.current?.object(ofType: JSONCountryRLM.self, forPrimaryKey: id)
     }
     
     public func write(object: JSONCountryRLM) {
-        try? self.realm?.write {
-            self.realm?.add(object, update: true)
+        Realm.write {
+            $0.add(object, update: true)
         }
     }
 }
@@ -64,7 +68,6 @@ public class WeatherDataRealm: StorageProtocol {
     }
 }
 
-// Provider
 public protocol StorageProtocol {
     
     associatedtype ManagedObject
