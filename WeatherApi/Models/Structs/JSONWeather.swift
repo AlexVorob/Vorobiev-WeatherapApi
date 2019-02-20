@@ -25,6 +25,6 @@ public struct JSONWeather: Decodable {
     
     public struct Sys: Codable {
 
-        let country: String
+        var country: String
     }
 }
