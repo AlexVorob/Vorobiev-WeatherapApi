@@ -9,72 +9,71 @@
 import Foundation
 import RealmSwift
 
-public class DataBaseService<DataRealm: StorageProtocol> {
-    
-    public let dataRealm: DataRealm
-    
-    public init(dataRealm: DataRealm) {
-        self.dataRealm = dataRealm
-    }
-}
+public class DataBaseService<Service: RLMModel>: StorageProtocol {
 
-public class CountryDataRealm: StorageProtocol {
- 
-    public typealias ManagedObject = JSONCountryRLM
-    
-    //private let realm: Realm?
-    
-//    var realm: F.Execute<Realm?> = {
-//        Realm.current
-//    }
-    
-//    public init(realm: Realm?) {
-//        self.realm = realm
-//    }
-    
-    public func read() -> Results<JSONCountryRLM>? {
-        return Realm.current?.objects(JSONCountryRLM.self)
+    public func read() -> Results<Service>? {
+        return Realm.current?.objects(Service.self)
     }
     
-    public func read(id: String) -> JSONCountryRLM? {
-        return Realm.current?.object(ofType: JSONCountryRLM.self, forPrimaryKey: id)
+    public func read(id: String) -> Service? {
+        return Realm.current?.object(ofType: Service.self, forPrimaryKey: id)
     }
     
-    public func write(object: JSONCountryRLM) {
+    public func write(object: Service) {
         Realm.write {
             $0.add(object, update: true)
         }
     }
 }
 
-public class WeatherDataRealm: StorageProtocol {
-    
-    public typealias ManagedObject = JSONWeatherRLM
-    
-    private let realm: Realm?
-    
-    public init(realm: Realm?) {
-        self.realm = realm
-    }
-    
-    public func read(id: String) -> JSONWeatherRLM? {
-        return self.realm?.object(ofType: JSONWeatherRLM.self, forPrimaryKey: id)
-    }
-    
-    public func write(object: JSONWeatherRLM) {
-        try? self.realm?.write {
-            self.realm?.add(object, update: true)
-        }
-    }
-}
+//public class CountryDataRealm: StorageProtocol {
+// 
+//    public typealias ManagedObject = JSONCountryRLM
+//    
+//    public func read() -> Results<JSONCountryRLM>? {
+//        return Realm.current?.objects(JSONCountryRLM.self)
+//    }
+//    
+//    public func read(id: String) -> JSONCountryRLM? {
+//        return Realm.current?.object(ofType: JSONCountryRLM.self, forPrimaryKey: id)
+//    }
+//    
+//    public func write(object: JSONCountryRLM) {
+//        Realm.write {
+//            $0.add(object, update: true)
+//        }
+//    }
+//}
+//
+//public class WeatherDataRealm: StorageProtocol {
+//   
+//    public typealias ManagedObject = JSONWeatherRLM
+//
+//    public func read(id: String) -> JSONWeatherRLM? {
+//        return Realm.current?.object(ofType: JSONWeatherRLM.self, forPrimaryKey: id)
+//    }
+//    
+//    public func read() -> Results<JSONWeatherRLM>? {
+//        return Realm.current?.objects(JSONWeatherRLM.self)
+//    }
+//    
+//    public func write(object: JSONWeatherRLM) {
+//        Realm.write {
+//            $0.add(object, update: true)
+//        }
+//    }
+//}
 
 public protocol StorageProtocol {
     
     associatedtype ManagedObject
+    associatedtype Collection: RealmCollection where Collection.ElementType == ManagedObject
     
     func write(object: ManagedObject)
     
     func read(id: String) -> ManagedObject?
+    
+    func read() -> Collection?
 }
 
 public class RLMModel: Object {
