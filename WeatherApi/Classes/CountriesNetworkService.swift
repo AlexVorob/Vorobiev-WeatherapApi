@@ -13,12 +13,13 @@ fileprivate struct Constant {
     static let countryApi = "https://restcountries.eu/rest/v2/all"
 }
 
-class CountriesNetworkService {
+class CountriesNetworkService<Type: StorageProvider>
+where Type.ManagedObject == JSONCountry {
     
     private let requestService: RequestServiceType
-    private let dataBaseService: DataBaseService<JSONCountryRLM>
+    private let dataBaseService: DataBaseService<Type>
     
-    init(requestService: RequestServiceType, dataBaseService: DataBaseService<JSONCountryRLM>) {
+    init(requestService: RequestServiceType, dataBaseService: DataBaseService<Type>) {
         self.requestService = requestService
         self.dataBaseService = dataBaseService
     }
@@ -35,16 +36,16 @@ class CountriesNetworkService {
             result.analysis(
                 success: { data in
                     let decoder = try? JSONDecoder().decode([JSONCountry].self, from: data)
-                    if let deco = decoder {
-                        deco.filter { $0.capital.count > 0 }
+                    if let decode = decoder {
+                        decode.filter { $0.capital.count > 0 }
                             .forEach {
-                                self.dataBaseService.write(object: JSONCountryRLM($0)) }
-                        model.add(values: countries(deco))
+                                self.dataBaseService.value.write(storage: $0) }
+                        model.add(values: countries(decode))
                     } else {
-                        let dataCountrise = self.dataBaseService.read()
+                        let dataCountrise = self.dataBaseService.value.read()
                         dataCountrise.do {
                             model.add(values: $0.map {
-                                countryRLM($0)
+                                country($0)
                             })
                         }
                     }

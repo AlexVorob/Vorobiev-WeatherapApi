@@ -30,6 +30,8 @@
 		582EDF7921E75F6500DDE595 /* CountriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 582EDF7821E75F6500DDE595 /* CountriesView.swift */; };
 		582EDF8021E780B400DDE595 /* RequestService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 582EDF7F21E780B400DDE595 /* RequestService.swift */; };
 		58458CF3221C4D56005CA0F0 /* WeakBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58458CF2221C4D56005CA0F0 /* WeakBox.swift */; };
+		58473E7C221D5842007DEBAC /* ID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58473E7B221D5842007DEBAC /* ID.swift */; };
+		58473E7F221D5B25007DEBAC /* IDProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58473E7E221D5B25007DEBAC /* IDProvider.swift */; };
 		5847DB6A2216BB2C003DA45E /* Realm+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5847DB692216BB2C003DA45E /* Realm+Extensions.swift */; };
 		584B124A2202F271004AC02D /* Temperature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 584B12492202F271004AC02D /* Temperature.swift */; };
 		5850C68022046380009CF3EE /* CancellableProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5850C67F22046380009CF3EE /* CancellableProperty.swift */; };
@@ -108,6 +110,8 @@
 		582EDF7821E75F6500DDE595 /* CountriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountriesView.swift; sourceTree = "<group>"; };
 		582EDF7F21E780B400DDE595 /* RequestService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestService.swift; sourceTree = "<group>"; };
 		58458CF2221C4D56005CA0F0 /* WeakBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeakBox.swift; sourceTree = "<group>"; };
+		58473E7B221D5842007DEBAC /* ID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ID.swift; sourceTree = "<group>"; };
+		58473E7E221D5B25007DEBAC /* IDProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IDProvider.swift; sourceTree = "<group>"; };
 		5847DB692216BB2C003DA45E /* Realm+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Realm+Extensions.swift"; sourceTree = "<group>"; };
 		584B12492202F271004AC02D /* Temperature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Temperature.swift; sourceTree = "<group>"; };
 		5850C67F22046380009CF3EE /* CancellableProperty.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CancellableProperty.swift; sourceTree = "<group>"; };
@@ -196,6 +200,7 @@
 		582EDF5121E7420100DDE595 /* Types */ = {
 			isa = PBXGroup;
 			children = (
+				58473E7D221D5B13007DEBAC /* ID */,
 				587C3A712212E59F009E1B26 /* Result.swift */,
 				5850C67F22046380009CF3EE /* CancellableProperty.swift */,
 				582EDF6F21E746D100DDE595 /* ObservableObject.Observer.swift */,
@@ -286,6 +291,15 @@
 				5864008F21EDE6F100AB75F0 /* TableViewCell.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		58473E7D221D5B13007DEBAC /* ID */ = {
+			isa = PBXGroup;
+			children = (
+				58473E7B221D5842007DEBAC /* ID.swift */,
+				58473E7E221D5B25007DEBAC /* IDProvider.swift */,
+			);
+			path = ID;
 			sourceTree = "<group>";
 		};
 		5855E2A021E73CE200A3D463 = {
@@ -698,6 +712,7 @@
 				587155D2221ADE5200AC921B /* DataBaseService.swift in Sources */,
 				582EDF7621E75F4600DDE595 /* CountriesViewController.swift in Sources */,
 				582EDF6421E7420100DDE595 /* F.swift in Sources */,
+				58473E7F221D5B25007DEBAC /* IDProvider.swift in Sources */,
 				587C3A722212E59F009E1B26 /* Result.swift in Sources */,
 				5864009021EDE6F100AB75F0 /* TableViewCell.swift in Sources */,
 				587C3A772212EEDB009E1B26 /* Operators.swift in Sources */,
@@ -717,6 +732,7 @@
 				588C994121ECB3A800E396DB /* JSONCountry.swift in Sources */,
 				580CA5C221FB0B270096E878 /* Country.swift in Sources */,
 				582EDF6A21E7420100DDE595 /* NSLocking+Extensions.swift in Sources */,
+				58473E7C221D5842007DEBAC /* ID.swift in Sources */,
 				582EDF7121E746D100DDE595 /* ObservableObject.Observer.swift in Sources */,
 				582EDF6D21E7420100DDE595 /* CGRect+Extensions.swift in Sources */,
 				58BCB18421FB45F800F148F1 /* WeatherNetworkService.swift in Sources */,
