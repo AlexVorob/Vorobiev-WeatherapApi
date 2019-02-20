@@ -21,15 +21,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let window = UIWindow(frame: UIScreen.main.bounds)
 
-        let dataBaseService = DataBaseService(dataRealm: CountryDataRealm())
+        let dataBaseService = DataBaseService<JSONCountryRLM>()
+        let requestService = RequestService(session: URLSession(configuration: .default))
         
-        let countriesViewController = CountriesViewController(
-            countriesNetworkService: CountriesNetworkService(),
-            requestService: RequestService(session: URLSession(configuration: .default)),
-            model: CountriesModel(),
-            dataBaseService: dataBaseService
-        )
-        
+        let countriesNetworkService = CountriesNetworkService(requestService: requestService, dataBaseService: dataBaseService)
+        let countriesViewController = CountriesViewController(countriesNetworkService: countriesNetworkService, model: CountriesModel())
+            
         window.rootViewController = UINavigationController(rootViewController: countriesViewController)
         window.makeKeyAndVisible()
 

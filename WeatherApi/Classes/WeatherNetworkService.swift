@@ -20,10 +20,12 @@ fileprivate struct Constant {
 
 class WeatherNetworkService {
     
-    private let networkService: RequestServiceType
+    private let requestService: RequestServiceType
+    private let dataBaseService: DataBaseService<JSONWeatherRLM>
     
-    init(networkService: RequestServiceType) {
-        self.networkService = networkService
+    init(requestService: RequestServiceType, dataBaseService: DataBaseService<JSONWeatherRLM>) {
+        self.requestService = requestService
+        self.dataBaseService = dataBaseService
     }
     
     private func getURL(country: Country) -> URL? {
@@ -34,21 +36,21 @@ class WeatherNetworkService {
             .flatMap { URL(string: Constant.weatherApi + $0) }
     }
     
-    public func sheduledTask(country: Country, dataBaseService: DataBaseService<WeatherDataRealm>) -> NetworkTask {
+    public func sheduledTask(country: Country) -> NetworkTask {
         guard let url = self.getURL(country: country) else {
             return NetworkTask(urlSessionTask: URLSessionTask())
         }
         
-        return self.networkService.sheduledTask(from: url) { result in
+        return self.requestService.sheduledTask(from: url) { result in
             result.analysis(
                 success: { data in
                     let decoder = try? JSONDecoder().decode(JSONWeather.self, from: data)
                     if let deco = decoder {
-                        dataBaseService.dataRealm.write(object: JSONWeatherRLM(deco))
+                        self.dataBaseService.write(object: JSONWeatherRLM(deco))
                         country.weather = weather(deco)
                     } else {
-                        let data2 = dataBaseService.dataRealm.read(id: country.id)
-                        data2.do {
+                        let data = self.dataBaseService.read(id: country.id)
+                        data.do {
                             country.weather = weatherRLM($0)
                         }
                     }

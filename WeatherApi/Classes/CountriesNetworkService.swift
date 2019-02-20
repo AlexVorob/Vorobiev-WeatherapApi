@@ -14,11 +14,17 @@ fileprivate struct Constant {
 }
 
 class CountriesNetworkService {
+    
+    private let requestService: RequestServiceType
+    private let dataBaseService: DataBaseService<JSONCountryRLM>
+    
+    init(requestService: RequestServiceType, dataBaseService: DataBaseService<JSONCountryRLM>) {
+        self.requestService = requestService
+        self.dataBaseService = dataBaseService
+    }
 
     public func modelFilling(
-        requestService: RequestServiceType,
-        model: CountriesModel,
-        dataBaseService: DataBaseService<CountryDataRealm>
+        model: CountriesModel
     )
         -> NetworkTask
     {
@@ -32,10 +38,10 @@ class CountriesNetworkService {
                     if let deco = decoder {
                         deco.filter { $0.capital.count > 0 }
                             .forEach {
-                                dataBaseService.dataRealm.write(object: JSONCountryRLM($0)) }
+                                self.dataBaseService.write(object: JSONCountryRLM($0)) }
                         model.add(values: countries(deco))
                     } else {
-                        let dataCountrise = dataBaseService.dataRealm.read()
+                        let dataCountrise = self.dataBaseService.read()
                         dataCountrise.do {
                             model.add(values: $0.map {
                                 countryRLM($0)

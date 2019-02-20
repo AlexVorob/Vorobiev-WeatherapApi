@@ -18,19 +18,15 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
     
     typealias RootView = CountriesView
     
-    private let dataBaseService: DataBaseService<CountryDataRealm>
     private let countriesNetworkService: CountriesNetworkService
-    private let requestService: RequestService
     private let countriesModel: CountriesModel
     private let cancelableObserver = CancellableProperty()
     private let cancellableNetworkTask = CancellableProperty()
 
-    init(countriesNetworkService: CountriesNetworkService, requestService: RequestService, model: CountriesModel, dataBaseService: DataBaseService<CountryDataRealm>) {
+    init(countriesNetworkService: CountriesNetworkService, model: CountriesModel) {
         
         self.countriesNetworkService = countriesNetworkService
-        self.requestService = requestService
         self.countriesModel = model
-        self.dataBaseService = dataBaseService
         
         super.init(nibName: nil, bundle: nil)
         
@@ -85,21 +81,18 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let country = self.countriesModel[indexPath.row]
 
-        
-        let networkService = RequestService(session: URLSession(configuration: .default))
-        let weatherManager = WeatherNetworkService(networkService: networkService)
-        let realm = try? Realm()
-        let dataBaseService = DataBaseService(dataRealm: WeatherDataRealm(realm: realm))
-        let weatherViewController = WeatherViewController(weatherManager: weatherManager, country: country, dataBaseService: dataBaseService)
+        let dataBaseService = DataBaseService<JSONWeatherRLM>()
+        let requestService = RequestService(session: URLSession(configuration: .default))
+        let weatherManager = WeatherNetworkService(requestService: requestService, dataBaseService: dataBaseService)
+    
+        let weatherViewController = WeatherViewController(weatherManager: weatherManager, country: country)
         
         self.navigationController?.pushViewController(weatherViewController, animated: true)
     }
     
     private func modelFill() {
         self.cancellableNetworkTask.value = self.countriesNetworkService.modelFilling(
-            requestService: self.requestService,
-            model: self.countriesModel,
-            dataBaseService: self.dataBaseService
+            model: self.countriesModel
         )
     }
 }
