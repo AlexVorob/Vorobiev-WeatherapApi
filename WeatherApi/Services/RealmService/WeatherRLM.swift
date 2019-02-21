@@ -25,7 +25,6 @@ class WeatherRLM: RLMModel, RealmModelSerializable {
     }
     
     func converted() -> Weather {
-        
         return Weather(date: self.date, temperature: self.temperature, id: self.id)
     }
 }

@@ -16,6 +16,7 @@ public class Country: ObservableObject<CountriesModel.Event> {
             self.notify(.didChangedCountry(nil))
         }
     }
+    
     public let id: String
     public let name: String
     public let capital: String

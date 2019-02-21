@@ -10,10 +10,9 @@ import Foundation
 
 public class Weather {
     
-    private(set) var temperature: Double
-    
-    public let id: String
-    public let date: Date
+    public var id: String
+    public var temperature: Double
+    public var date: Date
     
     public init(date: Date, temperature: Double, id: String) {
         self.temperature = temperature

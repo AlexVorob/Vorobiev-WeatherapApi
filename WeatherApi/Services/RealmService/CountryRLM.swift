@@ -8,8 +8,6 @@
 
 import Foundation
 
-fileprivate let providerID = autoIncrementedID(0)
-
 class CountryRLM: RLMModel, RealmModelSerializable {
     
     @objc dynamic var name = ""

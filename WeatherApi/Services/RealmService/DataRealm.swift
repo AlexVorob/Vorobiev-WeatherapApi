@@ -9,6 +9,8 @@
 import Foundation
 import RealmSwift
 
+fileprivate let providerID = autoIncrementedID(0)
+
 class DataRealm<StorageType: Object>: StorageProvider
     where StorageType: RealmModelSerializable
 {
@@ -37,3 +39,7 @@ class DataRealm<StorageType: Object>: StorageProvider
         }
     }
 }
+
+class CountryDataRLM: DataRealm<CountryRLM> { }
+
+class WeatherDataRLM: DataRealm<WeatherRLM> { }

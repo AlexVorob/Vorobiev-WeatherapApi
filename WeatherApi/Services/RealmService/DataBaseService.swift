@@ -16,7 +16,3 @@ class DataBaseService<Provider: StorageProvider> {
         self.value = provider
     }
 }
-
-class CountryDataRLM: DataRealm<CountryRLM> { }
-
-class WeatherDataRLM: DataRealm<WeatherRLM> { }

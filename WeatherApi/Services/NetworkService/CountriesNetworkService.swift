@@ -50,6 +50,7 @@ class CountriesNetworkService<Type: StorageProvider>
                             }
                         } else {
                             let dataCountrise = self.dataBaseService.value.read()
+                            
                             dataCountrise.do {
                                 model.add(values: $0)
                             }
