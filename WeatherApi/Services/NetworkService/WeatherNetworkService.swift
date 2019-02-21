@@ -18,9 +18,11 @@ fileprivate struct Constant {
     }
 }
 
+fileprivate let providerID = autoIncrementedID(0)
+
 class WeatherNetworkService<Type: StorageProvider>
-where Type.ManagedObject == Weather {
-    
+    where Type.ManagedObject == Weather
+{
     private let requestService: RequestServiceType
     private let dataBaseService: DataBaseService<Type>
     
@@ -42,14 +44,15 @@ where Type.ManagedObject == Weather {
             return NetworkTask(urlSessionTask: URLSessionTask())
         }
         
-        return self.requestService.sheduledTask(from: url) { result in
+        return  self.requestService.sheduledTask(from: url) { result in
             result.analysis(
                 success: { data in
                     let decoder = try? JSONDecoder().decode(JSONWeather.self, from: data)
                     if let deco = decoder {
-                        let weatherData = weather(deco, country.id)
+                        let weatherData = weather(deco)
+                        
                         country.weather = weatherData
-                        self.dataBaseService.value.write(storage: weatherData)
+                        
                     } else {
                     let data = self.dataBaseService.value.read(id: country.id)
                         data.do {
@@ -63,8 +66,8 @@ where Type.ManagedObject == Weather {
     }
 }
 
-fileprivate let weather: (JSONWeather, String) -> Weather = { json, id in
+fileprivate let weather: (JSONWeather) -> Weather = { json in
     Weather(
         date: Date(timeIntervalSince1970: TimeInterval(json.dt)),
-        temperature: json.main.temp, id: id)
+        temperature: json.main.temp, id: providerID().description)
 }
