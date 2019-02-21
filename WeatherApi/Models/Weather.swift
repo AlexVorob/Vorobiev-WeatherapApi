@@ -11,6 +11,7 @@ import Foundation
 public class Weather {
     
     private(set) var temperature: Double
+    
     public let id: String
     public let date: Date
     

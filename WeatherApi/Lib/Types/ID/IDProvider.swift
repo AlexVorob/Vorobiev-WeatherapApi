@@ -32,7 +32,7 @@ public func autoIncrementedID(key: String) -> IDProvider {
     }
 }
 
-private func autoIncrementedID(_ start: Int, action: F.Completion<Int>? = nil) -> IDProvider {
+public func autoIncrementedID(_ start: Int, action: F.Completion<Int>? = nil) -> IDProvider {
     let value = Atomic(start)
     
     return {

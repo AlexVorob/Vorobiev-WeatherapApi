@@ -8,31 +8,31 @@
 
 import Foundation
 
-enum F {
+public enum F {
     
-    typealias Completion<Value> = (Value) -> ()
-    typealias Execute<Result> = () -> Result
-    typealias Action = () -> ()
+    public typealias Completion<Value> = (Value) -> ()
+    public typealias Execute<Result> = () -> Result
+    public typealias Action = () -> ()
 }
 
-func when<Result>(_ condition: Bool, execute: F.Execute<Result?>) -> Result? {
+public func when<Result>(_ condition: Bool, execute: F.Execute<Result?>) -> Result? {
     return condition ? execute() : nil
 }
 
-func cast<Value, Result>(_ value: Value) -> Result? {
+public func cast<Value, Result>(_ value: Value) -> Result? {
     return value as? Result
 }
 
-func toString(_ cls: AnyClass) -> String {
+public func toString(_ cls: AnyClass) -> String {
     return String(describing: cls)
 }
 
-func performOnMain(_ action: @escaping F.Action) {
+public func performOnMain(_ action: @escaping F.Action) {
     DispatchQueue.main.async(execute: action)
 }
 
 @discardableResult
-func side<Value>(_ value: Value, execute: (inout Value) -> ()) -> Value {
+public func side<Value>(_ value: Value, execute: (inout Value) -> ()) -> Value {
     var mutableValue = value
     execute(&mutableValue)
     

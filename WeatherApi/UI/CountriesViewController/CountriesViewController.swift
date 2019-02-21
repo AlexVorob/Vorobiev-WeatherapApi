@@ -41,7 +41,7 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
             }
         }
         
-        self.countriesModel.append(country: Country(id: "UA", name: "Ukraine", capital: "Kryvyy Rih"))
+        //self.countriesModel.append(country: Country(id: "UA", name: "Ukraine", capital: "Kryvyy Rih"))
     }
     
     required init?(coder aDecoder: NSCoder) {

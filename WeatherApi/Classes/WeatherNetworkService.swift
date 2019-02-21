@@ -30,7 +30,7 @@ where Type.ManagedObject == Weather {
     }
     
     private func getURL(country: Country) -> URL? {
-        let weatherPath = Constant.getApiLink(country.capital + "," + country.id)
+        let weatherPath = Constant.getApiLink(country.capital)
         
         return weatherPath
             .addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
@@ -50,9 +50,8 @@ where Type.ManagedObject == Weather {
                         let weatherData = weather(deco, country.id)
                         country.weather = weatherData
                         self.dataBaseService.value.write(storage: weatherData)
-                        
                     } else {
-                        let data = self.dataBaseService.value.read(id: country.id)
+                    let data = self.dataBaseService.value.read(id: country.id)
                         data.do {
                             country.weather = $0
                         }

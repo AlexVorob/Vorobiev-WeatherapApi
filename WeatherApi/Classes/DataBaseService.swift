@@ -35,6 +35,8 @@ class DataRealm<StorageType: Object>: StorageProvider
     typealias Storage = StorageType
     typealias ManagedObject = StorageType.ConvertableType
     
+    let providerID = autoIncrementedID(0)
+    
     open func read(id: String) -> ManagedObject? {
         let values = Realm.current?.object(ofType: StorageType.self, forPrimaryKey: id)
         
@@ -72,7 +74,6 @@ protocol RealmModelSerializable {
 class WeatherRLM: RLMModel, RealmModelSerializable {
     
     @objc dynamic var temperature = 0.0
-    
     @objc dynamic var date = Date()
     
     convenience init(id: String, temperature: Double, date: Date) {
@@ -87,8 +88,6 @@ class WeatherRLM: RLMModel, RealmModelSerializable {
     }
     
     func converted() -> Weather {
-//        let id = Weather.Sys(country: self.id)
-//        let main = Weather.Main(temp: self.temperature)
         
         return Weather(date: self.date, temperature: self.temperature, id: self.id)
     }
@@ -97,8 +96,9 @@ class WeatherRLM: RLMModel, RealmModelSerializable {
 class CountryRLM: RLMModel, RealmModelSerializable {
     
     @objc dynamic var name = ""
-    
     @objc dynamic var capital = ""
+    
+    @objc dynamic var weather: WeatherRLM?
     
     convenience init(id: String, name: String, capital: String) {
         self.init()
@@ -124,3 +124,5 @@ public class RLMModel: Object {
     
     @objc dynamic var id = ""
 }
+
+

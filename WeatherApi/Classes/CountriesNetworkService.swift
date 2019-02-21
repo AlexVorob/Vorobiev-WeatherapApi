@@ -13,6 +13,8 @@ fileprivate struct Constant {
     static let countryApi = "https://restcountries.eu/rest/v2/all"
 }
 
+fileprivate let providerID = autoIncrementedID(0)
+
 class CountriesNetworkService<Type: StorageProvider>
 where Type.ManagedObject == Country {
     
@@ -61,9 +63,5 @@ fileprivate let countries: ([JSONCountry]) -> [Country] = { jsons in
 }
 
 fileprivate let country: (JSONCountry) -> Country = { json in
-    Country(id: json.alpha2Code, name: json.name, capital: json.capital)
+    Country(id: providerID().description + "_\(Country.self)", name: json.name, capital: json.capital)
 }
-
-//fileprivate let countryRLM: (CountryRLM) -> Country = { jsons in
-//    Country(id: jsons.id, name: jsons.name, capital: jsons.capital)
-//}
