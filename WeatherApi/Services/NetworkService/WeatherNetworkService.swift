@@ -18,8 +18,6 @@ fileprivate struct Constant {
     }
 }
 
-fileprivate let providerID = autoIncrementedID(0)
-
 class WeatherNetworkService<Type: StorageProvider>
     where Type.ManagedObject == Weather
 {
@@ -44,30 +42,36 @@ class WeatherNetworkService<Type: StorageProvider>
             return NetworkTask(urlSessionTask: URLSessionTask())
         }
         
-        return  self.requestService.sheduledTask(from: url) { result in
+        return self.requestService.sheduledTask(from: url) { result in
             result.analysis(
                 success: { data in
                     let decoder = try? JSONDecoder().decode(JSONWeather.self, from: data)
                     if let deco = decoder {
-                        let weatherData = weather(deco)
-                        
-                        country.weather = weatherData
-                        
+                        country.weather = weather(deco, country.id)
                     } else {
-                    let data = self.dataBaseService.value.read(id: country.id)
-                        data.do {
-                            country.weather = $0
-                        }
+                        self.fillModel(country: country)
                     }
                 },
-                failure: { print($0) }
+                failure: {
+                    self.fillModel(country: country)
+                    print($0)
+                }
             )
+        }
+    }
+    
+    public func fillModel(country: Country) {
+        let data = self.dataBaseService.value.read(id: country.id)
+        data.do {
+            country.weather = $0
         }
     }
 }
 
-fileprivate let weather: (JSONWeather) -> Weather = { json in
+fileprivate let weather: (JSONWeather, String) -> Weather = { json, id in
     Weather(
         date: Date(timeIntervalSince1970: TimeInterval(json.dt)),
-        temperature: json.main.temp, id: providerID().description)
+        temperature: json.main.temp,
+        id: id
+    )
 }
