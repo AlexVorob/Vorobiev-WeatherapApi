@@ -12,12 +12,12 @@ class WeatherViewController: UIViewController, RootViewRepresentable {
 
     typealias RootView = WeatherView
     
-    private let weatherNetworkService: WeatherNetworkService<WeatherRLM>
+    private let weatherNetworkService: WeatherNetworkService<WeatherDataRLM>
     private let country: Country
     private let cancellableWeatherObserver = CancellableProperty()
     private let cancellableNetworkTask = CancellableProperty()
 
-    init(weatherManager: WeatherNetworkService<WeatherRLM>, country: Country) {
+    init(weatherManager: WeatherNetworkService<WeatherDataRLM>, country: Country) {
         
         self.weatherNetworkService = weatherManager
         self.country = country

@@ -12,7 +12,6 @@ public struct JSONWeather: Decodable {
     
     public let dt: Int
     public let main: Main
-    public let sys: Sys
     
     public struct Main: Decodable {
         
@@ -21,10 +20,5 @@ public struct JSONWeather: Decodable {
         enum CodingKeys: String, CodingKey {
             case temp = "temp"
         }
-    }
-    
-    public struct Sys: Codable {
-
-        var country: String
     }
 }

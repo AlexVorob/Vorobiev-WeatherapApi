@@ -49,52 +49,52 @@ class DataRealm<StorageType: Object>: StorageProvider
     
     open func write(storage: ManagedObject) {
         Realm.write {
-            let value = Storage(json: storage)
+            let value = Storage(object: storage)
             
             $0.add(value, update: true)
         }
     }
 }
 
-class CountryRLM: DataRealm<JSONCountryRLM> { }
+class CountryDataRLM: DataRealm<CountryRLM> { }
 
-class WeatherRLM: DataRealm<JSONWeatherRLM> { }
+class WeatherDataRLM: DataRealm<WeatherRLM> { }
 
 protocol RealmModelSerializable {
     
     associatedtype ConvertableType
     
-    init(json: ConvertableType)
+    init(object: ConvertableType)
     
     func converted() -> ConvertableType
 }
 
-class JSONWeatherRLM: RLMModel, RealmModelSerializable {
+class WeatherRLM: RLMModel, RealmModelSerializable {
     
     @objc dynamic var temperature = 0.0
     
-    @objc dynamic var dt = 0
+    @objc dynamic var date = Date()
     
-    convenience init(id: String, temperature: Double, date: Int) {
+    convenience init(id: String, temperature: Double, date: Date) {
         self.init()
         self.id = id
         self.temperature = temperature
-        self.dt = date
+        self.date = date
     }
     
-    required convenience init(json: JSONWeather) {
-        self.init(id: json.sys.country, temperature: json.main.temp, date: json.dt)
+    required convenience init(object: Weather) {
+        self.init(id: object.id, temperature: object.temperature, date: object.date)
     }
     
-    func converted() -> JSONWeather {
-        let id = JSONWeather.Sys(country: self.id)
-        let main = JSONWeather.Main(temp: self.temperature)
+    func converted() -> Weather {
+//        let id = Weather.Sys(country: self.id)
+//        let main = Weather.Main(temp: self.temperature)
         
-        return JSONWeather(dt: self.dt, main: main, sys: id)
+        return Weather(date: self.date, temperature: self.temperature, id: self.id)
     }
 }
 
-class JSONCountryRLM: RLMModel, RealmModelSerializable {
+class CountryRLM: RLMModel, RealmModelSerializable {
     
     @objc dynamic var name = ""
     
@@ -107,12 +107,12 @@ class JSONCountryRLM: RLMModel, RealmModelSerializable {
         self.capital = capital
     }
     
-    required convenience init(json: JSONCountry) {
-        self.init(id: json.alpha2Code, name: json.name, capital: json.capital)
+    required convenience init(object: Country) {
+        self.init(id: object.id, name: object.name, capital: object.capital)
     }
     
-    func converted() -> JSONCountry {
-        return JSONCountry(name: self.name, capital: self.capital, alpha2Code: self.id)
+    func converted() -> Country {
+        return Country(id: self.id, name: self.name, capital: self.capital)
     }
 }
 

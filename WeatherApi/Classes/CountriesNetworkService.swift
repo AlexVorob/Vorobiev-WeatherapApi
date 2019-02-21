@@ -14,7 +14,7 @@ fileprivate struct Constant {
 }
 
 class CountriesNetworkService<Type: StorageProvider>
-where Type.ManagedObject == JSONCountry {
+where Type.ManagedObject == Country {
     
     private let requestService: RequestServiceType
     private let dataBaseService: DataBaseService<Type>
@@ -37,16 +37,14 @@ where Type.ManagedObject == JSONCountry {
                 success: { data in
                     let decoder = try? JSONDecoder().decode([JSONCountry].self, from: data)
                     if let decode = decoder {
-                        decode.filter { $0.capital.count > 0 }
-                            .forEach {
-                                self.dataBaseService.value.write(storage: $0) }
                         model.add(values: countries(decode))
+                        model.values.forEach {
+                            self.dataBaseService.value.write(storage: $0) }
+                        
                     } else {
                         let dataCountrise = self.dataBaseService.value.read()
                         dataCountrise.do {
-                            model.add(values: $0.map {
-                                country($0)
-                            })
+                            model.add(values: $0)
                         }
                     }
                 },
@@ -66,6 +64,6 @@ fileprivate let country: (JSONCountry) -> Country = { json in
     Country(id: json.alpha2Code, name: json.name, capital: json.capital)
 }
 
-fileprivate let countryRLM: (JSONCountryRLM) -> Country = { jsons in
-    Country(id: jsons.id, name: jsons.name, capital: jsons.capital)
-}
+//fileprivate let countryRLM: (CountryRLM) -> Country = { jsons in
+//    Country(id: jsons.id, name: jsons.name, capital: jsons.capital)
+//}

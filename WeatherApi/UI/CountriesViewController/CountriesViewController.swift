@@ -18,12 +18,12 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
     
     typealias RootView = CountriesView
     
-    private let countriesNetworkService: CountriesNetworkService<CountryRLM>
+    private let countriesNetworkService: CountriesNetworkService<CountryDataRLM>
     private let countriesModel: CountriesModel
     private let cancelableObserver = CancellableProperty()
     private let cancellableNetworkTask = CancellableProperty()
 
-    init(countriesNetworkService: CountriesNetworkService<CountryRLM>, model: CountriesModel) {
+    init(countriesNetworkService: CountriesNetworkService<CountryDataRLM>, model: CountriesModel) {
         
         self.countriesNetworkService = countriesNetworkService
         self.countriesModel = model
@@ -81,7 +81,7 @@ class CountriesViewController: UIViewController, UITableViewDataSource, UITableV
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let country = self.countriesModel[indexPath.row]
 
-        let dataBaseService = DataBaseService(provider: WeatherRLM())
+        let dataBaseService = DataBaseService(provider: WeatherDataRLM())
         let requestService = RequestService(session: URLSession(configuration: .default))
         let weatherManager = WeatherNetworkService(requestService: requestService, dataBaseService: dataBaseService)
     

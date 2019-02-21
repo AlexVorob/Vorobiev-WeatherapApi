@@ -19,7 +19,7 @@ fileprivate struct Constant {
 }
 
 class WeatherNetworkService<Type: StorageProvider>
-where Type.ManagedObject == JSONWeather {
+where Type.ManagedObject == Weather {
     
     private let requestService: RequestServiceType
     private let dataBaseService: DataBaseService<Type>
@@ -47,12 +47,14 @@ where Type.ManagedObject == JSONWeather {
                 success: { data in
                     let decoder = try? JSONDecoder().decode(JSONWeather.self, from: data)
                     if let deco = decoder {
-                        self.dataBaseService.value.write(storage: deco)
-                        country.weather = weather(deco)
+                        let weatherData = weather(deco, country.id)
+                        country.weather = weatherData
+                        self.dataBaseService.value.write(storage: weatherData)
+                        
                     } else {
                         let data = self.dataBaseService.value.read(id: country.id)
                         data.do {
-                            country.weather = weather($0)
+                            country.weather = $0
                         }
                     }
                 },
@@ -62,8 +64,8 @@ where Type.ManagedObject == JSONWeather {
     }
 }
 
-fileprivate let weather: (JSONWeather) -> Weather = {
+fileprivate let weather: (JSONWeather, String) -> Weather = { json, id in
     Weather(
-        date: Date(timeIntervalSince1970: TimeInterval($0.dt)),
-        temperature: $0.main.temp)
+        date: Date(timeIntervalSince1970: TimeInterval(json.dt)),
+        temperature: json.main.temp, id: id)
 }

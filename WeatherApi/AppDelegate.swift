@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let window = UIWindow(frame: UIScreen.main.bounds)
 
-        let dataBaseService = DataBaseService(provider: CountryRLM())
+        let dataBaseService = DataBaseService(provider: CountryDataRLM())
         let requestService = RequestService(session: URLSession(configuration: .default))
         
         let countriesNetworkService = CountriesNetworkService(requestService: requestService, dataBaseService: dataBaseService)

@@ -25,6 +25,6 @@ class WeatherView: UIView {
     
     func fillWeather(with model: Country) {
         self.country?.text = model.capital
-        self.temperature?.text = model.weather?.temperature.celsius
+        self.temperature?.text = model.weather?.temperature.description
     }
 }
